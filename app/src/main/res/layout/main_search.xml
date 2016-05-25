@@ -15,14 +15,14 @@
             android:layout_height="match_parent"
             android:id="@+id/finding"
             android:longClickable="false"
-            android:src="@drawable/Finding"
+            android:src="@drawable/finding"
             android:clickable="true" />
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/circle1"
             android:longClickable="false"
-            android:src="@drawable/Circle1"
+            android:src="@drawable/circle1"
             android:clickable="true" />
 
         <ImageView
@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:id="@+id/circle2"
             android:longClickable="false"
-            android:src="@drawable/Circle2"
+            android:src="@drawable/circle2"
             android:clickable="true"
             android:layout_gravity="center" />
 
