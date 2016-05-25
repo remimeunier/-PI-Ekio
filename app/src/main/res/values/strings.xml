@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Ekio</string>
     <string-array name="menu_item"> // name of the string array
-        <item>Mercury</item> // items
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
+        <item>Home</item> // items
+        <item>Collection</item>
+        <item>Explore</item>
+        <item>Settings</item>
     </string-array>
     <integer-array name="icon_menu_item">
 
