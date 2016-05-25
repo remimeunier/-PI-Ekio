@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back"
+        android:layout_gravity="center_vertical"
+        android:paddingTop="200px">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/finding"
+            android:longClickable="false"
+            android:src="@drawable/Finding"
+            android:clickable="true" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/circle1"
+            android:longClickable="false"
+            android:src="@drawable/Circle1"
+            android:clickable="true" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/circle2"
+            android:longClickable="false"
+            android:src="@drawable/Circle2"
+            android:clickable="true"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+</LinearLayout>
