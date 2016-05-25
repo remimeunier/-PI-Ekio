@@ -1,4 +1,4 @@
-package com.example.remi.ekio;
+/*package com.example.remi.ekio;
 
 
 import android.view.View;
@@ -14,7 +14,7 @@ private class DrawerItemClickListener implements ListView.OnItemClickListener {
     }
 }
 
-    /** Swaps fragments in the main content view */
+    *//** Swaps fragments in the main content view *//*
     private void selectItem(int position) {
         // Create a new fragment and specify the planet to show based on position
         Fragment fragment = new PlanetFragment();
@@ -38,5 +38,5 @@ private class DrawerItemClickListener implements ListView.OnItemClickListener {
     public void setTitle(CharSequence title) {
         mTitle = title;
         getActionBar().setTitle(mTitle);
-    }
+    }*/
 
