@@ -1,21 +1,32 @@
-/*package com.example.remi.ekio;
+package com.example.remi.ekio;
 
 
 import android.view.View;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.app.Fragment;
+import android.widget.AdapterView;
+import android.content.Intent;
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
 
-
-private class DrawerItemClickListener implements ListView.OnItemClickListener {
+class DrawerItemClickListener implements ListView.OnItemClickListener {
     @Override
     public void onItemClick(AdapterView parent, View view, int position, long id) {
-        selectItem(position);
+        //selectItem(position);
+        Context context = view.getContext();
+        switch (position) {
+            case 0:
+                Intent newActivity = new Intent(context, MainActivity.class);
+                context.startActivity(newActivity);
+                break;
+        }
     }
-}
 
-    *//** Swaps fragments in the main content view *//*
-    private void selectItem(int position) {
+    //** Swaps fragments in the main content view *//
+
+  /*  private void selectItem(int position) {
         // Create a new fragment and specify the planet to show based on position
         Fragment fragment = new PlanetFragment();
         Bundle args = new Bundle();
@@ -36,7 +47,7 @@ private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
     @Override
     public void setTitle(CharSequence title) {
-        mTitle = title;
-        getActionBar().setTitle(mTitle);
+        // mTitle = title;
+        // getActionBar().setTitle(mTitle);
     }*/
-
+}

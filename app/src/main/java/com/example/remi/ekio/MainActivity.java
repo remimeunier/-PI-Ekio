@@ -4,20 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ListView;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 
 public class MainActivity extends AppCompatActivity {
 
     private String[] mMenuItem;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-
-    Integer[] imgid={
-            R.drawable.ic_search,
-            R.drawable.ic_settings_applications,
-            R.drawable.ic_settings_applications,
-            R.drawable.ic_settings_applications,
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setAdapter(adapter);
 
         // Set the list's click listener
-        //mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+       // mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
     }
 }
