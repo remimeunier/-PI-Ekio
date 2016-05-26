@@ -18,7 +18,7 @@ class DrawerItemClickListener implements ListView.OnItemClickListener {
         Context context = view.getContext();
         switch (position) {
             case 0:
-                Intent newActivity = new Intent(context, MainActivity.class);
+                Intent newActivity = new Intent(context, BeforePictureActivity.class);
                 context.startActivity(newActivity);
                 break;
         }
