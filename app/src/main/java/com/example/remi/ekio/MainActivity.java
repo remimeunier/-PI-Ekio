@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         // Set the adapter for the list view
        // mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.menu_item, R.id.Itemname, mMenuItem));
         // custom adapater
-        CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem, imgid);
+        CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem);
         mDrawerList.setAdapter(adapter);
 
         // Set the list's click listener

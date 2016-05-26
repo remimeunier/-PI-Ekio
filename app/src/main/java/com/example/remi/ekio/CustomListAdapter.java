@@ -12,15 +12,19 @@ public class CustomListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
     private final String[] itemname;
-    private final Integer[] imgid;
+    Integer[] imgid={
+            R.drawable.ic_search,
+            R.drawable.ic_settings_applications,
+            R.drawable.ic_settings_applications,
+            R.drawable.ic_settings_applications,
+    };
 
-    public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid) {
+    public CustomListAdapter(Activity context, String[] itemname) {
         super(context, R.layout.menu_item, itemname);
         // TODO Auto-generated constructor stub
 
         this.context=context;
         this.itemname=itemname;
-        this.imgid=imgid;
     }
 
     public View getView(int position,View view,ViewGroup parent) {
