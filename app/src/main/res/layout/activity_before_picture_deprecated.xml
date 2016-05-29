@@ -9,20 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="1">
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <linearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/back"
             android:layout_gravity="center_vertical"
             android:paddingTop="200px">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/finding"
-                android:longClickable="false"
-                android:src="@drawable/finding"
-                android:clickable="true" />
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -40,7 +33,15 @@
                 android:clickable="true"
                 android:layout_gravity="center" />
 
-        </FrameLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/finding"
+                android:longClickable="false"
+                android:src="@drawable/finding"
+                android:clickable="true" />
+
+        </linearLayout>
 
     </LinearLayout>
     <!-- The navigation drawer -->
