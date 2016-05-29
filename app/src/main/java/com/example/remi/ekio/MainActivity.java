@@ -1,5 +1,6 @@
 package com.example.remi.ekio;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -41,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
+    }
 
+    public void goSignIn(View view) {
+        Intent goToMain = new Intent(this, SignInActivity.class);
+        startActivity(goToMain);
+    }
+    public void goRegister(View view) {
+        Intent goToMain = new Intent(this, RegisterActivity.class);
+        startActivity(goToMain);
     }
 }

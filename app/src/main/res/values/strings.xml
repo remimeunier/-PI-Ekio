@@ -7,7 +7,7 @@
         <item>Explore</item>
         <item>Settings</item>
     </string-array>
-    <integer-array name="icon_menu_item">
+    <string name="user_name">Login</string>
+    <string name="password">Password</string>
 
-    </integer-array>
 </resources>
