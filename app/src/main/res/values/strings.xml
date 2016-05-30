@@ -7,7 +7,8 @@
         <item>Explore</item>
         <item>Settings</item>
     </string-array>
-    <string name="user_name">Login</string>
+    <string name="user_name">Name</string>
     <string name="password">Password</string>
-
+    <string name="email">Email</string>
+    <string name="auto_connexion">Auto connexion on app lunch</string>
 </resources>

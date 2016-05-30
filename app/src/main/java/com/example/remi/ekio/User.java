@@ -4,14 +4,25 @@ package com.example.remi.ekio;
 public class User {
 
     private long id;
-    private String intitule;
-    private float salaire;
+    private String email;
+    private String nom;
+    private String password;
+    private Boolean autoConnect;
 
-    public User(long id, String intitule, float salaire) {
+    public User(long id, String email, String nom, String password, Boolean autoConnect) {
         super();
         this.id = id;
-        this.intitule = intitule;
-        this.salaire = salaire;
+        this.email = email;
+        this.nom = nom;
+        this.password = password;
+        this.autoConnect = autoConnect;
+    }
+    public User(String email, String nom, String password, Boolean autoConnect) {
+        super();
+        this.email = email;
+        this.nom = nom;
+        this.password = password;
+        this.autoConnect = autoConnect;
     }
 
     public long getId() {
@@ -22,20 +33,32 @@ public class User {
         this.id = id;
     }
 
-    public String getIntitule() {
-        return intitule;
+    public String getEmail() {
+        return email;
     }
 
-    public void setIntitule(String intitule) {
-        this.intitule = intitule;
+    public String getNom() {
+        return nom;
     }
 
-    public float getSalaire() {
-        return salaire;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSalaire(float salaire) {
-        this.salaire = salaire;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Boolean getAuto() {
+        return autoConnect;
+    }
+
+    public void setAuto(Boolean autoConnect) {
+        this.autoConnect = autoConnect;
     }
 
 }
