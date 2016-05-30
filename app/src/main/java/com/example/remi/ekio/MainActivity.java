@@ -24,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.homescreen);
 
-        LayoutInflater factory = LayoutInflater.from(this);
-        View myView = factory.inflate(R.layout.homescreen, null);
-        point = (LinearLayout) findViewById(R.id.point);
-        point.addView(myView);
+    //    LayoutInflater factory = LayoutInflater.from(this);
+    //    View myView = factory.inflate(R.layout.homescreen, null);
+    //    point = (LinearLayout) findViewById(R.id.point);
+    //    point.addView(myView);
 
         //recup la list des menu item
      //   mMenuItem = getResources().getStringArray(R.array.menu_item);
