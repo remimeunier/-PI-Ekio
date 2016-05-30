@@ -1,9 +1,13 @@
 package com.example.remi.ekio;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -12,8 +16,28 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        final EditText userName = (EditText) findViewById(R.id.user_name);
-        final EditText password = (EditText) findViewById(R.id.password);
+        final EditText etEmail = (EditText) findViewById(R.id.email);
+        final EditText etPassword = (EditText) findViewById(R.id.password);
         final ImageView logIn = (ImageView) findViewById(R.id.signin_confirm);
+        final Context cContext = this;
+
+        assert logIn != null;
+        logIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserDAO userDao = new UserDAO(cContext);
+                userDao.open();
+                Boolean valid = userDao.authentificate(etEmail.getText().toString(), etPassword.getText().toString());
+                userDao.close();
+                if (valid) {
+                    Intent intent = new Intent(cContext, BeforePictureActivity.class);
+                    cContext.startActivity(intent);
+                } else {
+                    etPassword.getText().clear();
+                    Toast.makeText(SignInActivity.this, "Email or Password not valid, please try again.",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

@@ -73,4 +73,10 @@ public class UserDAO extends DAOBase {
         }
         return null;
     }
+
+    public boolean authentificate(String email, String password) {
+        Cursor cursor = mDb.rawQuery("select *  from " + TABLE_NAME + " where email = ? AND password = ?",
+                new String[]{email,password});
+        return cursor.moveToFirst();
+    }
 }
