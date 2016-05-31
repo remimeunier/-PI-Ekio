@@ -20,8 +20,8 @@ public class SignInActivity extends AppCompatActivity {
         final EditText etEmail = (EditText) findViewById(R.id.email);
         final EditText etPassword = (EditText) findViewById(R.id.password);
         final ImageView logIn = (ImageView) findViewById(R.id.signin_confirm);
-        final CheckBox etAuto = (CheckBox) findViewById(R.id.auto_connexion);
-        final boolean auto = etAuto.isChecked();
+        final CheckBox etAuto = (CheckBox) findViewById(R.id.auto_connexion_sign_in);
+
         final Context cContext = this;
 
         assert logIn != null;
@@ -33,6 +33,7 @@ public class SignInActivity extends AppCompatActivity {
                 Boolean valid = userDao.authentificate(etEmail.getText().toString(), etPassword.getText().toString());
                 userDao.close();
                 if (valid) {
+                    final boolean auto = etAuto.isChecked();
                     UserDAO userDao2 = new UserDAO(cContext);
                     userDao2.open();
                     userDao2.setAutoConnect(1, auto);
