@@ -19,6 +19,9 @@ import java.io.File;
 import java.util.Date;
 
 public class BeforePictureActivity extends AppCompatActivity {
+    public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
+    long time = System.currentTimeMillis();
+    String name = String.valueOf(time)+".jpg";
 
     // gestion du menu (voir main activity for details)
     private String[] mMenuItem;
@@ -80,14 +83,14 @@ public class BeforePictureActivity extends AppCompatActivity {
 
         if(button_text.equals("Save")){
             Intent save = new Intent(this, SaveInfoActivity.class);
+            save.putExtra(MESSAGE_KEY, name);
             startActivity(save);
         }
         else if(button_text.equals("Find")){
             //TODO
         }
     }
-    long time = System.currentTimeMillis();
-    String name = String.valueOf(time)+".jpg";
+
 
     private File getFile(){
         File ekioFolder = new File("sdcard/EkioPhotos");
