@@ -11,13 +11,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.File;
+import java.util.Date;
 
 public class BeforePictureActivity extends AppCompatActivity {
 
@@ -75,6 +74,21 @@ public class BeforePictureActivity extends AppCompatActivity {
         });
     }
 
+    public void userChoice(View view){
+        String button_text;
+        button_text = ((Button) view).getText().toString();
+
+        if(button_text.equals("Save")){
+            Intent save = new Intent(this, SaveInfoActivity.class);
+            startActivity(save);
+        }
+        else if(button_text.equals("Find")){
+            //TODO
+        }
+    }
+    long time = System.currentTimeMillis();
+    String name = String.valueOf(time)+".jpg";
+
     private File getFile(){
         File ekioFolder = new File("sdcard/EkioPhotos");
         if(!ekioFolder.exists()){
@@ -82,7 +96,8 @@ public class BeforePictureActivity extends AppCompatActivity {
         }
 
         // change picture name :D
-        File image_file = new File(ekioFolder, "ekio_photo.jpg");
+
+        File image_file = new File(ekioFolder, name);
         return image_file;
     }
 
@@ -90,7 +105,7 @@ public class BeforePictureActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == CAM_REQUEST){
             if(resultCode == RESULT_OK){
-                String path = "sdcard/EkioPhotos/ekio_photo.jpg";
+                String path = "sdcard/EkioPhotos/"+name;
                 findingLoupe.setOnClickListener(null);
                 findingLoupe.setImageBitmap(null);
                 preview.setImageDrawable(Drawable.createFromPath(path));

@@ -11,4 +11,9 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="auto_connexion">Auto connexion on app lunch</string>
+    <string name="photo_title">Title</string>
+    <string name="photo_date">Date</string>
+    <string name="photo_location">Location</string>
+    <string name="photo_comment">Comments</string>*
+    <string name="keyword">Keywords</string>
 </resources>
