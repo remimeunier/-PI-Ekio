@@ -53,8 +53,15 @@ public class UserDAO extends DAOBase {
         // CODE
     }
 
+    public void setAutoConnect(int id, boolean val) {
+        ContentValues value = new ContentValues();
+        value.put(AUTO_CONNECT, val);
+        mDb.update(TABLE_NAME, value, KEY  + " = ?", new String[] {String.valueOf(id)});
+
+    }
+
     /**
-     * @param id l'identifiant du métier à récupérer
+     * @param idSearch l'identifiant du métier à récupérer
      */
     public User selectionner(int idSearch) {
         //
