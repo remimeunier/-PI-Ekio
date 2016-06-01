@@ -2,16 +2,79 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="8dp"
+    android:background="@drawable/back">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:background="@android:color/white">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:background="@android:color/black"
+            android:id="@+id/result"
+            android:layout_centerVertical="false"
+            android:layout_centerHorizontal="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/result"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="0.7">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:id="@+id/object_title"
+                    android:text="title goes here"
+
+                    android:layout_marginTop="15dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:id="@+id/object_date"
+                    android:text="date goes here"
+                    android:layout_below="@id/object_title"/>
+
+            </LinearLayout>
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:id="@+id/fav"
+                android:src="@drawable/fav_off"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:padding="15dp"
+                android:onClick="favorise"
+                />
 
 
-    <ImageView
-        android:layout_width="310dp"
-        android:layout_height="310dp"
-        android:scaleType="fitEnd"
-        android:padding="5dp"
-        android:background="@android:color/black"
-        android:id="@+id/result"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/details"
+            android:onClick="showDetails"
+            android:text="View object details"
+            android:background="@android:color/transparent"
+            android:layout_below="@id/object_date"/>
+
+    </RelativeLayout>
+
+
 </RelativeLayout>
