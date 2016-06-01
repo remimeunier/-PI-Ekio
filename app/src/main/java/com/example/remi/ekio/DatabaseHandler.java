@@ -28,7 +28,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String USER_TABLE_DROP = "DROP TABLE IF EXISTS " + USER_TABLE_NAME + ";";
 
-    // TODO for Collectionable
+    // Collectionable
+    public static final String COLLECTIONABLE_KEY = "id";
+    public static final String COLLECTIONABLE_TITLE = "title";
+    public static final String COLLECTIONABLE_LOCATION = "location";
+    public static final String COLLECTIONABLE_DATE = "date";
+    public static final String COLLECTIONABLE_COMMENT = "comment";
+    public static final String COLLECTIONABLE_KEYWORDS = "key_words";
+    public static final String COLLECTIONABLE_PHOTOPATH = "photo_path";
+
+    public static final String COLLECTIONABLE_TABLE_NAME = "Collectionable";
+    public static final String COLLECTIONABLE_TABLE_CREATE =
+            "CREATE TABLE " + COLLECTIONABLE_TABLE_NAME + " (" +
+                    COLLECTIONABLE_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLLECTIONABLE_TITLE + " TEXT, " +
+                    COLLECTIONABLE_LOCATION + " TEXT, " +
+                    COLLECTIONABLE_DATE + " TEXT, " +
+                    COLLECTIONABLE_COMMENT + " TEXT, " +
+                    COLLECTIONABLE_PHOTOPATH + " TEXT, " +
+                    COLLECTIONABLE_KEYWORDS + " TEXT);";
+    public static final String COLLECTIONABLE_TABLE_DROP = "DROP TABLE IF EXISTS " + COLLECTIONABLE_TABLE_NAME + ";";
+
+
 
     public DatabaseHandler(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -36,12 +57,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(USER_TABLE_CREATE);
+
+       // db.execSQL(USER_TABLE_CREATE); // comment because it's stable now (for new use uncomment)
+        db.execSQL(COLLECTIONABLE_TABLE_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(USER_TABLE_DROP);
+        //db.execSQL(USER_TABLE_DROP); // comment because stable now (for new use uncomment)
+        db.execSQL(COLLECTIONABLE_TABLE_DROP);
         onCreate(db);
     }
 

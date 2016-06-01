@@ -12,9 +12,7 @@
         android:columnWidth="100dp"
         android:horizontalSpacing="10dp"
         android:verticalSpacing="10dp"
-        android:stretchMode="spacingWidthUniform"
-
-        >
+        android:stretchMode="spacingWidthUniform">
 
     </GridView>
 </RelativeLayout>
