@@ -16,4 +16,5 @@
     <string name="photo_location">Location</string>
     <string name="photo_comment">Comments</string>*
     <string name="keyword">Keywords</string>
+    <string name="app_version">v 1.0.1</string>
 </resources>

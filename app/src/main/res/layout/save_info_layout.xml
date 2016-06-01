@@ -84,7 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:id="@+id/saveconfirm"
-            android:text="Save"/>
+            android:text="Save"
+            android:onClick="goCollectionShowcase"/>
 
         </LinearLayout>
 

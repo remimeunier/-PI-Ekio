@@ -7,6 +7,15 @@
         android:layout_width="match_parent"
         android:layout_height="450dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="@string/app_version"
+            android:id="@+id/app_version"
+            android:layout_gravity="top|right"
+            android:textColor="@android:color/white"/>
+
         <ImageView
             android:layout_width="325dp"
             android:layout_height="325dp"

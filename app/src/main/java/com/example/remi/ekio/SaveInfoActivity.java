@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -15,7 +18,8 @@ import java.util.Calendar;
 public class SaveInfoActivity extends Activity {
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
     ImageView preview;
-    EditText date;
+    EditText date, title;
+    ImageButton geo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +27,8 @@ public class SaveInfoActivity extends Activity {
         Intent intent = getIntent();
         String name = intent.getStringExtra(MESSAGE_KEY);
         String path = "sdcard/EkioPhotos/"+name;
+        geo = (ImageButton) findViewById(R.id.geolocalisation);
+        title = (EditText) findViewById(R.id.photo_title);
         preview = (ImageView) findViewById(R.id.photo);
         preview.setImageDrawable(Drawable.createFromPath(path));
         date = (EditText) findViewById(R.id.photo_date);
@@ -36,6 +42,13 @@ public class SaveInfoActivity extends Activity {
                 .append(dd).append("/").append(mm + 1).append("/")
                 .append(yy));
 
+    }
+
+    public void goCollectionShowcase(View view){
+        Toast.makeText(getApplicationContext(),
+                title.getText().toString() + "has been saved", Toast.LENGTH_LONG).show();
+        Intent openShowcase = new Intent(this, CollectionShowcaseActivity.class);
+        startActivity(openShowcase);
     }
 
 
