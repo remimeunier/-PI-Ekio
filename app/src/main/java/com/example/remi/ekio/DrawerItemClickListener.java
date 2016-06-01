@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.content.Context;
 
+
 class DrawerItemClickListener implements ListView.OnItemClickListener {
     @Override
     public void onItemClick(AdapterView parent, View view, int position, long id) {
@@ -20,6 +21,15 @@ class DrawerItemClickListener implements ListView.OnItemClickListener {
             case 0:
                 Intent newActivity = new Intent(context, BeforePictureActivity.class);
                 context.startActivity(newActivity);
+                break;
+            case 1:
+                Intent newActivity2 = new Intent(context, CollectionShowcaseActivity.class);
+                context.startActivity(newActivity2);
+                break;
+            case 2:
+                Intent intent = new Intent(context, ResultActivity.class);
+                intent.putExtra("com.example.remi.ekio.messagekey", 1);
+                context.startActivity(intent);
                 break;
         }
     }

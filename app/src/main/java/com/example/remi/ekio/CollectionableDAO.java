@@ -30,7 +30,7 @@ public class CollectionableDAO extends DAOBase {
         super(pContext);
     }
 
-    public void ajouter(Collectionable object) {
+    public int ajouter(Collectionable object) {
         ContentValues value = new ContentValues();
         value.put(CollectionableDAO.TITLE, object.getTitle());
         value.put(CollectionableDAO.LOCATION, object.getLocation());
@@ -38,8 +38,47 @@ public class CollectionableDAO extends DAOBase {
         value.put(CollectionableDAO.COMMENT, object.getcomment());
         value.put(CollectionableDAO.KEYWORDS, object.getKeyWords());
         value.put(CollectionableDAO.PHOTO_PATH, object.getPhotoPath());
-        mDb.insert(CollectionableDAO.TABLE_NAME, null, value);
+        long id = mDb.insert(CollectionableDAO.TABLE_NAME, null, value);
+
+        return (int) (long)id;
 
     }
+
+    public Collectionable select(int idSearch) {
+        Cursor cursor = mDb.rawQuery("select *  from " + TABLE_NAME + " where id = ?", new String[]{Integer.toString(idSearch)});
+
+        Boolean test = cursor.moveToFirst();
+        if (test) {
+            long id = cursor.getLong(0);
+            String title = cursor.getString(1);
+            String location = cursor.getString(2);
+            String date = cursor.getString(3);
+            String comment = cursor.getString(4);
+            String path = cursor.getString(5);
+            String keyword = cursor.getString(6);
+
+            Collectionable object = new Collectionable(id, title, location, date, comment, keyword, path);
+            return object;
+        }
+        return null;
+
+    }
+
+/*    public Collectionable lastEntry() {
+        Cursor cursor = mDb.rawQuery("select *  from " + TABLE_NAME + " ORDER BY column DESC LIMIT 1;", null);
+        cursor.moveToLast();
+
+        long id = cursor.getLong(0);
+        String title = cursor.getString(1);
+        String location = cursor.getString(2);
+        String date = cursor.getString(3);
+        String comment = cursor.getString(4);
+        String path = cursor.getString(5);
+        String keyword = cursor.getString(6);
+
+        Collectionable object = new Collectionable(id, title, location, date, comment, keyword, path)
+        return object;
+
+    }*/
 
 }

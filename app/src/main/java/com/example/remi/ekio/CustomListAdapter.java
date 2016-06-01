@@ -14,9 +14,9 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     private final String[] itemname;
     Integer[] imgid={
             R.drawable.ic_search,
+            R.drawable.ic_collections,
             R.drawable.ic_settings_applications,
-            R.drawable.ic_settings_applications,
-            R.drawable.ic_settings_applications,
+            R.drawable.ic_close,
     };
 
     public CustomListAdapter(Activity context, String[] itemname) {

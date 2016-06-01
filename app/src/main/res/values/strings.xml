@@ -2,9 +2,7 @@
     <string name="app_name">Ekio</string>
     <string-array name="menu_item">// name of the string array
         <item>Home</item>
-        // items
         <item>Collection</item>
-        <item>Explore</item>
         <item>Settings</item>
     </string-array>
     <string name="user_name">Name</string>

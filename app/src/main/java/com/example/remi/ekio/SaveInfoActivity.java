@@ -70,12 +70,13 @@ public class SaveInfoActivity extends Activity {
         Collectionable object = new Collectionable(title, date, location, comment, keyWords, path);
         CollectionableDAO objectDao = new CollectionableDAO(this);
         objectDao.open();
-        objectDao.ajouter(object);
+        int id = objectDao.ajouter(object);
         objectDao.close();
 
         Toast.makeText(getApplicationContext(),
                 title + "has been saved", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, BeforePictureActivity.class);
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra(MESSAGE_KEY, id);
         startActivity(intent);
     }
 

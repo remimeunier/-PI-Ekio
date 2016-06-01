@@ -17,9 +17,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Hoang Nam on 01/06/2016.
- */
 public class CollectionShowcaseActivity extends Activity {
 
     private GridView gv;

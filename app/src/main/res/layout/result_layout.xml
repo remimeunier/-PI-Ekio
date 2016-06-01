@@ -11,9 +11,10 @@
         android:background="@android:color/white">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="210dp"
             android:scaleType="fitCenter"
             android:padding="5dp"
+            android:rotation="90"
             android:background="@android:color/black"
             android:id="@+id/result"
             android:layout_centerVertical="false"
@@ -64,15 +65,6 @@
 
         </LinearLayout>
 
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/details"
-            android:onClick="showDetails"
-            android:text="View object details"
-            android:background="@android:color/transparent"
-            android:layout_below="@id/object_date"/>
 
     </RelativeLayout>
 
