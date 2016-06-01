@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.util.Date;
@@ -29,10 +30,12 @@ public class BeforePictureActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private LinearLayout point;
 
+
     // camera
     ImageView findingLoupe;
     ImageView preview;
     Button chooseToFind, chooseToSave;
+    TextView appVersion;
     static final int CAM_REQUEST =1;
 
     @Override
@@ -46,6 +49,7 @@ public class BeforePictureActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem);
+        appVersion = (TextView) findViewById(R.id.app_version);
         mDrawerList.setAdapter(adapter);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
