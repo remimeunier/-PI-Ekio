@@ -15,6 +15,7 @@
             android:scaleType="fitCenter"
             android:padding="5dp"
             android:background="@android:color/white"
+            android:src="@drawable/example"
             android:id="@+id/result"
             android:layout_centerVertical="false"
             android:layout_centerHorizontal="true" />
@@ -30,14 +31,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="0.6"
+                android:layout_weight="0.7"
                 android:paddingLeft="15dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:id="@+id/object_title"
-                    android:text="title goes here"
+                    android:text="Stitch"
 
                     android:layout_marginTop="15dp"/>
 
@@ -45,20 +46,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:id="@+id/object_date"
-                    android:text="date goes here"
+                    android:text="28/07/1993"
                     android:layout_below="@id/object_title"/>
 
             </LinearLayout>
 
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:src="@drawable/delete"
-                android:id="@+id/delete"
-                android:padding="18dp"
-                android:scaleType="fitCenter"
-                android:background="@android:color/transparent"/>
 
             <ImageButton
                 android:layout_width="0dp"
@@ -70,6 +62,7 @@
                 android:scaleType="fitCenter"
                 android:padding="18dp"
                 android:onClick="favorise"
+                android:layout_gravity="right"
                 android:layout_marginRight="5dp"/>
 
 
@@ -81,28 +74,30 @@
             android:layout_below="@id/blah"
             android:orientation="horizontal"
             android:weightSum="1">
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="45dp"
-                android:layout_weight="0.4"
-                android:text="Collection"
+                android:layout_weight="0.5"
+                android:src="@drawable/back_button"
+                android:scaleType="fitCenter"
                 android:background="@android:color/transparent"
                 android:id="@+id/back"
                 android:onClick="goCollectionShowcase"
                 android:gravity="left|center"
                 android:paddingLeft="15dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginRight="10dp"/>
 
 
-            <Button
+            <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:id="@+id/details"
                 android:onClick="showDetails"
-                android:text="View object details"
+                android:src="@drawable/delete_button"
+                android:scaleType="fitCenter"
                 android:background="@android:color/transparent"
-                android:layout_marginLeft="20dp"
-                android:layout_weight="0.6"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.5"
                 android:gravity="right|center"
                 android:paddingRight="15dp"
                 android:layout_marginRight="10dp"/>
