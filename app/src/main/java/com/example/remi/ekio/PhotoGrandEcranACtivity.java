@@ -28,7 +28,7 @@ public class PhotoGrandEcranACtivity extends Activity {
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
     ImageView iv;
     ImageButton fav;
-    TextView object_name, object_date;
+    TextView object_name, object_date, object_key_words, object_comment, object_location;
 
     // gestion du menu (voir main activity for details)
     private String[] mMenuItem;
@@ -53,9 +53,10 @@ public class PhotoGrandEcranACtivity extends Activity {
 
         // gestion du main content
         LayoutInflater factory = LayoutInflater.from(this);
-        View myView = factory.inflate(R.layout.photo_grand_ecran_layout, null);
+        View myView = factory.inflate(R.layout.resultat_layout, null);
         point = (LinearLayout) findViewById(R.id.point);
         point.addView(myView);
+
 
         Intent intent = getIntent();
         //File file = intent.getExtras().getParcelable(("img"));
@@ -71,7 +72,14 @@ public class PhotoGrandEcranACtivity extends Activity {
         objectDao.close();
 
         //show the image with size downgrading
-        iv = (ImageView) findViewById(R.id.result);
+        iv = (ImageView) findViewById(R.id.photo_view);
+
+        Uri selectedImage = Uri.parse("file:///"+object.getPhotoPath());
+        try {
+            iv.setImageBitmap(decodeUri(selectedImage));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
        // iv.setImageURI(Uri.parse(object.getPhotoPath()));
        // Uri image = Uri.parse(object.getPhotoPath());
@@ -95,26 +103,25 @@ public class PhotoGrandEcranACtivity extends Activity {
   //      iv.setScaleType(ImageView.ScaleType.MATRIX);   //required
         //matrix.postRotate((float) 90, 0, 0);
    //     iv.setImageMatrix(matrix);
-
-        //2
-        Uri selectedImage = Uri.parse("file:///"+object.getPhotoPath());
-        try {
-            iv.setImageBitmap(decodeUri(selectedImage));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
         //3
         //iv.setImageBitmap(decodeUri(selectedImage));
         //imgbt.setImageUri(Uri.fromFile(new File("/data/data/....")));
 
         // ???
-        fav = (ImageButton) findViewById(R.id.fav);
-        fav.setTag(R.drawable.fav_off);
+
+  //      fav = (ImageButton) findViewById(R.id.fav);
+  //      fav.setTag(R.drawable.fav_off);
         // show title, date, comment (to do)
-        object_name = (TextView) findViewById(R.id.object_title);
+        object_name = (TextView) findViewById(R.id.photo_title_view);
         object_name.setText(object.getTitle());
-        object_date = (TextView) findViewById(R.id.object_date);
+        object_date = (TextView) findViewById(R.id.photo_date_view);
         object_date.setText(object.getDate());
+        object_location = (TextView) findViewById(R.id.photo_location_view);
+        object_location.setText(object.getLocation());
+        object_comment = (TextView) findViewById(R.id.photo_comment_view);
+        object_comment.setText(object.getcomment());
+        object_key_words = (TextView) findViewById(R.id.keyword_view);
+        object_key_words.setText(object.getKeyWords());
 
     }
 
@@ -122,21 +129,6 @@ public class PhotoGrandEcranACtivity extends Activity {
 
     }
 
-    public void favorise(View view) {
-        if (fav.getTag().equals(R.drawable.fav_off)) {
-            fav.setImageResource(R.drawable.fav_on);
-            fav.setTag(R.drawable.fav_on);
-            Toast.makeText(getApplicationContext(),
-                    object_name.getText().toString() + "has been saved to Favorites", Toast.LENGTH_SHORT).show();
-            ;
-        } else {
-            fav.setImageResource(R.drawable.fav_off);
-            fav.setTag(R.drawable.fav_off);
-            Toast.makeText(getApplicationContext(),
-                    object_name.getText().toString() + "has been removed from Favorites", Toast.LENGTH_SHORT).show();
-            ;
-        }
-    }
 
     private Bitmap decodeUri(Uri selectedImage) throws FileNotFoundException {
         BitmapFactory.Options o = new BitmapFactory.Options();
@@ -163,7 +155,7 @@ public class PhotoGrandEcranACtivity extends Activity {
                 getContentResolver().openInputStream(selectedImage), null, o2);
     }
 
-    public static Bitmap getResizedBitmap(Bitmap image, int newHeight, int newWidth) {
+/*    public static Bitmap getResizedBitmap(Bitmap image, int newHeight, int newWidth) {
         int width = image.getWidth();
         int height = image.getHeight();
         float scaleWidth = ((float) newWidth) / width;
@@ -176,7 +168,23 @@ public class PhotoGrandEcranACtivity extends Activity {
         Bitmap resizedBitmap = Bitmap.createBitmap(image, 0, 0, width, height,
                 matrix, false);
         return resizedBitmap;
-    }
+    }*/
+
+    /*    public void favorise(View view) {
+        if (fav.getTag().equals(R.drawable.fav_off)) {
+            fav.setImageResource(R.drawable.fav_on);
+            fav.setTag(R.drawable.fav_on);
+            Toast.makeText(getApplicationContext(),
+                    object_name.getText().toString() + "has been saved to Favorites", Toast.LENGTH_SHORT).show();
+
+        } else {
+            fav.setImageResource(R.drawable.fav_off);
+            fav.setTag(R.drawable.fav_off);
+            Toast.makeText(getApplicationContext(),
+                    object_name.getText().toString() + "has been removed from Favorites", Toast.LENGTH_SHORT).show();
+
+        }
+    }*/
 
     public void goCollectionShowcase(View view){
 

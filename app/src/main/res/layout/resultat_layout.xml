@@ -24,11 +24,19 @@
                 android:layout_gravity="bottom">
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/photo_title_view"
-                    android:hint="@string/photo_title" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/photo_title" />
                 <TextView
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/photo_title_view"
+                    android:hint="@string/photo_title"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="@string/photo_date" />
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:id="@+id/photo_date_view"
                     android:hint="@string/photo_date" />
@@ -51,12 +59,22 @@
             android:weightSum="1"
             android:layout_marginTop="15dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:id="@+id/photo_location_view"
-                android:hint="@string/photo_location"
-                android:layout_weight="0.8"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.8">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="@string/photo_location"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/photo_location_view"
+                    android:hint="@string/photo_location" />
+                </LinearLayout>
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="45dp"
@@ -81,13 +99,34 @@
             android:layout_height="45dp"
             android:id="@+id/keyword_view"
             android:hint="@string/keyword"/>
-
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:id="@+id/edit"
-            android:text="Edit"
-            android:onClick="Edit"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:id="@+id/edit"
+                android:layout_weight="0.5"
+                android:src="@drawable/edit"
+                android:layout_gravity="left"
+                android:clickable="true" />
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:id="@+id/login"
+                android:layout_weight="0.5"
+                android:src="@drawable/collection"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:onClick="goToCollection"/>
+
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
