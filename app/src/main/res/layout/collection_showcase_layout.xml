@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/back">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/collection_welcome"
+        android:src="@drawable/your_collection"
+        android:scaleType="fitEnd"
+        android:layout_gravity="right"/>
+
     <GridView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/gridView"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:numColumns="auto_fit"
         android:columnWidth="100dp"
         android:horizontalSpacing="7dp"
-        android:verticalSpacing="7dp"
-        android:stretchMode="spacingWidthUniform">
-
+        android:verticalSpacing="23dp"
+        android:stretchMode="spacingWidthUniform"
+        android:layout_below="@+id/collection_welcome"
+        android:layout_marginTop="20dp">
     </GridView>
-</RelativeLayout>
+</LinearLayout>

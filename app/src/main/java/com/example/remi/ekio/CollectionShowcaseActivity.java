@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -62,8 +63,6 @@ public class CollectionShowcaseActivity extends Activity {
             ImageView iv = (ImageView) convertView.findViewById(R.id.single_slot);
             iv.setImageURI(Uri.parse(getItem(position).toString()));
 
-
-
             return convertView;
         }
     }
@@ -91,5 +90,7 @@ public class CollectionShowcaseActivity extends Activity {
 
     public void goGrandEcran (View view){
         //TODO
+        Toast.makeText(getApplicationContext(),
+               " TODO ", Toast.LENGTH_SHORT).show();
     }
 }

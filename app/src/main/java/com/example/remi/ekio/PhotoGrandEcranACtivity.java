@@ -37,12 +37,12 @@ public class PhotoGrandEcranACtivity extends Activity {
         //String file = intent.getStringExtra("img");
 
         //get the ID send throught intent
-        String id = intent.getStringExtra(MESSAGE_KEY);
+        int id = intent.getIntExtra(MESSAGE_KEY,1);
 
         //get the object matching the id
         CollectionableDAO objectDao = new CollectionableDAO(this);
         objectDao.open();
-        Collectionable object = objectDao.select(Integer.parseInt(id));
+        Collectionable object = objectDao.select(id);
         objectDao.close();
 
         //show the image with size downgrading

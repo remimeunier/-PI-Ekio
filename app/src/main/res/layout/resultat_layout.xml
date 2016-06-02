@@ -40,7 +40,7 @@
                 android:layout_weight="0.5"
                 android:rotation="90"
                 android:id="@+id/photo_view"
-                android:src="@drawable/welcome"/>
+                android:src="@drawable/welcome" />
 
         </LinearLayout>
 
