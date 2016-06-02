@@ -64,7 +64,7 @@ public class SaveInfoActivity extends Activity {
         final String comment = etComment.getText().toString();
         final String keyWords = etKeyWord.getText().toString();
         final String date = etDate.getText().toString();
-        final String location = etTitle.getText().toString();
+        final String location = etLocation.getText().toString();
 
         Collectionable object = new Collectionable(title, date, location, comment, keyWords, path);
         CollectionableDAO objectDao = new CollectionableDAO(this);

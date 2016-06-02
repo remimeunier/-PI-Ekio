@@ -59,6 +59,7 @@ public class CollectionableDAO extends DAOBase {
             String keyword = cursor.getString(6);
 
             Collectionable object = new Collectionable(id, title, date, location, comment, keyword, path);
+            cursor.close();
             return object;
         }
         return null;

@@ -102,7 +102,6 @@ public class BeforePictureActivity extends AppCompatActivity {
             ekioFolder.mkdir();
         }
 
-        // change picture name :D
 
         File image_file = new File(ekioFolder, name);
         return image_file;

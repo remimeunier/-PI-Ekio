@@ -6,12 +6,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import android.widget.AdapterView.OnItemClickListener;
@@ -28,11 +33,32 @@ public class CollectionShowcaseActivity extends Activity {
     ArrayList<String> list;
     HashMap<File,String> fileNameList;
 
+    // gestion du menu (voir main activity for details)
+    private String[] mMenuItem;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private LinearLayout point;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         fileNameList = new HashMap<File, String>();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.collection_showcase_layout);
+        setContentView(R.layout.activity_main);
+
+        // gestion du menu (voir main activity for details)
+        mMenuItem = getResources().getStringArray(R.array.menu_item);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem);
+        mDrawerList.setAdapter(adapter);
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        // gestion du main content
+        LayoutInflater factory = LayoutInflater.from(this);
+        View myView = factory.inflate(R.layout.collection_showcase_layout, null);
+        point = (LinearLayout) findViewById(R.id.point);
+        point.addView(myView);
+
         //list = imageReader(new File("sdcard/EkioPhotos"));
 
         //new
@@ -48,6 +74,7 @@ public class CollectionShowcaseActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                // startActivity(new Intent(getApplicationContext(), PhotoGrandEcranACtivity.class)
                  //       .putExtra("img", list.get(position).toString()));
+                System.out.println("fhjdf");
                 Toast.makeText(getApplicationContext(),
                         "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
             }
