@@ -3,6 +3,7 @@ package com.example.remi.ekio;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import java.util.ArrayList;
 
 /**
  * Created by remi on 01/06/16.
@@ -62,6 +63,18 @@ public class CollectionableDAO extends DAOBase {
         }
         return null;
 
+    }
+
+    public ArrayList<String> allPath(){
+        Cursor cursor = mDb.rawQuery("select " + PHOTO_PATH + " from " + TABLE_NAME, null);
+        ArrayList<String> path = new ArrayList<String>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            path.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return path;
     }
 
 /*    public Collectionable lastEntry() {

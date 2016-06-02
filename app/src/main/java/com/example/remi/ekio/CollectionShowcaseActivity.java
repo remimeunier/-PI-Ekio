@@ -2,6 +2,8 @@ package com.example.remi.ekio;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -12,14 +14,18 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import android.widget.AdapterView.OnItemClickListener;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CollectionShowcaseActivity extends Activity {
 
     private GridView gv;
-    ArrayList<File> list;
+    //ArrayList<File> list;
+    ArrayList<String> list;
     HashMap<File,String> fileNameList;
 
     @Override
@@ -27,14 +33,23 @@ public class CollectionShowcaseActivity extends Activity {
         fileNameList = new HashMap<File, String>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.collection_showcase_layout);
-        list = imageReader(new File("sdcard/EkioPhotos"));
+        //list = imageReader(new File("sdcard/EkioPhotos"));
+
+        //new
+        CollectionableDAO objectDao = new CollectionableDAO(this);
+        objectDao.open();
+        list = objectDao.allPath();
+        objectDao.close();
+
         gv = (GridView) findViewById(R.id.gridView);
         gv.setAdapter(new GridAdapter());
-        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gv.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getApplicationContext(), PhotoGrandEcranACtivity.class)
-                        .putExtra("img", list.get(position).toString()));
+               // startActivity(new Intent(getApplicationContext(), PhotoGrandEcranACtivity.class)
+                 //       .putExtra("img", list.get(position).toString()));
+                Toast.makeText(getApplicationContext(),
+                        "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -61,14 +76,46 @@ public class CollectionShowcaseActivity extends Activity {
 
             convertView = getLayoutInflater().inflate(R.layout.single_grid , parent ,false);
             ImageView iv = (ImageView) convertView.findViewById(R.id.single_slot);
-            iv.setImageURI(Uri.parse(getItem(position).toString()));
+            //iv.setImageURI(Uri.parse(getItem(position).toString()));
+            Uri selectedImage = Uri.parse("file:///"+getItem(position).toString());
+            try {
+                iv.setImageBitmap(decodeUri(selectedImage));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
             return convertView;
         }
+
+        private Bitmap decodeUri(Uri selectedImage) throws FileNotFoundException {
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(
+                    getContentResolver().openInputStream(selectedImage), null, o);
+
+            final int REQUIRED_SIZE = 100;
+
+            int width_tmp = o.outWidth, height_tmp = o.outHeight;
+            int scale = 1;
+            while (true) {
+                if (width_tmp / 2 < REQUIRED_SIZE || height_tmp / 2 < REQUIRED_SIZE) {
+                    break;
+                }
+                width_tmp /= 2;
+                height_tmp /= 2;
+                scale *= 2;
+            }
+
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            return BitmapFactory.decodeStream(
+                    getContentResolver().openInputStream(selectedImage), null, o2);
+        }
+
     }
 
 
-    ArrayList<File> imageReader(File root){
+/*    ArrayList<File> imageReader(File root){
         ArrayList<File> collection = new ArrayList<File>();
 
         File[] files = root.listFiles();
@@ -86,11 +133,6 @@ public class CollectionShowcaseActivity extends Activity {
         }
 
         return collection;
-    }
+    }*/
 
-    public void goGrandEcran (View view){
-        //TODO
-        Toast.makeText(getApplicationContext(),
-               " TODO ", Toast.LENGTH_SHORT).show();
-    }
 }

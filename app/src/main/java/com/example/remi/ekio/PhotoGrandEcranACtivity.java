@@ -72,7 +72,7 @@ public class PhotoGrandEcranACtivity extends Activity {
         objectDao.close();
 
         //show the image with size downgrading
-        iv = (ImageView) findViewById(R.id.photo_view);
+        iv = (ImageView) findViewById(R.id.result_photo);
 
         Uri selectedImage = Uri.parse("file:///"+object.getPhotoPath());
         try {
@@ -112,15 +112,15 @@ public class PhotoGrandEcranACtivity extends Activity {
   //      fav = (ImageButton) findViewById(R.id.fav);
   //      fav.setTag(R.drawable.fav_off);
         // show title, date, comment (to do)
-        object_name = (TextView) findViewById(R.id.photo_title_view);
+        object_name = (TextView) findViewById(R.id.result_photo_title);
         object_name.setText(object.getTitle());
-        object_date = (TextView) findViewById(R.id.photo_date_view);
+        object_date = (TextView) findViewById(R.id.result_photo_date);
         object_date.setText(object.getDate());
-        object_location = (TextView) findViewById(R.id.photo_location_view);
+        object_location = (TextView) findViewById(R.id.result_photo_location);
         object_location.setText(object.getLocation());
-        object_comment = (TextView) findViewById(R.id.photo_comment_view);
+        object_comment = (TextView) findViewById(R.id.result_photo_comment);
         object_comment.setText(object.getcomment());
-        object_key_words = (TextView) findViewById(R.id.keyword_view);
+        object_key_words = (TextView) findViewById(R.id.result_keyword);
         object_key_words.setText(object.getKeyWords());
 
     }

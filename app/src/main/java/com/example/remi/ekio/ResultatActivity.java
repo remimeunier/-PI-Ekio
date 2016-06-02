@@ -19,8 +19,8 @@ public class ResultatActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.resultat_layout);
-        delete = (ImageButton) findViewById(R.id.delete_from_view);
-        photo = (ImageView) findViewById(R.id.photo_view);
-        edit = (Button) findViewById(R.id.edit);
+     //   delete = (ImageButton) findViewById(R.id.delete_from_view);
+     //   photo = (ImageView) findViewById(R.id.photo_view);
+     //   edit = (Button) findViewById(R.id.edit);
     }
 }
