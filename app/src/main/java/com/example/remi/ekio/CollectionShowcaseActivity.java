@@ -2,16 +2,15 @@ package com.example.remi.ekio;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,9 +20,11 @@ public class CollectionShowcaseActivity extends Activity {
 
     private GridView gv;
     ArrayList<File> list;
+    HashMap<File,String> fileNameList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        fileNameList = new HashMap<File, String>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.collection_showcase_layout);
         list = imageReader(new File("sdcard/EkioPhotos"));
@@ -32,7 +33,8 @@ public class CollectionShowcaseActivity extends Activity {
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getApplicationContext(), ResultActivity.class).putExtra("img", list.get(position).toString()));
+                startActivity(new Intent(getApplicationContext(), PhotoGrandEcranACtivity.class)
+                        .putExtra("img", list.get(position).toString()));
             }
         });
 
@@ -59,14 +61,13 @@ public class CollectionShowcaseActivity extends Activity {
 
             convertView = getLayoutInflater().inflate(R.layout.single_grid , parent ,false);
             ImageView iv = (ImageView) convertView.findViewById(R.id.single_slot);
-
             iv.setImageURI(Uri.parse(getItem(position).toString()));
-
-
 
             return convertView;
         }
     }
+
+
     ArrayList<File> imageReader(File root){
         ArrayList<File> collection = new ArrayList<File>();
 
@@ -79,10 +80,17 @@ public class CollectionShowcaseActivity extends Activity {
             else {
                 if (files[i].getName().endsWith(".jpg")){
                     collection.add(files[i]);
+                    fileNameList.put(files[i], files[i].getAbsolutePath());
                 }
             }
         }
 
         return collection;
+    }
+
+    public void goGrandEcran (View view){
+        //TODO
+        Toast.makeText(getApplicationContext(),
+               " TODO ", Toast.LENGTH_SHORT).show();
     }
 }
