@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.Bitmap;
@@ -28,11 +32,32 @@ public class ResultActivity extends Activity {
     ImageButton fav;
     TextView object_name, object_date;
 
+    // gestion du menu (voir main activity for details)
+    private String[] mMenuItem;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private LinearLayout point;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.result_layout);
+        setContentView(R.layout.activity_main);
+
+        // gestion du menu (voir main activity for details)
+        mMenuItem = getResources().getStringArray(R.array.menu_item);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem);
+        mDrawerList.setAdapter(adapter);
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        // gestion du main content
+        LayoutInflater factory = LayoutInflater.from(this);
+        View myView = factory.inflate(R.layout.result_layout, null);
+        point = (LinearLayout) findViewById(R.id.point);
+        point.addView(myView);
 
         Intent intent = getIntent();
         //File file = intent.getExtras().getParcelable(("img"));
