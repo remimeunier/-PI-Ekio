@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context;
 
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -28,6 +29,7 @@ import java.util.HashMap;
 
 public class CollectionShowcaseActivity extends Activity {
 
+    public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
     private GridView gv;
     //ArrayList<File> list;
     ArrayList<String> list;
@@ -38,6 +40,7 @@ public class CollectionShowcaseActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private LinearLayout point;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +72,17 @@ public class CollectionShowcaseActivity extends Activity {
 
         gv = (GridView) findViewById(R.id.gridView);
         gv.setAdapter(new GridAdapter());
+        context = this;
         gv.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // startActivity(new Intent(getApplicationContext(), PhotoGrandEcranACtivity.class)
-                 //       .putExtra("img", list.get(position).toString()));
-                System.out.println("fhjdf");
-                Toast.makeText(getApplicationContext(),
-                        "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
+                CollectionableDAO objectDao2 = new CollectionableDAO(context);
+                objectDao2.open();
+                int idObject = objectDao2.getIdFromPath(list.get(position));
+                objectDao2.close();
+                Intent intent = new Intent(context, PhotoGrandEcranACtivity.class);
+                intent.putExtra(MESSAGE_KEY, idObject);
+                startActivity(intent);
             }
         });
 

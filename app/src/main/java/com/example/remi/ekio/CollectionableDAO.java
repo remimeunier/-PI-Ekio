@@ -78,6 +78,14 @@ public class CollectionableDAO extends DAOBase {
         return path;
     }
 
+    public int getIdFromPath(String path) {
+        Cursor cursor = mDb.rawQuery("select ID  from " + TABLE_NAME + " where " + PHOTO_PATH + " = ?", new String[]{path});
+        cursor.moveToFirst();
+        int id = cursor.getInt(0);
+        cursor.close();
+        return id;
+    }
+
 /*    public Collectionable lastEntry() {
         Cursor cursor = mDb.rawQuery("select *  from " + TABLE_NAME + " ORDER BY column DESC LIMIT 1;", null);
         cursor.moveToLast();
