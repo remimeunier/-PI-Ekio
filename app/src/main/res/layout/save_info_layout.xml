@@ -19,7 +19,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="0.5"
+                android:layout_weight="0.6"
                 android:paddingRight="20dp"
                 android:layout_gravity="bottom">
                 <EditText
@@ -36,8 +36,8 @@
             </LinearLayout>
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_weight="0.5"
+                android:layout_height="140dp"
+                android:layout_weight="0.4"
                 android:rotation="90"
                 android:id="@+id/photo"
                 android:src="@drawable/welcome"/>
@@ -69,23 +69,30 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/photo_comment"
-            android:hint="@string/photo_comment"
-            android:layout_marginTop="20dp"
-            android:gravity="top"/>
-
-        <EditText
-            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/keyword"
             android:hint="@string/keyword"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
 
-        <Button
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/photo_comment"
+                android:hint="@string/photo_comment"
+                android:layout_marginTop="20dp"
+                android:gravity="top"/>
+
+        </ScrollView>
+
+        <ImageButton
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:id="@+id/saveconfirm"
-            android:text="Save"
+            android:src="@drawable/save"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
             android:onClick="goResult"/>
 
         </LinearLayout>
