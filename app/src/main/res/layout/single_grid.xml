@@ -5,7 +5,9 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/single_slot"/>
+        android:id="@+id/single_slot"
+        android:clickable="true"
+        android:onClick="goGrandEcran"/>
 
 
 </LinearLayout>

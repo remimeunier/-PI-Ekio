@@ -22,15 +22,15 @@
                 android:layout_weight="0.5"
                 android:paddingRight="20dp"
                 android:layout_gravity="bottom">
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:id="@+id/photo_title"
+                    android:id="@+id/photo_title_view"
                     android:hint="@string/photo_title" />
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:id="@+id/photo_date"
+                    android:id="@+id/photo_date_view"
                     android:hint="@string/photo_date" />
 
             </LinearLayout>
@@ -39,7 +39,7 @@
                 android:layout_height="150dp"
                 android:layout_weight="0.5"
                 android:rotation="90"
-                android:id="@+id/photo"
+                android:id="@+id/photo_view"
                 android:src="@drawable/welcome"/>
 
         </LinearLayout>
@@ -49,45 +49,46 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="1"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="15dp">
 
-            <EditText
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:id="@+id/photo_location"
+                android:id="@+id/photo_location_view"
                 android:hint="@string/photo_location"
                 android:layout_weight="0.8"/>
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/geo"
-                android:id="@+id/geolocalisation"
+                android:src="@drawable/delete"
+                android:padding="2dp"
+                android:id="@+id/delete_from_view"
                 android:background="@android:color/transparent"
                 android:layout_weight="0.2"/>
         </LinearLayout>
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/photo_comment"
+            android:layout_height="190dp"
+            android:id="@+id/photo_comment_view"
             android:hint="@string/photo_comment"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="top"/>
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/keyword"
+            android:layout_height="45dp"
+            android:id="@+id/keyword_view"
             android:hint="@string/keyword"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:id="@+id/saveconfirm"
-            android:text="Save"
-            android:onClick="goResult"/>
+            android:id="@+id/edit"
+            android:text="Edit"
+            android:onClick="Edit"/>
 
-        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

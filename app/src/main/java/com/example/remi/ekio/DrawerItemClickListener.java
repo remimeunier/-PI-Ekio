@@ -2,13 +2,9 @@ package com.example.remi.ekio;
 
 
 import android.view.View;
-import android.os.Bundle;
 import android.widget.ListView;
-import android.app.Fragment;
 import android.widget.AdapterView;
 import android.content.Intent;
-import android.app.Activity;
-import android.os.Bundle;
 import android.content.Context;
 
 
@@ -27,7 +23,7 @@ class DrawerItemClickListener implements ListView.OnItemClickListener {
                 context.startActivity(newActivity2);
                 break;
             case 2:
-                Intent intent = new Intent(context, ResultActivity.class);
+                Intent intent = new Intent(context, PhotoGrandEcranACtivity.class);
                 intent.putExtra("com.example.remi.ekio.messagekey", 1);
                 context.startActivity(intent);
                 break;

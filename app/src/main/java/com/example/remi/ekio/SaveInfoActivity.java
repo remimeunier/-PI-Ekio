@@ -1,7 +1,6 @@
 package com.example.remi.ekio;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -59,7 +58,7 @@ public class SaveInfoActivity extends Activity {
 
     }
 
-    public void goCollectionShowcase(View view){
+    public void goResult(View view){
 
         final String title = etTitle.getText().toString();
         final String comment = etComment.getText().toString();
@@ -74,8 +73,8 @@ public class SaveInfoActivity extends Activity {
         objectDao.close();
 
         Toast.makeText(getApplicationContext(),
-                title + "has been saved", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, ResultActivity.class);
+                title + " has been saved", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, PhotoGrandEcranACtivity.class);
         intent.putExtra(MESSAGE_KEY, id);
         startActivity(intent);
     }
