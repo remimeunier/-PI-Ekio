@@ -58,24 +58,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/preview_display">
+        android:layout_below="@id/preview_display"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp">
 
-        <Button
-            android:layout_width="200dp"
+        <ImageButton
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_weight="0.5"
             android:id="@+id/chooseToFind"
+            android:clickable="false"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="5dp"
             android:layout_below="@id/preview_display"
             android:background="@android:color/transparent"
-            android:onClick="userChoice"/>
+            android:onClick="userChoice"
+            android:tag="@string/find"/>
 
-        <Button
-            android:layout_width="200dp"
+        <ImageButton
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_weight="0.5"
             android:id="@+id/choosToSave"
+            android:clickable="false"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="5dp"
             android:layout_below="@id/preview_display"
             android:layout_alignLeft="@id/chooseToFind"
             android:background="@android:color/transparent"
-            android:onClick="userChoice"/>
+            android:onClick="userChoice"
+            android:tag="@string/save"/>
 
     </LinearLayout>
 

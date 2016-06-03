@@ -1,6 +1,7 @@
 package com.example.remi.ekio;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -34,7 +36,7 @@ public class BeforePictureActivity extends AppCompatActivity {
     // camera
     ImageView findingLoupe;
     ImageView preview;
-    Button chooseToFind, chooseToSave;
+    ImageButton chooseToFind, chooseToSave;
     TextView appVersion;
     static final int CAM_REQUEST =1;
 
@@ -62,8 +64,8 @@ public class BeforePictureActivity extends AppCompatActivity {
         //taking the picture
         findingLoupe = (ImageView) findViewById(R.id.findingLoupe);
         preview = (ImageView) findViewById(R.id.preview_display);
-        chooseToSave = (Button) findViewById(R.id.choosToSave);
-        chooseToFind = (Button) findViewById(R.id.chooseToFind);
+        chooseToSave = (ImageButton) findViewById(R.id.choosToSave);
+        chooseToFind = (ImageButton) findViewById(R.id.chooseToFind);
 
 
         findingLoupe.setOnClickListener(new View.OnClickListener(){
@@ -82,15 +84,15 @@ public class BeforePictureActivity extends AppCompatActivity {
     }
 
     public void userChoice(View view){
-        String button_text;
-        button_text = ((Button) view).getText().toString();
+        int button_id;
+        button_id = ((ImageButton) view).getId();
 
-        if(button_text.equals("Save")){
+        if(button_id == (R.id.choosToSave)){
             Intent save = new Intent(this, SaveInfoActivity.class);
             save.putExtra(MESSAGE_KEY, name);
             startActivity(save);
         }
-        else if(button_text.equals("Find")){
+        else if(button_id== (R.id.chooseToFind)){
             //TODO
         }
     }
@@ -111,14 +113,17 @@ public class BeforePictureActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == CAM_REQUEST){
             if(resultCode == RESULT_OK){
+
                 String path = "sdcard/EkioPhotos/"+name;
                 findingLoupe.setOnClickListener(null);
                 findingLoupe.setImageBitmap(null);
                 preview.setImageDrawable(Drawable.createFromPath(path));
-                chooseToSave.setBackgroundColor(Color.WHITE);
-                chooseToFind.setBackgroundColor(Color.WHITE);
-                chooseToSave.setText("Save");
-                chooseToFind.setText("Find");
+
+                chooseToSave.setClickable(true);
+                chooseToFind.setClickable(true);
+                chooseToSave.setImageResource(R.drawable.save);
+                chooseToFind.setImageResource(R.drawable.find);
+
 
             }
             else if(resultCode == RESULT_CANCELED){
