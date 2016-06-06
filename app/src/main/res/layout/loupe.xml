@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back">
+    android:background="@drawable/back"
+    android:gravity="center">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="450dp">
@@ -50,10 +51,9 @@
     </FrameLayout>
 
     <com.theartofdev.edmodo.cropper.CropImageView
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:id="@+id/CropImageView"
-        android:scaleType="fitCenter"/>
+        android:layout_width="380dp"
+        android:layout_height="380dp"
+        android:id="@+id/CropImageView"/>
 
 
     <ImageButton
