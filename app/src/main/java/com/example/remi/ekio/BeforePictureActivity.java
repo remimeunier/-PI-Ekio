@@ -254,7 +254,7 @@ public class BeforePictureActivity extends AppCompatActivity {
         // Determine Uri of camera image to save.
         Uri outputFileUri = getCaptureImageOutputUri();
 
-        List<Intent> allIntents = new ArrayList<>();
+        List<Intent> allIntents = new ArrayList();
         PackageManager packageManager = getPackageManager();
 
         // collect all camera intents
