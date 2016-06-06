@@ -45,20 +45,36 @@
             android:background="@android:color/transparent"
             android:id="@+id/findingLoupe"
             android:layout_marginTop="100dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:onClick="onLoadImageClick"/>
     </FrameLayout>
 
-    <ImageView
-        android:layout_width="370dp"
-        android:layout_height="440dp"
-        android:id="@+id/preview_display"
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/CropImageView"
+        android:scaleType="fitCenter"/>
+
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0.5"
+        android:id="@+id/chooseTocrop"
+        android:clickable="false"
         android:scaleType="fitCenter"
-        android:layout_marginLeft="8dp"/>
+        android:layout_marginRight="5dp"
+        android:layout_below="@id/CropImageView"
+        android:background="@android:color/transparent"
+        android:onClick="onCropImageClick"
+        android:tag="@string/find"
+        />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/preview_display"
+        android:layout_below="@id/chooseTocrop"
         android:orientation="horizontal"
         android:weightSum="1"
         android:paddingRight="10dp"
@@ -72,7 +88,7 @@
             android:clickable="false"
             android:scaleType="fitCenter"
             android:layout_marginRight="5dp"
-            android:layout_below="@id/preview_display"
+            android:layout_below="@id/chooseTocrop"
             android:background="@android:color/transparent"
             android:onClick="userChoice"
             android:tag="@string/find"/>
@@ -85,7 +101,7 @@
             android:clickable="false"
             android:scaleType="fitCenter"
             android:layout_marginLeft="5dp"
-            android:layout_below="@id/preview_display"
+            android:layout_below="@id/CropImageView"
             android:layout_alignLeft="@id/chooseToFind"
             android:background="@android:color/transparent"
             android:onClick="userChoice"
