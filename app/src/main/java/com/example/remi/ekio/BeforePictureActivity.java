@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class BeforePictureActivity extends AppCompatActivity {
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
     long time = System.currentTimeMillis();
     String name = String.valueOf(time)+".jpg";
+    private final Rect Square = new Rect(300,300,300,300);
 
     // gestion du menu (voir main activity for details)
     private String[] mMenuItem;
@@ -81,6 +83,10 @@ public class BeforePictureActivity extends AppCompatActivity {
         //taking the picture
         findingLoupe = (ImageView) findViewById(R.id.findingLoupe);
         mCropImageView = (CropImageView) findViewById(R.id.CropImageView);
+        //mCropImageView.setCropRect(Square);
+        mCropImageView.setAspectRatio(1,1);
+        mCropImageView.setFixedAspectRatio(true);
+        mCropImageView.setScaleType(CropImageView.ScaleType.CENTER);
         chooseToSave = (ImageButton) findViewById(R.id.choosToSave);
         chooseToFind = (ImageButton) findViewById(R.id.chooseToFind);
         choosetoCrop = (ImageButton) findViewById(R.id.chooseTocrop);
@@ -157,6 +163,7 @@ public class BeforePictureActivity extends AppCompatActivity {
                 findingLoupe.setOnClickListener(null);
                 findingLoupe.setImageBitmap(null);
                 mCropImageView.setImageUriAsync(imageUri);
+
                 choosetoCrop.setClickable(true);
                 choosetoCrop.setImageResource(R.drawable.crop);
             }
@@ -220,6 +227,8 @@ public class BeforePictureActivity extends AppCompatActivity {
         Bitmap cropped = mCropImageView.getCroppedImage(500, 500);
         if (cropped != null)
             mCropImageView.setImageBitmap(cropped);
+            mCropImageView.setShowCropOverlay(false);
+            mCropImageView.setCropRect(null);
             String path = "sdcard/EkioPhotos/"+name;
             saveFile(cropped, path);
             choosetoCrop.setClickable(false);
@@ -240,7 +249,8 @@ public class BeforePictureActivity extends AppCompatActivity {
             startActivity(save);
         }
         else if(button_id== (R.id.chooseToFind)){
-            //TODO
+            Toast.makeText(getApplicationContext(),
+                   "TO DO !!!!", Toast.LENGTH_LONG).show();
         }
     }
 

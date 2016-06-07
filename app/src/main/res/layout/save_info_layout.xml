@@ -70,7 +70,8 @@
                 android:src="@drawable/geo"
                 android:id="@+id/geolocalisation"
                 android:background="@android:color/transparent"
-                android:layout_weight="0.2"/>
+                android:layout_weight="0.2"
+                android:onClick="premiumFeature"/>
         </LinearLayout>
 
         <EditText

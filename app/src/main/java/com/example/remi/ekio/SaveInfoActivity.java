@@ -74,10 +74,15 @@ public class SaveInfoActivity extends Activity {
         objectDao.close();
 
         Toast.makeText(getApplicationContext(),
-                title + " has been saved", Toast.LENGTH_LONG).show();
+                title + " has been saved ", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, PhotoGrandEcranACtivity.class);
         intent.putExtra(MESSAGE_KEY, id);
         startActivity(intent);
+    }
+
+    public void premiumFeature(){
+        Toast.makeText(getApplicationContext(),
+                "This is a premium feature !!", Toast.LENGTH_LONG).show();
     }
 
 
