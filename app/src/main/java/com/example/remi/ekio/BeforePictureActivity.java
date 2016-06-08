@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
@@ -55,8 +56,8 @@ public class BeforePictureActivity extends AppCompatActivity {
     ImageView findingLoupe;
     CropImageView mCropImageView;
     ImageButton chooseToFind, chooseToSave, choosetoCrop;
-    TextView appVersion;
     Uri mCropImageUri;
+    ImageView C1, C2;
     static final int CAM_REQUEST =1;
 
     @Override
@@ -70,7 +71,6 @@ public class BeforePictureActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem);
-        appVersion = (TextView) findViewById(R.id.app_version);
         mDrawerList.setAdapter(adapter);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -90,6 +90,8 @@ public class BeforePictureActivity extends AppCompatActivity {
         chooseToSave = (ImageButton) findViewById(R.id.choosToSave);
         chooseToFind = (ImageButton) findViewById(R.id.chooseToFind);
         choosetoCrop = (ImageButton) findViewById(R.id.chooseTocrop);
+        C1 = (ImageView) findViewById(R.id.circle1);
+        C2 = (ImageView) findViewById(R.id.circle2);
 
         /*
         findingLoupe.setOnClickListener(new View.OnClickListener(){
@@ -162,7 +164,10 @@ public class BeforePictureActivity extends AppCompatActivity {
                 String path = "sdcard/EkioPhotos/"+name;
                 findingLoupe.setOnClickListener(null);
                 findingLoupe.setImageBitmap(null);
+
                 mCropImageView.setImageUriAsync(imageUri);
+                C1.setImageBitmap(null);
+                C2.setImageBitmap(null);
 
                 choosetoCrop.setClickable(true);
                 choosetoCrop.setImageResource(R.drawable.crop);
@@ -173,7 +178,9 @@ public class BeforePictureActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (mCropImageUri != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
             mCropImageView.setImageUriAsync(mCropImageUri);
+
         } else {
             Toast.makeText(this, "Required permissions are not granted", Toast.LENGTH_LONG).show();
         }
@@ -237,6 +244,7 @@ public class BeforePictureActivity extends AppCompatActivity {
             chooseToFind.setClickable(true);
             chooseToSave.setImageResource(R.drawable.save);
             chooseToFind.setImageResource(R.drawable.find);
+            mCropImageView.setBackgroundColor(Color.WHITE);
     }
 
     public void userChoice(View view){
