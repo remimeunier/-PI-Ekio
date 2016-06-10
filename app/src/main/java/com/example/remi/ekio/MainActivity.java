@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homescreen);
 
-        CollectionableDAO objectDao = new CollectionableDAO(this);
+/*        CollectionableDAO objectDao = new CollectionableDAO(this);
         objectDao.open();
         Collectionable object = objectDao.select(1);
         objectDao.close();
@@ -52,28 +52,28 @@ public class MainActivity extends AppCompatActivity {
 
         AkazeImageFinder finder = new AkazeImageFinder();
         finder.rotation = "0 degrees";
-        finder.findImage(object_filename, scene_filename);
-        
+        finder.findImage(object_filename, scene_filename);*/
 
 
-//
-//        //sign In (if user created and non auto conexion) or Register (no account) or direct connect (auto connexion)
-//        UserDAO userDao = new UserDAO(this);
-//        userDao.open();
-//        User user = userDao.selectionner(1);
-//        userDao.close();
-//        if (user == null) {
-//            final ImageView imSignIn = (ImageView) findViewById(R.id.login);
-//            imSignIn.setVisibility(View.GONE);
-//        } else {
-//            if (user.getAuto() == true) {
-//                Intent intent = new Intent(this, BeforePictureActivity.class);
-//                startActivity(intent);
-//            } else {
-//                final ImageView imRegister = (ImageView) findViewById(R.id.register);
-//                imRegister.setVisibility(View.GONE);
-//            }
-//        }
+
+
+        //sign In (if user created and non auto conexion) or Register (no account) or direct connect (auto connexion)
+        UserDAO userDao = new UserDAO(this);
+        userDao.open();
+        User user = userDao.selectionner(1);
+        userDao.close();
+        if (user == null) {
+            final ImageView imSignIn = (ImageView) findViewById(R.id.login);
+            imSignIn.setVisibility(View.GONE);
+        } else {
+            if (user.getAuto() == true) {
+                Intent intent = new Intent(this, BeforePictureActivity.class);
+                startActivity(intent);
+            } else {
+                final ImageView imRegister = (ImageView) findViewById(R.id.register);
+                imRegister.setVisibility(View.GONE);
+            }
+        }
     }
 
     public void goSignIn(View view) {

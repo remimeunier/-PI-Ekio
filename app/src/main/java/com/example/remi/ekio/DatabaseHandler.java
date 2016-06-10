@@ -58,13 +58,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-       // db.execSQL(USER_TABLE_CREATE); // comment because it's stable now (for new use uncomment)
+        db.execSQL(USER_TABLE_CREATE); // comment because it's stable now (for new use uncomment)
         db.execSQL(COLLECTIONABLE_TABLE_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //db.execSQL(USER_TABLE_DROP); // comment because stable now (for new use uncomment)
+        db.execSQL(USER_TABLE_DROP); // comment because stable now (for new use uncomment)
         db.execSQL(COLLECTIONABLE_TABLE_DROP);
         onCreate(db);
     }

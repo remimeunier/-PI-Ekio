@@ -51,6 +51,11 @@ public class BeforePictureActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private LinearLayout point;
 
+    static {
+        // If you use opencv 2.4, System.loadLibrary("opencv_java")
+        System.loadLibrary("opencv_java3");
+    }
+
 
     // camera
     ImageView findingLoupe;
@@ -257,8 +262,18 @@ public class BeforePictureActivity extends AppCompatActivity {
             startActivity(save);
         }
         else if(button_id== (R.id.chooseToFind)){
-            Toast.makeText(getApplicationContext(),
-                   "TO DO !!!!", Toast.LENGTH_LONG).show();
+            // // TODO: 10/06/16
+
+            CollectionableDAO objectDao = new CollectionableDAO(this);
+            objectDao.open();
+            Collectionable object1 = objectDao.select(1);
+            Collectionable object2 = objectDao.select(2);
+            objectDao.close();
+
+            ObjectDetection test = new ObjectDetection();
+            test.match(object1.getPhotoPath(), object2.getPhotoPath());
+
+
         }
     }
 
