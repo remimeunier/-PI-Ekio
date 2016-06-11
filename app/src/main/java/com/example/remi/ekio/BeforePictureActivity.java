@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.system.ErrnoException;
 import android.support.v7.app.ActionBarActivity;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -44,6 +46,7 @@ public class BeforePictureActivity extends AppCompatActivity {
     long time = System.currentTimeMillis();
     String name = String.valueOf(time)+".jpg";
     private final Rect Square = new Rect(300,300,300,300);
+    ArrayList<Integer> result;
 
     // gestion du menu (voir main activity for details)
     private String[] mMenuItem;
@@ -64,12 +67,19 @@ public class BeforePictureActivity extends AppCompatActivity {
     Uri mCropImageUri;
     ImageView C1, C2;
     static final int CAM_REQUEST =1;
+    Bitmap savedPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        File ekioFolder = new File("sdcard/EkioPhotos");
+        if(!ekioFolder.exists()){
+            ekioFolder.mkdir();
+        }
+
 
         // gestion du menu (voir main activity for details)
         mMenuItem = getResources().getStringArray(R.array.menu_item);
@@ -91,28 +101,15 @@ public class BeforePictureActivity extends AppCompatActivity {
         //mCropImageView.setCropRect(Square);
         mCropImageView.setAspectRatio(1,1);
         mCropImageView.setFixedAspectRatio(true);
-        mCropImageView.setScaleType(CropImageView.ScaleType.CENTER);
+        mCropImageView.setScaleType(CropImageView.ScaleType.FIT_CENTER);
         chooseToSave = (ImageButton) findViewById(R.id.choosToSave);
         chooseToFind = (ImageButton) findViewById(R.id.chooseToFind);
         choosetoCrop = (ImageButton) findViewById(R.id.chooseTocrop);
         C1 = (ImageView) findViewById(R.id.circle1);
         C2 = (ImageView) findViewById(R.id.circle2);
 
-        /*
-        findingLoupe.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
 
-                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                File file = getFile();
-                camera_intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-
-                startActivityForResult(camera_intent,CAM_REQUEST);
-
-            }
-        });
-        */
+        result = new ArrayList<>();
     }
 
 
@@ -123,31 +120,7 @@ public class BeforePictureActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        /*
-        if(requestCode == CAM_REQUEST){
-            if(resultCode == RESULT_OK){
 
-                String path = "sdcard/EkioPhotos/"+name;
-                findingLoupe.setOnClickListener(null);
-                findingLoupe.setImageBitmap(null);
-                preview.setImageDrawable(Drawable.createFromPath(path));
-
-                chooseToSave.setClickable(true);
-                chooseToFind.setClickable(true);
-                chooseToSave.setImageResource(R.drawable.save);
-                chooseToFind.setImageResource(R.drawable.find);
-
-
-            }
-            else if(resultCode == RESULT_CANCELED){
-
-                //capture canceled
-            }
-            else{
-                //capture fail
-            }
-        }
-        */
 
         if (resultCode == Activity.RESULT_OK) {
             Uri imageUri = getPickImageResultUri(data);
@@ -190,19 +163,7 @@ public class BeforePictureActivity extends AppCompatActivity {
             Toast.makeText(this, "Required permissions are not granted", Toast.LENGTH_LONG).show();
         }
     }
-/*
-    //To creat file with random file name
-    private File getFile(){
-        File ekioFolder = new File("sdcard/EkioPhotos");
-        if(!ekioFolder.exists()){
-            ekioFolder.mkdir();
-        }
 
-
-        File image_file = new File(ekioFolder, name);
-        return image_file;
-    }
-*/
 
     private void saveFile(Bitmap bmp, String filename){
         FileOutputStream out = null;
@@ -241,8 +202,10 @@ public class BeforePictureActivity extends AppCompatActivity {
             mCropImageView.setImageBitmap(cropped);
             mCropImageView.setShowCropOverlay(false);
             mCropImageView.setCropRect(null);
-            String path = "sdcard/EkioPhotos/"+name;
-            saveFile(cropped, path);
+            String temp = "sdcard/EkioPhotos/tmp"+name;
+            savedPhoto = cropped;
+
+            saveFile(cropped,temp );
             choosetoCrop.setClickable(false);
             choosetoCrop.setImageBitmap(null);
             chooseToSave.setClickable(true);
@@ -257,22 +220,32 @@ public class BeforePictureActivity extends AppCompatActivity {
         button_id = ((ImageButton) view).getId();
 
         if(button_id == (R.id.choosToSave)){
+            String path = "sdcard/EkioPhotos/"+name;
+            saveFile(savedPhoto, path);
             Intent save = new Intent(this, SaveInfoActivity.class);
             save.putExtra(MESSAGE_KEY, name);
             startActivity(save);
         }
         else if(button_id== (R.id.chooseToFind)){
             // // TODO: 10/06/16
-
+            String temp = "sdcard/EkioPhotos/tmp"+name;
             CollectionableDAO objectDao = new CollectionableDAO(this);
             objectDao.open();
-            Collectionable object1 = objectDao.select(1);
-            Collectionable object2 = objectDao.select(2);
-            objectDao.close();
 
             ObjectDetection test = new ObjectDetection();
-            test.match(object1.getPhotoPath(), object2.getPhotoPath());
+            int i = 1;
+            while( i<11 ){
 
+                int x = test.match(temp, objectDao.select(i).getPhotoPath());
+                //Bitmap myBitmap = BitmapFactory.decodeFile(objectDao.select(5).getPhotoPath());
+                //mCropImageView.setImageBitmap(myBitmap);
+
+                Toast.makeText(getApplicationContext(), String.valueOf(x) + " with " + String.valueOf(i), Toast.LENGTH_SHORT).show();
+
+                result.add(x);
+                i++;
+            }
+            objectDao.close();
 
         }
     }
