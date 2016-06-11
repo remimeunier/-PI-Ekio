@@ -60,10 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
 
-                     /* UserDAO userDao2 = new UserDAO(cContext);
-                        userDao.open();
-                        User user2 = userDao.selectionner(1);
-                        userDao.close();*/
+
             }
         });
     }

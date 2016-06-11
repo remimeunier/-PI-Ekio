@@ -35,9 +35,9 @@
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:layout_weight="0.4"
-            android:rotation="90"
             android:id="@+id/result_photo"
-            android:src="@drawable/welcome"/>
+            android:src="@drawable/place_holder"
+            android:onClick="goBig"/>
 
     </LinearLayout>
 
@@ -82,7 +82,7 @@
         android:layout_marginTop="20dp">
         <ImageButton
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:layout_weight="0.5"
             android:src="@drawable/collection"
             android:scaleType="fitCenter"
@@ -94,7 +94,7 @@
 
         <ImageButton
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:layout_weight="0.5"
             android:src="@drawable/edit"
             android:scaleType="fitCenter"

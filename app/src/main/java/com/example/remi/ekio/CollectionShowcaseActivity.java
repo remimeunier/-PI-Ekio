@@ -146,26 +146,4 @@ public class CollectionShowcaseActivity extends Activity {
         }
 
     }
-
-
-/*    ArrayList<File> imageReader(File root){
-        ArrayList<File> collection = new ArrayList<File>();
-
-        File[] files = root.listFiles();
-
-        for(int i = 0; i < files.length; i++){
-            if (files[i].isDirectory()){
-                collection.addAll(imageReader(files[i]));
-            }
-            else {
-                if (files[i].getName().endsWith(".jpg")){
-                    collection.add(files[i]);
-                    fileNameList.put(files[i], files[i].getAbsolutePath());
-                }
-            }
-        }
-
-        return collection;
-    }*/
-
 }

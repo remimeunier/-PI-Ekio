@@ -44,7 +44,7 @@
                 android:layout_weight="0.4"
                 android:rotation="90"
                 android:id="@+id/photo"
-                android:src="@drawable/welcome"/>
+                android:src="@drawable/place_holder"/>
 
         </LinearLayout>
 
@@ -95,7 +95,7 @@
 
         <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="70dp"
             android:id="@+id/saveconfirm"
             android:src="@drawable/save"
             android:scaleType="fitCenter"

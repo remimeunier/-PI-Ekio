@@ -80,10 +80,9 @@ public class BeforePictureActivity extends AppCompatActivity {
         point = (LinearLayout) findViewById(R.id.point);
         point.addView(myView);
 
-        //taking the picture
         findingLoupe = (ImageView) findViewById(R.id.findingLoupe);
         mCropImageView = (CropImageView) findViewById(R.id.CropImageView);
-        //mCropImageView.setCropRect(Square);
+        mCropImageView.setScaleType(CropImageView.ScaleType.FIT_CENTER);
         mCropImageView.setAspectRatio(1,1);
         mCropImageView.setFixedAspectRatio(true);
         mCropImageView.setScaleType(CropImageView.ScaleType.CENTER);
@@ -93,21 +92,6 @@ public class BeforePictureActivity extends AppCompatActivity {
         C1 = (ImageView) findViewById(R.id.circle1);
         C2 = (ImageView) findViewById(R.id.circle2);
 
-        /*
-        findingLoupe.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                File file = getFile();
-                camera_intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-
-                startActivityForResult(camera_intent,CAM_REQUEST);
-
-            }
-        });
-        */
     }
 
 
@@ -118,38 +102,15 @@ public class BeforePictureActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        /*
-        if(requestCode == CAM_REQUEST){
-            if(resultCode == RESULT_OK){
-
-                String path = "sdcard/EkioPhotos/"+name;
-                findingLoupe.setOnClickListener(null);
-                findingLoupe.setImageBitmap(null);
-                preview.setImageDrawable(Drawable.createFromPath(path));
-
-                chooseToSave.setClickable(true);
-                chooseToFind.setClickable(true);
-                chooseToSave.setImageResource(R.drawable.save);
-                chooseToFind.setImageResource(R.drawable.find);
-
-
-            }
-            else if(resultCode == RESULT_CANCELED){
-
-                //capture canceled
-            }
-            else{
-                //capture fail
-            }
-        }
-        */
 
         if (resultCode == Activity.RESULT_OK) {
             Uri imageUri = getPickImageResultUri(data);
 
             // For API >= 23 we need to check specifically that we have permissions to read external storage,
             // but we don't know if we need to for the URI so the simplest is to try open the stream and see if we get error.
+
             boolean requirePermissions = false;
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                     checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
                     isUriRequiresPermissions(imageUri)) {
@@ -185,19 +146,7 @@ public class BeforePictureActivity extends AppCompatActivity {
             Toast.makeText(this, "Required permissions are not granted", Toast.LENGTH_LONG).show();
         }
     }
-/*
-    //To creat file with random file name
-    private File getFile(){
-        File ekioFolder = new File("sdcard/EkioPhotos");
-        if(!ekioFolder.exists()){
-            ekioFolder.mkdir();
-        }
 
-
-        File image_file = new File(ekioFolder, name);
-        return image_file;
-    }
-*/
 
     private void saveFile(Bitmap bmp, String filename){
         FileOutputStream out = null;
@@ -244,7 +193,7 @@ public class BeforePictureActivity extends AppCompatActivity {
             chooseToFind.setClickable(true);
             chooseToSave.setImageResource(R.drawable.save);
             chooseToFind.setImageResource(R.drawable.find);
-            mCropImageView.setBackgroundColor(Color.WHITE);
+            //CropImageView.setBackgroundColor(Color.WHITE);
     }
 
     public void userChoice(View view){

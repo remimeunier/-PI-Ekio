@@ -11,11 +11,11 @@
         android:background="@android:color/white">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="360dp"
+            android:layout_height="340dp"
             android:scaleType="fitCenter"
             android:padding="5dp"
             android:background="@android:color/white"
-            android:src="@drawable/example"
+            android:src="@drawable/place_holder"
             android:id="@+id/result"
             android:layout_centerVertical="false"
             android:layout_centerHorizontal="true" />
@@ -76,7 +76,7 @@
             android:weightSum="1">
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_height="60dp"
                 android:layout_weight="0.5"
                 android:src="@drawable/back_button"
                 android:scaleType="fitCenter"
@@ -90,10 +90,10 @@
 
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_height="60dp"
                 android:id="@+id/details"
                 android:onClick="showDetails"
-                android:src="@drawable/delete_button"
+                android:src="@drawable/delete"
                 android:scaleType="fitCenter"
                 android:background="@android:color/transparent"
                 android:layout_marginLeft="10dp"
