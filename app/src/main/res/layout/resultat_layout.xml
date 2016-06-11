@@ -1,112 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    android:gravity="center|left">
-
-
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center|left">
+
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="0.6"
-            android:paddingRight="15dp"
-            android:layout_gravity="bottom">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/result_photo_title"
-                android:hint="@string/photo_title" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/result_photo_date"
-                android:hint="@string/photo_date" />
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="0.6"
+                android:paddingRight="15dp"
+                android:layout_gravity="bottom">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/result_photo_title"
+                    android:hint="@string/photo_title" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/result_photo_date"
+                    android:hint="@string/photo_date" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_weight="0.4"
+                android:id="@+id/result_photo"
+                android:src="@drawable/place_holder"/>
 
         </LinearLayout>
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="140dp"
-            android:layout_weight="0.4"
-            android:rotation="90"
-            android:id="@+id/result_photo"
-            android:src="@drawable/welcome"/>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginTop="15dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginTop="15dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:id="@+id/result_photo_location"
+                android:hint="@string/photo_location"
+                android:layout_weight="0.8"/>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:id="@+id/result_photo_location"
-            android:hint="@string/photo_location"
-            android:layout_weight="0.8"/>
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/result_keyword"
-        android:hint="@string/keyword"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="180dp">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/result_photo_comment"
-            android:hint="@string/photo_comment"
-            android:layout_marginTop="15dp"
-            android:gravity="top" />
-    </ScrollView>
+            android:layout_height="40dp"
+            android:id="@+id/result_keyword"
+            android:hint="@string/keyword"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginTop="20dp">
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="0.5"
-            android:src="@drawable/collection"
-            android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
-            android:id="@+id/result_collection"
-            android:layout_marginRight="10dp"
-            android:text="Save"
-            android:onClick="goCollectionShowcase"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/result_photo_comment"
+                android:hint="@string/photo_comment"
+                android:layout_marginTop="15dp"
+                android:gravity="top" />
+        </ScrollView>
 
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="0.5"
-            android:src="@drawable/edit"
-            android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
-            android:id="@+id/result_edit"
-            android:text="Save"
-            android:onClick=""
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginTop="20dp">
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="65dp"
+                android:layout_weight="0.5"
+                android:src="@drawable/collection"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:id="@+id/result_collection"
+                android:layout_marginRight="10dp"
+                android:text="Save"
+                android:onClick="goCollectionShowcase"/>
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="65dp"
+                android:layout_weight="0.5"
+                android:src="@drawable/edit"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:id="@+id/result_edit"
+                android:text="Save"
+                android:onClick=""
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+
+
     </LinearLayout>
 
 
-
-
-</LinearLayout>
+</RelativeLayout>

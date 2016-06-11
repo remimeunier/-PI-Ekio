@@ -76,7 +76,7 @@
             android:weightSum="1">
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_height="55dp"
                 android:layout_weight="0.5"
                 android:src="@drawable/back_button"
                 android:scaleType="fitCenter"
@@ -90,10 +90,10 @@
 
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="45dp"
+                android:layout_height="55dp"
                 android:id="@+id/details"
                 android:onClick="showDetails"
-                android:src="@drawable/delete_button"
+                android:src="@drawable/delete"
                 android:scaleType="fitCenter"
                 android:background="@android:color/transparent"
                 android:layout_marginLeft="10dp"

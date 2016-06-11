@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 imRegister.setVisibility(View.GONE);
             }
         }
+
+
     }
 
     public void goSignIn(View view) {

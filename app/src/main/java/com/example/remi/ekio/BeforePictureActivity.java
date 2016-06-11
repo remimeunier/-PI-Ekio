@@ -65,6 +65,10 @@ public class BeforePictureActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        File ekioFolder = new File("sdcard/EkioPhotos");
+        if(!ekioFolder.exists()){
+            ekioFolder.mkdir();
+        }
 
         // gestion du menu (voir main activity for details)
         mMenuItem = getResources().getStringArray(R.array.menu_item);
@@ -185,7 +189,7 @@ public class BeforePictureActivity extends AppCompatActivity {
             Toast.makeText(this, "Required permissions are not granted", Toast.LENGTH_LONG).show();
         }
     }
-/*
+
     //To creat file with random file name
     private File getFile(){
         File ekioFolder = new File("sdcard/EkioPhotos");
@@ -197,7 +201,6 @@ public class BeforePictureActivity extends AppCompatActivity {
         File image_file = new File(ekioFolder, name);
         return image_file;
     }
-*/
 
     private void saveFile(Bitmap bmp, String filename){
         FileOutputStream out = null;
