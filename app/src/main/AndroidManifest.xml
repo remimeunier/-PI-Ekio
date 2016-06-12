@@ -24,7 +24,7 @@
         <activity android:name=".SignInActivity" />
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".SaveInfoActivity"></activity>
-        <activity android:name=".PhotoGrandEcranACtivity">
+        <activity android:name=".ChooseFromCollectionActivity">
 
         </activity>
         <activity android:name=".CollectionShowcaseActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for

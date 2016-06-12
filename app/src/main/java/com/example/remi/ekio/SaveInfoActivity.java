@@ -75,7 +75,7 @@ public class SaveInfoActivity extends Activity {
 
         Toast.makeText(getApplicationContext(),
                 title + " has been saved ", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, PhotoGrandEcranACtivity.class);
+        Intent intent = new Intent(this, ChooseFromCollectionActivity.class);
         intent.putExtra(MESSAGE_KEY, id);
         startActivity(intent);
     }

@@ -43,6 +43,8 @@ import java.util.List;
 
 public class BeforePictureActivity extends AppCompatActivity {
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
+    public final static String MESSAGE_RES = "com.example.remi.ekio.messageres";
+    public final static String temp = "sdcard/EkioPhotos/tmp/tempfile.jpg";
     long time = System.currentTimeMillis();
     String name = String.valueOf(time)+".jpg";
     private final Rect Square = new Rect(300,300,300,300);
@@ -202,7 +204,6 @@ public class BeforePictureActivity extends AppCompatActivity {
             mCropImageView.setImageBitmap(cropped);
             mCropImageView.setShowCropOverlay(false);
             mCropImageView.setCropRect(null);
-            String temp = "sdcard/EkioPhotos/tmp"+name;
             savedPhoto = cropped;
 
             saveFile(cropped,temp );
@@ -228,24 +229,39 @@ public class BeforePictureActivity extends AppCompatActivity {
         }
         else if(button_id== (R.id.chooseToFind)){
             // // TODO: 10/06/16
-            String temp = "sdcard/EkioPhotos/tmp"+name;
             CollectionableDAO objectDao = new CollectionableDAO(this);
             objectDao.open();
 
             ObjectDetection test = new ObjectDetection();
             int i = 1;
+            int good, better, best;
+            good = better = best = 0;
             while( i<11 ){
 
                 int x = test.match(temp, objectDao.select(i).getPhotoPath());
                 //Bitmap myBitmap = BitmapFactory.decodeFile(objectDao.select(5).getPhotoPath());
                 //mCropImageView.setImageBitmap(myBitmap);
 
-                Toast.makeText(getApplicationContext(), String.valueOf(x) + " with " + String.valueOf(i), Toast.LENGTH_SHORT).show();
+                if (x > best){
+                    good = better;
+                    better = best;
+                    best = x;
+                } else if (x >better){
+                    good = better;
+                    better = x;
+                } else good = x;
+
+                //Toast.makeText(getApplicationContext(), String.valueOf(x) + " with " + String.valueOf(i), Toast.LENGTH_SHORT).show();
 
                 result.add(x);
                 i++;
             }
             objectDao.close();
+
+            String res = String.valueOf(good) +"," + String.valueOf(better) +"," + String.valueOf(best);
+            Intent showRes = new Intent(this, GoodMatchActivity.class);
+            showRes.putExtra(MESSAGE_RES, res);
+            startActivity(showRes);
 
         }
     }

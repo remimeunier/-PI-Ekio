@@ -12,10 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 
 
 import java.io.FileNotFoundException;
@@ -23,7 +21,7 @@ import java.io.FileNotFoundException;
 /**
  * Created by Hoang Nam on 31/05/2016.
  */
-public class PhotoGrandEcranACtivity extends Activity {
+public class ChooseFromCollectionActivity extends Activity {
 
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
     ImageView iv;
@@ -35,6 +33,7 @@ public class PhotoGrandEcranACtivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private LinearLayout point;
+    private int id;
 
 
 
@@ -53,17 +52,15 @@ public class PhotoGrandEcranACtivity extends Activity {
 
         // gestion du main content
         LayoutInflater factory = LayoutInflater.from(this);
-        View myView = factory.inflate(R.layout.resultat_layout, null);
+        View myView = factory.inflate(R.layout.choose_from_collection_layout, null);
         point = (LinearLayout) findViewById(R.id.point);
         point.addView(myView);
 
 
         Intent intent = getIntent();
-        //File file = intent.getExtras().getParcelable(("img"));
-        //String file = intent.getStringExtra("img");
 
         //get the ID send throught intent
-        int id = intent.getIntExtra(MESSAGE_KEY,1);
+        id = intent.getIntExtra(MESSAGE_KEY,1);
 
         //get the object matching the id
         CollectionableDAO objectDao = new CollectionableDAO(this);
@@ -81,36 +78,7 @@ public class PhotoGrandEcranACtivity extends Activity {
             e.printStackTrace();
         }
 
-       // iv.setImageURI(Uri.parse(object.getPhotoPath()));
-       // Uri image = Uri.parse(object.getPhotoPath());
 
-        //methode x
-  //      File imgFile = new  File(object.getPhotoPath());
-  //      if(imgFile.exists()){
-  //          Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-  //          int newVal = (350 * myBitmap.getWidth()) / myBitmap.getHeight();
-  //          myBitmap.getWidth();
-  //          getResizedBitmap(myBitmap, 350, newVal);
-  //          iv.setImageBitmap(myBitmap);
-
-   //     }
-
-        //3
-  //      iv.setImageDrawable(Drawable.createFromPath(object.getPhotoPath()));
-
-        //1
-//        Matrix matrix = new Matrix();
-  //      iv.setScaleType(ImageView.ScaleType.MATRIX);   //required
-        //matrix.postRotate((float) 90, 0, 0);
-   //     iv.setImageMatrix(matrix);
-        //3
-        //iv.setImageBitmap(decodeUri(selectedImage));
-        //imgbt.setImageUri(Uri.fromFile(new File("/data/data/....")));
-
-        // ???
-
-  //      fav = (ImageButton) findViewById(R.id.fav);
-  //      fav.setTag(R.drawable.fav_off);
         // show title, date, comment (to do)
         object_name = (TextView) findViewById(R.id.result_photo_title);
         object_name.setText(object.getTitle());
@@ -155,36 +123,6 @@ public class PhotoGrandEcranACtivity extends Activity {
                 getContentResolver().openInputStream(selectedImage), null, o2);
     }
 
-/*    public static Bitmap getResizedBitmap(Bitmap image, int newHeight, int newWidth) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // create a matrix for the manipulation
-        Matrix matrix = new Matrix();
-        // resize the bit map
-        matrix.postScale(scaleWidth, scaleHeight);
-        // recreate the new Bitmap
-        Bitmap resizedBitmap = Bitmap.createBitmap(image, 0, 0, width, height,
-                matrix, false);
-        return resizedBitmap;
-    }*/
-
-    /*    public void favorise(View view) {
-        if (fav.getTag().equals(R.drawable.fav_off)) {
-            fav.setImageResource(R.drawable.fav_on);
-            fav.setTag(R.drawable.fav_on);
-            Toast.makeText(getApplicationContext(),
-                    object_name.getText().toString() + "has been saved to Favorites", Toast.LENGTH_SHORT).show();
-
-        } else {
-            fav.setImageResource(R.drawable.fav_off);
-            fav.setTag(R.drawable.fav_off);
-            Toast.makeText(getApplicationContext(),
-                    object_name.getText().toString() + "has been removed from Favorites", Toast.LENGTH_SHORT).show();
-
-        }
-    }*/
 
     public void goCollectionShowcase(View view){
 
@@ -192,4 +130,9 @@ public class PhotoGrandEcranACtivity extends Activity {
         startActivity(intent);
     }
 
+    public void goBig(View view){
+        Intent goBig = new Intent(this, BigPhotoActivity.class);
+        goBig.putExtra(MESSAGE_KEY, id );
+        startActivity(goBig);
+    }
 }

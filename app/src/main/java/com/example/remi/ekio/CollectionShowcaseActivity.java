@@ -16,8 +16,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.content.Context;
 
 import android.widget.AdapterView.OnItemClickListener;
@@ -80,7 +78,7 @@ public class CollectionShowcaseActivity extends Activity {
                 objectDao2.open();
                 int idObject = objectDao2.getIdFromPath(list.get(position));
                 objectDao2.close();
-                Intent intent = new Intent(context, PhotoGrandEcranACtivity.class);
+                Intent intent = new Intent(context, ChooseFromCollectionActivity.class);
                 intent.putExtra(MESSAGE_KEY, idObject);
                 startActivity(intent);
             }

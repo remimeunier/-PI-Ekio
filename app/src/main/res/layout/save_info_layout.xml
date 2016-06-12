@@ -42,9 +42,8 @@
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_weight="0.4"
-                android:rotation="90"
                 android:id="@+id/photo"
-                android:src="@drawable/welcome"/>
+                android:src="@drawable/place_holder"/>
 
         </LinearLayout>
 
@@ -84,7 +83,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="160dp"
                 android:id="@+id/photo_comment"
                 android:hint="@string/photo_comment"
                 android:layout_marginTop="20dp"
