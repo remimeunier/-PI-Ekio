@@ -37,7 +37,8 @@
                     android:id="@+id/details"
                     android:scaleType="fitCenter"
                     android:background="@android:color/transparent"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_marginTop="15dp"
+                    android:onClick="goDetail"/>
             </LinearLayout>
 
             <LinearLayout

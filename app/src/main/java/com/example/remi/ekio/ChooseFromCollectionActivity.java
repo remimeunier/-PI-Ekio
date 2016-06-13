@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.Toast;
 
 
 import java.io.FileNotFoundException;
@@ -128,6 +129,11 @@ public class ChooseFromCollectionActivity extends Activity {
 
         Intent intent = new Intent(this, CollectionShowcaseActivity.class);
         startActivity(intent);
+    }
+
+    public void goEdit(View view){
+        Toast.makeText(getApplicationContext(),
+                "working process!!!", Toast.LENGTH_LONG).show();
     }
 
     public void goBig(View view){

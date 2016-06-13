@@ -22,11 +22,11 @@
         </activity>
         <activity android:name=".BeforePictureActivity" />
         <activity android:name=".SignInActivity" />
+        <activity android:name=".GoodMatchActivity"></activity>
+        <activity android:name=".BigPhotoActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".SaveInfoActivity"></activity>
-        <activity android:name=".ChooseFromCollectionActivity">
-
-        </activity>
+        <activity android:name=".ChooseFromCollectionActivity"></activity>
         <activity android:name=".CollectionShowcaseActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
