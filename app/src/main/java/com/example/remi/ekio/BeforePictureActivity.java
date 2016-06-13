@@ -44,7 +44,6 @@ import java.util.List;
 public class BeforePictureActivity extends AppCompatActivity {
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
     public final static String MESSAGE_RES = "com.example.remi.ekio.messageres";
-    public final static String temp = "sdcard/EkioPhotos/tmp/tempfile.jpg";
     long time = System.currentTimeMillis();
     String name = String.valueOf(time)+".jpg";
     private final Rect Square = new Rect(300,300,300,300);
@@ -83,8 +82,8 @@ public class BeforePictureActivity extends AppCompatActivity {
         }
 
         File tempFolder = new File("sdcard/EkioPhotos/tmp");
-        if(!ekioFolder.exists()){
-            ekioFolder.mkdir();
+        if(!tempFolder.exists()){
+            tempFolder.mkdir();
         }
 
 
@@ -146,7 +145,6 @@ public class BeforePictureActivity extends AppCompatActivity {
             }
 
             if (!requirePermissions) {
-                String path = "sdcard/EkioPhotos/"+name;
                 findingLoupe.setOnClickListener(null);
                 findingLoupe.setImageBitmap(null);
 
@@ -210,8 +208,8 @@ public class BeforePictureActivity extends AppCompatActivity {
             mCropImageView.setShowCropOverlay(false);
             mCropImageView.setCropRect(null);
             savedPhoto = cropped;
-
-            saveFile(cropped,temp );
+            String temp = "sdcard/EkioPhotos/tmp/"+name;
+            saveFile(savedPhoto,temp );
             choosetoCrop.setClickable(false);
             choosetoCrop.setImageBitmap(null);
             chooseToSave.setClickable(true);
@@ -227,6 +225,7 @@ public class BeforePictureActivity extends AppCompatActivity {
 
         if(button_id == (R.id.choosToSave)){
             String path = "sdcard/EkioPhotos/"+name;
+
             saveFile(savedPhoto, path);
             Intent save = new Intent(this, SaveInfoActivity.class);
             save.putExtra(MESSAGE_KEY, name);
@@ -242,39 +241,45 @@ public class BeforePictureActivity extends AppCompatActivity {
             test2.match2();
 
 
-            //CollectionableDAO objectDao = new CollectionableDAO(this);
+             // TODO: 10/06/16
+//            CollectionableDAO objectDao = new CollectionableDAO(this);
 //            objectDao.open();
-//            ArrayList<String> list = objectDao.allPath();
-//            objectDao.close();
-
+//            String temp = "sdcard/EkioPhotos/tmp/" + name;
+//            saveFile(savedPhoto, temp);
 //            ObjectDetection test = new ObjectDetection();
 //            int i = 1;
 //            int good, better, best;
-//            good = better = best = 0;
-//            for (String path : list) {
+//            good = better = best = 1;
+//            while( i<4 ){
 //
-//                int x = test.match(temp, path);
+//                int x = test.match(temp, objectDao.select(i).getPhotoPath());
 //                //Bitmap myBitmap = BitmapFactory.decodeFile(objectDao.select(5).getPhotoPath());
 //                //mCropImageView.setImageBitmap(myBitmap);
 //
-//                if (x > best){
+//               if (x > best){
 //                    good = better;
 //                    better = best;
-//                    best = x;
-//                } else if (x >better){
+//                    best = i;
+//               } else if (x >better){
 //                    good = better;
-//                    better = x;
-//                } else good = x;
+//                    better = i;
+//               } else if (x> good) {
+//                   good = i;
+//               }
 //
-//                //Toast.makeText(getApplicationContext(), String.valueOf(x) + " with " + String.valueOf(i), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), String.valueOf(x) + " with " + String.valueOf(i), Toast.LENGTH_SHORT).show();
 //
 //                result.add(x);
 //                i++;
 //            }
-
+//            objectDao.close();
+//
 //            String res = String.valueOf(good) +"," + String.valueOf(better) +"," + String.valueOf(best);
+//            //Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+//
 //            Intent showRes = new Intent(this, GoodMatchActivity.class);
 //            showRes.putExtra(MESSAGE_RES, res);
+//            showRes.putExtra(MESSAGE_KEY, name);
 //            startActivity(showRes);
 
         }
