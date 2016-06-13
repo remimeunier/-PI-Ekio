@@ -11,6 +11,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 //import org.opencv.;
 
@@ -26,42 +27,47 @@ public class ObjectDetection {
     MatOfKeyPoint keyPointsSearch;
     Mat descriptorsSearch;
     ArrayList<String> list;
-    ArrayList<MatOfKeyPoint> listMatchs;
+    HashMap<Integer, Integer> resultat;
 
 
     public ObjectDetection(){};
     public ObjectDetection(String imgpath, Context context){
 
+        resultat = new HashMap<Integer, Integer>();
+
         imgSearch = Imgcodecs.imread(imgpath, Imgcodecs.IMREAD_COLOR);
 
         // potetentiellement modifier // que veut dire le 15 ?
-        FeatureDetector fast = FeatureDetector.create(FeatureDetector.ORB);
+        FeatureDetector fast = FeatureDetector.create(FeatureDetector.AKAZE);
         // keypoints of image 1
         keyPointsSearch = new MatOfKeyPoint();
         fast.detect(imgSearch, keyPointsSearch);
         // potentielement à modifier
         descriptorsSearch = new Mat();
-        DescriptorExtractor descriptorExtractor = DescriptorExtractor.create(DescriptorExtractor.ORB); // conseillé par un mec sur yt
+        DescriptorExtractor descriptorExtractor = DescriptorExtractor.create(DescriptorExtractor.AKAZE); // conseillé par un mec sur yt
         descriptorExtractor.compute(imgSearch, keyPointsSearch, descriptorsSearch);
 
         CollectionableDAO objectDao = new CollectionableDAO(context);
         objectDao.open();
         list = objectDao.allPath();
-        objectDao.open();
+        objectDao.close();
 
 
     }
 
-    public int match2() {
+    public int match2(Context context) {
+
+        CollectionableDAO objectDao = new CollectionableDAO(context);
+        objectDao.open();
 
         for (String path : list) {
             Mat img = Imgcodecs.imread(path, Imgcodecs.IMREAD_COLOR);
 
-            FeatureDetector fast = FeatureDetector.create(FeatureDetector.ORB);
+            FeatureDetector fast = FeatureDetector.create(FeatureDetector.AKAZE);
             MatOfKeyPoint keyPoints = new MatOfKeyPoint();
             fast.detect(img, keyPoints);
 
-            DescriptorExtractor descriptorExtractor = DescriptorExtractor.create(DescriptorExtractor.ORB); // conseillé par un mec sur yt
+            DescriptorExtractor descriptorExtractor = DescriptorExtractor.create(DescriptorExtractor.AKAZE); // conseillé par un mec sur yt
             Mat descriptors = new Mat();
             descriptorExtractor.compute(img, keyPoints, descriptors);
 
@@ -71,28 +77,22 @@ public class ObjectDetection {
             ArrayList<MatOfDMatch> matchs = new ArrayList();
             descriptorMatcher.knnMatch(descriptors, descriptorsSearch, matchs, 2);
 
-            float ratio = 0.9f; // As in Lowe's paper (can be tuned)
+            float ratio = 0.8f; // As in Lowe's paper (can be tuned)
             MatOfKeyPoint goodMatches = new MatOfKeyPoint();
+            for (int matchIdx = 0; matchIdx < matchs.size(); ++matchIdx)
+            {
+                if (matchs.get(matchIdx).get(0,0)[3] < ratio * matchs.get(matchIdx).get(1,0)[3])
+                {
+                    goodMatches.push_back(matchs.get(matchIdx).row(0));
+                }
+            }
 
 
-
-//            descriptorMatcher.knnMatch(descriptors, descriptorsSearch, matchs, 2);
-
-//            float ratio = 0.9f; // As in Lowe's paper (can be tuned)
-//            MatOfKeyPoint goodMatches = new MatOfKeyPoint();
-//            for (int matchIdx = 0; matchIdx < matchs.size(); ++matchIdx)
-//            {
-//                if (matchs.get(matchIdx).get(0,0)[3] < ratio * matchs.get(matchIdx).get(1,0)[3])
-//                {
-//                    goodMatches.push_back(matchs.get(matchIdx).row(0));
-//                }
-//            }
-//
-//            listMatchs.add(goodMatches);
-            //List<DMatch> myList = matchs.toList();
-
+            int id = objectDao.getIdFromPath(path);
+            resultat.put(id, (int)goodMatches.size().height);
 
         }
+        objectDao.open();
 
         return 0;
     }
@@ -138,6 +138,8 @@ public class ObjectDetection {
                 goodMatches.push_back(matchs.get(matchIdx).row(0));
             }
         }
+
+
         /*MatOfKeyPoint matched1 = new MatOfKeyPoint();
         MatOfKeyPoint matched2 = new MatOfKeyPoint();
         MatOfKeyPoint inliers1 = new MatOfKeyPoint();

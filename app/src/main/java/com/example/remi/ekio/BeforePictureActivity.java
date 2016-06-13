@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class BeforePictureActivity extends AppCompatActivity {
@@ -238,7 +239,42 @@ public class BeforePictureActivity extends AppCompatActivity {
             saveFile(savedPhoto, path);
 //
             ObjectDetection test2 = new ObjectDetection(path, this);
-            test2.match2();
+            test2.match2(this);
+            int good, better, best, goodId, betterId, bestId;
+            good = better = best = goodId = betterId = bestId = 1;
+
+            for (Map.Entry<Integer, Integer> entry : test2.resultat.entrySet()) {  // Itrate through hashmap
+
+                if (entry.getValue() > best){
+                    good = better;
+                    better = best;
+                    best = entry.getValue();
+
+                    goodId = betterId;
+                    betterId = bestId;
+                    bestId = entry.getKey();
+               } else if (entry.getValue() >better){
+                    goodId = betterId;
+                    betterId = entry.getKey();
+
+                    good = better;
+                    better = entry.getValue();
+               } else if (entry.getValue()> good) {
+                     good = entry.getValue();
+
+                    goodId = entry.getKey();
+               }
+
+            }
+
+            String res = String.valueOf(goodId) +"," + String.valueOf(betterId) +"," + String.valueOf(bestId);
+
+            Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+
+            Intent showRes = new Intent(this, GoodMatchActivity.class);
+            showRes.putExtra(MESSAGE_RES, res);
+            showRes.putExtra(MESSAGE_KEY, name);
+            startActivity(showRes);
 
 
              // TODO: 10/06/16
@@ -274,13 +310,10 @@ public class BeforePictureActivity extends AppCompatActivity {
 //            }
 //            objectDao.close();
 //
-//            String res = String.valueOf(good) +"," + String.valueOf(better) +"," + String.valueOf(best);
+//
 //            //Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
 //
-//            Intent showRes = new Intent(this, GoodMatchActivity.class);
-//            showRes.putExtra(MESSAGE_RES, res);
-//            showRes.putExtra(MESSAGE_KEY, name);
-//            startActivity(showRes);
+
 
         }
     }
