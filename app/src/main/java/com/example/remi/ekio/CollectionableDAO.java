@@ -31,6 +31,10 @@ public class CollectionableDAO extends DAOBase {
         super(pContext);
     }
 
+    public void delete(int id) {
+        mDb.delete(TABLE_NAME, KEY + " = ?", new String[] {String.valueOf(id)});
+    }
+
     public int ajouter(Collectionable object) {
         ContentValues value = new ContentValues();
         value.put(CollectionableDAO.TITLE, object.getTitle());

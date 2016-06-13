@@ -79,7 +79,7 @@ public class ChooseFromCollectionActivity extends Activity {
         }
 
 
-        // show title, date, comment (to do)
+        // show title, date, comment
         object_name = (TextView) findViewById(R.id.result_photo_title);
         object_name.setText(object.getTitle());
         object_date = (TextView) findViewById(R.id.result_photo_date);

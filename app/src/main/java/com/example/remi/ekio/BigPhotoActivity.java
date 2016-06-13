@@ -30,10 +30,33 @@ public class BigPhotoActivity extends Activity {
     TextView title,date;
     int id;
 
+    // gestion du menu (voir main activity for details)
+    private String[] mMenuItem;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private LinearLayout point;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.big_photo_layout);
+        setContentView(R.layout.activity_main);
+
+
+        // gestion du menu (voir main activity for details)
+        mMenuItem = getResources().getStringArray(R.array.menu_item);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem);
+        mDrawerList.setAdapter(adapter);
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        // gestion du main content
+        LayoutInflater factory = LayoutInflater.from(this);
+        View myView = factory.inflate(R.layout.big_photo_layout, null);
+        point = (LinearLayout) findViewById(R.id.point);
+        point.addView(myView);
+
+
         delete = (ImageButton) findViewById(R.id.delete);
         photo = (ImageView) findViewById(R.id.photo_view);
         back = (ImageButton) findViewById(R.id.back);
@@ -63,7 +86,15 @@ public class BigPhotoActivity extends Activity {
     }
 
     public void photoDelete(View view){
-        Toast.makeText(getApplicationContext(), " working process", Toast.LENGTH_SHORT).show();
+        CollectionableDAO objectDao2 = new CollectionableDAO(this);
+        objectDao2.open();
+        objectDao2.delete(id);
+        objectDao2.close();
+
+        Toast.makeText(getApplicationContext(), "Object deleted.", Toast.LENGTH_SHORT).show();
+
+        Intent goBeforePicture = new Intent (this, BeforePictureActivity.class);
+        startActivity(goBeforePicture);
     }
 
 

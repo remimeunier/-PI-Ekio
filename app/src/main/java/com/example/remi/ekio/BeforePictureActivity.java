@@ -82,6 +82,11 @@ public class BeforePictureActivity extends AppCompatActivity {
             ekioFolder.mkdir();
         }
 
+        File tempFolder = new File("sdcard/EkioPhotos/tmp");
+        if(!ekioFolder.exists()){
+            ekioFolder.mkdir();
+        }
+
 
         // gestion du menu (voir main activity for details)
         mMenuItem = getResources().getStringArray(R.array.menu_item);
@@ -101,8 +106,8 @@ public class BeforePictureActivity extends AppCompatActivity {
         findingLoupe = (ImageView) findViewById(R.id.findingLoupe);
         mCropImageView = (CropImageView) findViewById(R.id.CropImageView);
         //mCropImageView.setCropRect(Square);
-        mCropImageView.setAspectRatio(1,1);
-        mCropImageView.setFixedAspectRatio(true);
+       // mCropImageView.setAspectRatio(1,1);
+       // mCropImageView.setFixedAspectRatio(true);
         mCropImageView.setScaleType(CropImageView.ScaleType.FIT_CENTER);
         chooseToSave = (ImageButton) findViewById(R.id.choosToSave);
         chooseToFind = (ImageButton) findViewById(R.id.chooseToFind);
@@ -111,7 +116,7 @@ public class BeforePictureActivity extends AppCompatActivity {
         C2 = (ImageView) findViewById(R.id.circle2);
 
 
-        result = new ArrayList<>();
+        result = new ArrayList();
     }
 
 
@@ -228,40 +233,49 @@ public class BeforePictureActivity extends AppCompatActivity {
             startActivity(save);
         }
         else if(button_id== (R.id.chooseToFind)){
-            // // TODO: 10/06/16
-            CollectionableDAO objectDao = new CollectionableDAO(this);
-            objectDao.open();
+            // TODO: 10/06/16
 
-            ObjectDetection test = new ObjectDetection();
-            int i = 1;
-            int good, better, best;
-            good = better = best = 0;
-            while( i<11 ){
+             String path = "sdcard/EkioPhotos/tmp/"+name;
+            saveFile(savedPhoto, path);
+//
+            ObjectDetection test2 = new ObjectDetection(path, this);
+            test2.match2();
 
-                int x = test.match(temp, objectDao.select(i).getPhotoPath());
-                //Bitmap myBitmap = BitmapFactory.decodeFile(objectDao.select(5).getPhotoPath());
-                //mCropImageView.setImageBitmap(myBitmap);
 
-                if (x > best){
-                    good = better;
-                    better = best;
-                    best = x;
-                } else if (x >better){
-                    good = better;
-                    better = x;
-                } else good = x;
+            //CollectionableDAO objectDao = new CollectionableDAO(this);
+//            objectDao.open();
+//            ArrayList<String> list = objectDao.allPath();
+//            objectDao.close();
 
-                //Toast.makeText(getApplicationContext(), String.valueOf(x) + " with " + String.valueOf(i), Toast.LENGTH_SHORT).show();
+//            ObjectDetection test = new ObjectDetection();
+//            int i = 1;
+//            int good, better, best;
+//            good = better = best = 0;
+//            for (String path : list) {
+//
+//                int x = test.match(temp, path);
+//                //Bitmap myBitmap = BitmapFactory.decodeFile(objectDao.select(5).getPhotoPath());
+//                //mCropImageView.setImageBitmap(myBitmap);
+//
+//                if (x > best){
+//                    good = better;
+//                    better = best;
+//                    best = x;
+//                } else if (x >better){
+//                    good = better;
+//                    better = x;
+//                } else good = x;
+//
+//                //Toast.makeText(getApplicationContext(), String.valueOf(x) + " with " + String.valueOf(i), Toast.LENGTH_SHORT).show();
+//
+//                result.add(x);
+//                i++;
+//            }
 
-                result.add(x);
-                i++;
-            }
-            objectDao.close();
-
-            String res = String.valueOf(good) +"," + String.valueOf(better) +"," + String.valueOf(best);
-            Intent showRes = new Intent(this, GoodMatchActivity.class);
-            showRes.putExtra(MESSAGE_RES, res);
-            startActivity(showRes);
+//            String res = String.valueOf(good) +"," + String.valueOf(better) +"," + String.valueOf(best);
+//            Intent showRes = new Intent(this, GoodMatchActivity.class);
+//            showRes.putExtra(MESSAGE_RES, res);
+//            startActivity(showRes);
 
         }
     }
