@@ -8,23 +8,27 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.system.ErrnoException;
 import android.support.v7.app.ActionBarActivity;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,13 +41,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class BeforePictureActivity extends AppCompatActivity {
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
+    public final static String MESSAGE_RES = "com.example.remi.ekio.messageres";
     long time = System.currentTimeMillis();
     String name = String.valueOf(time)+".jpg";
-    private final Rect Square = new Rect(300,300,300,300);
+    ArrayList<Integer> result;
 
     // gestion du menu (voir main activity for details)
     private String[] mMenuItem;
@@ -51,24 +57,37 @@ public class BeforePictureActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private LinearLayout point;
 
+    static {
+        // If you use opencv 2.4, System.loadLibrary("opencv_java")
+        System.loadLibrary("opencv_java3");
+    }
+
 
     // camera
     ImageView findingLoupe;
     CropImageView mCropImageView;
-    ImageButton chooseToFind, chooseToSave, choosetoCrop;
+    ImageButton chooseToFind, chooseToSave, choosetoCrop, rotate_right, rotate_left;
     Uri mCropImageUri;
     ImageView C1, C2;
     static final int CAM_REQUEST =1;
+    Bitmap savedPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         File ekioFolder = new File("sdcard/EkioPhotos");
         if(!ekioFolder.exists()){
             ekioFolder.mkdir();
         }
+
+        File tempFolder = new File("sdcard/EkioPhotos/tmp");
+        if(!tempFolder.exists()){
+            tempFolder.mkdir();
+        }
+
 
         // gestion du menu (voir main activity for details)
         mMenuItem = getResources().getStringArray(R.array.menu_item);
@@ -88,30 +107,18 @@ public class BeforePictureActivity extends AppCompatActivity {
         findingLoupe = (ImageView) findViewById(R.id.findingLoupe);
         mCropImageView = (CropImageView) findViewById(R.id.CropImageView);
         //mCropImageView.setCropRect(Square);
-        mCropImageView.setAspectRatio(1,1);
-        mCropImageView.setFixedAspectRatio(true);
-        mCropImageView.setScaleType(CropImageView.ScaleType.CENTER);
+       // mCropImageView.setAspectRatio(1,1);
+       // mCropImageView.setFixedAspectRatio(true);
+        mCropImageView.setScaleType(CropImageView.ScaleType.FIT_CENTER);
         chooseToSave = (ImageButton) findViewById(R.id.choosToSave);
         chooseToFind = (ImageButton) findViewById(R.id.chooseToFind);
         choosetoCrop = (ImageButton) findViewById(R.id.chooseTocrop);
+        rotate_left = (ImageButton) findViewById(R.id.rotate_left);
+        rotate_right = (ImageButton) findViewById(R.id.rotate_right);
         C1 = (ImageView) findViewById(R.id.circle1);
         C2 = (ImageView) findViewById(R.id.circle2);
 
-        /*
-        findingLoupe.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                File file = getFile();
-                camera_intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-
-                startActivityForResult(camera_intent,CAM_REQUEST);
-
-            }
-        });
-        */
+        result = new ArrayList();
     }
 
 
@@ -122,31 +129,7 @@ public class BeforePictureActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        /*
-        if(requestCode == CAM_REQUEST){
-            if(resultCode == RESULT_OK){
 
-                String path = "sdcard/EkioPhotos/"+name;
-                findingLoupe.setOnClickListener(null);
-                findingLoupe.setImageBitmap(null);
-                preview.setImageDrawable(Drawable.createFromPath(path));
-
-                chooseToSave.setClickable(true);
-                chooseToFind.setClickable(true);
-                chooseToSave.setImageResource(R.drawable.save);
-                chooseToFind.setImageResource(R.drawable.find);
-
-
-            }
-            else if(resultCode == RESULT_CANCELED){
-
-                //capture canceled
-            }
-            else{
-                //capture fail
-            }
-        }
-        */
 
         if (resultCode == Activity.RESULT_OK) {
             Uri imageUri = getPickImageResultUri(data);
@@ -165,7 +148,6 @@ public class BeforePictureActivity extends AppCompatActivity {
             }
 
             if (!requirePermissions) {
-                String path = "sdcard/EkioPhotos/"+name;
                 findingLoupe.setOnClickListener(null);
                 findingLoupe.setImageBitmap(null);
 
@@ -175,6 +157,22 @@ public class BeforePictureActivity extends AppCompatActivity {
 
                 choosetoCrop.setClickable(true);
                 choosetoCrop.setImageResource(R.drawable.crop);
+                rotate_left.setClickable(true);
+                rotate_left.setImageResource(R.drawable.crop_image_menu_rotate_left);
+                rotate_left.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()+90);
+                    }
+                });
+                rotate_right.setClickable(true);
+                rotate_right.setImageResource(R.drawable.crop_image_menu_rotate_right);
+                rotate_right.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()-90);
+                    }
+                });
             }
         }
     }
@@ -190,17 +188,6 @@ public class BeforePictureActivity extends AppCompatActivity {
         }
     }
 
-    //To creat file with random file name
-    private File getFile(){
-        File ekioFolder = new File("sdcard/EkioPhotos");
-        if(!ekioFolder.exists()){
-            ekioFolder.mkdir();
-        }
-
-
-        File image_file = new File(ekioFolder, name);
-        return image_file;
-    }
 
     private void saveFile(Bitmap bmp, String filename){
         FileOutputStream out = null;
@@ -239,10 +226,14 @@ public class BeforePictureActivity extends AppCompatActivity {
             mCropImageView.setImageBitmap(cropped);
             mCropImageView.setShowCropOverlay(false);
             mCropImageView.setCropRect(null);
-            String path = "sdcard/EkioPhotos/"+name;
-            saveFile(cropped, path);
+            savedPhoto = cropped;
             choosetoCrop.setClickable(false);
             choosetoCrop.setImageBitmap(null);
+            rotate_left.setClickable(false);
+            rotate_left.setImageBitmap(null);
+            rotate_right.setClickable(false);
+            rotate_right.setImageBitmap(null);
+
             chooseToSave.setClickable(true);
             chooseToFind.setClickable(true);
             chooseToSave.setImageResource(R.drawable.save);
@@ -255,13 +246,54 @@ public class BeforePictureActivity extends AppCompatActivity {
         button_id = ((ImageButton) view).getId();
 
         if(button_id == (R.id.choosToSave)){
+            String path = "sdcard/EkioPhotos/"+name;
+
+            saveFile(savedPhoto, path);
             Intent save = new Intent(this, SaveInfoActivity.class);
-            save.putExtra(MESSAGE_KEY, name);
+            save.putExtra(MESSAGE_KEY, path);
             startActivity(save);
         }
         else if(button_id== (R.id.chooseToFind)){
-            Toast.makeText(getApplicationContext(),
-                   "TO DO !!!!", Toast.LENGTH_LONG).show();
+            // TODO: 10/06/16
+            String path = "sdcard/EkioPhotos/tmp/"+name;
+            saveFile(savedPhoto, path);
+            ObjectDetection test2 = new ObjectDetection(path, this);
+            test2.match2(this);
+            int good, better, best, goodId, betterId, bestId;
+            good = better = best = goodId = betterId = bestId = 1;
+
+            for (Map.Entry<Integer, Integer> entry : test2.resultat.entrySet()) {  // Itrate through hashmap
+
+                if (entry.getValue() > best){
+                    good = better;
+                    better = best;
+                    best = entry.getValue();
+
+                    goodId = betterId;
+                    betterId = bestId;
+                    bestId = entry.getKey();
+               } else if (entry.getValue() >better){
+                    goodId = betterId;
+                    betterId = entry.getKey();
+
+                    good = better;
+                    better = entry.getValue();
+               } else if (entry.getValue()> good) {
+                     good = entry.getValue();
+
+                    goodId = entry.getKey();
+               }
+
+            }
+
+            String res = String.valueOf(goodId) +"," + String.valueOf(betterId) +"," + String.valueOf(bestId);
+
+            Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+            Intent showRes = new Intent(this, GoodMatchActivity.class);
+            showRes.putExtra(MESSAGE_RES, res);
+            showRes.putExtra(MESSAGE_KEY, name);
+            startActivity(showRes);
+
         }
     }
 

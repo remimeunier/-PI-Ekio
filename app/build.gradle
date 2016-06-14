@@ -25,4 +25,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.2.2'
+    compile project(':openCVLibrary310')
+    compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
+    compile files('libs/gson-2.2.2.jar')
 }

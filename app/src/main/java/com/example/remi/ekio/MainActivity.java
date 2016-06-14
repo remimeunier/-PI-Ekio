@@ -1,5 +1,6 @@
 package com.example.remi.ekio;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.view.View;
 import android.view.ViewGroup;
+import android.util.Log;
+
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.CvType;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,27 +31,31 @@ public class MainActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private LinearLayout point;
 
+    static {
+        // If you use opencv 2.4, System.loadLibrary("opencv_java")
+        System.loadLibrary("opencv_java3");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homescreen);
 
-    //    LayoutInflater factory = LayoutInflater.from(this);
-    //    View myView = factory.inflate(R.layout.homescreen, null);
-    //    point = (LinearLayout) findViewById(R.id.point);
-    //    point.addView(myView);
+/*        CollectionableDAO objectDao = new CollectionableDAO(this);
+        objectDao.open();
+        Collectionable object = objectDao.select(1);
+        objectDao.close();
 
-        //recup la list des menu item
-     //   mMenuItem = getResources().getStringArray(R.array.menu_item);
-     //   mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-      //  mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        String object_filename = object.getPhotoPath();
+        String scene_filename = object.getPhotoPath();
 
-        // Set the custom adapter for the list view
-        //CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem);
-        //mDrawerList.setAdapter(adapter);
-        // Set the list's click listener
-        //mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        AkazeImageFinder finder = new AkazeImageFinder();
+        finder.rotation = "0 degrees";
+        finder.findImage(object_filename, scene_filename);*/
+
+
+
 
         //sign In (if user created and non auto conexion) or Register (no account) or direct connect (auto connexion)
         UserDAO userDao = new UserDAO(this);
@@ -71,4 +86,5 @@ public class MainActivity extends AppCompatActivity {
         Intent goToRegister = new Intent(this, RegisterActivity.class);
         startActivity(goToRegister);
     }
+
 }
