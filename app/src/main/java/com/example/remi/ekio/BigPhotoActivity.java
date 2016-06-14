@@ -105,7 +105,7 @@ public class BigPhotoActivity extends Activity {
         AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                 //set message, title, and icon
                 .setTitle("Delete")
-                .setMessage("Do you want to Delete")
+                .setMessage("Do you want to delete ?")
                 .setIcon(R.drawable.trash)
 
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
@@ -115,12 +115,16 @@ public class BigPhotoActivity extends Activity {
                         CollectionableDAO objectDao2 = new CollectionableDAO(getApplicationContext());
                         objectDao2.open();
                         String path = objectDao2.select(id).getPhotoPath();
+                        String objectName = objectDao2.select(id).getTitle();
                         objectDao2.delete(id);
                         File del = new File(path);
                         del.delete();
                         objectDao2.close();
-
-                        Toast.makeText(getApplicationContext(), "Object deleted.", Toast.LENGTH_SHORT).show();
+                        if (objectName != ""){
+                            Toast.makeText(getApplicationContext(), objectName+"deleted.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Object deleted.", Toast.LENGTH_SHORT).show();
+                        }
 
                         Intent goBeforePicture = new Intent (getApplicationContext(), BeforePictureActivity.class);
                         startActivity(goBeforePicture);

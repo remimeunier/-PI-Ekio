@@ -41,13 +41,42 @@
             android:onClick="onLoadImageClick"
             android:layout_marginRight="12dp"/>
     </FrameLayout>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/preview">
 
-    <com.theartofdev.edmodo.cropper.CropImageView
-        android:layout_width="380dp"
-        android:layout_height="380dp"
-        android:id="@+id/CropImageView"
-        android:padding="7dp"
-        android:background="@android:color/transparent"/>
+        <com.theartofdev.edmodo.cropper.CropImageView
+            android:layout_width="380dp"
+            android:layout_height="380dp"
+            android:id="@+id/CropImageView"
+            android:padding="7dp"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center" />
+
+        <ImageButton
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:id="@+id/rotate_right"
+            android:clickable="false"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
+            android:padding="2.5dp"
+            android:layout_gravity="right|center_vertical" />
+
+        <ImageButton
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:id="@+id/rotate_left"
+            android:clickable="false"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
+            android:padding="2.5dp"
+            android:layout_gravity="left|center_vertical" />
+
+
+    </FrameLayout>
+
 
 
 
@@ -55,7 +84,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/CropImageView"
+        android:layout_below="@id/preview"
         android:orientation="horizontal"
         android:weightSum="1"
         android:paddingRight="10dp"
@@ -74,6 +103,8 @@
             android:onClick="userChoice"
             android:tag="@string/find"/>
 
+
+
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -84,6 +115,9 @@
             android:background="@android:color/transparent"
             android:onClick="onCropImageClick"
             android:padding="2.5dp"/>
+
+
+
 
         <ImageButton
             android:layout_width="wrap_content"
