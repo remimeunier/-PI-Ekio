@@ -66,7 +66,7 @@ public class BeforePictureActivity extends AppCompatActivity {
     // camera
     ImageView findingLoupe;
     CropImageView mCropImageView;
-    ImageButton chooseToFind, chooseToSave, choosetoCrop;
+    ImageButton chooseToFind, chooseToSave, choosetoCrop, rotate_right, rotate_left;
     Uri mCropImageUri;
     ImageView C1, C2;
     static final int CAM_REQUEST =1;
@@ -113,6 +113,8 @@ public class BeforePictureActivity extends AppCompatActivity {
         chooseToSave = (ImageButton) findViewById(R.id.choosToSave);
         chooseToFind = (ImageButton) findViewById(R.id.chooseToFind);
         choosetoCrop = (ImageButton) findViewById(R.id.chooseTocrop);
+        rotate_left = (ImageButton) findViewById(R.id.rotate_left);
+        rotate_right = (ImageButton) findViewById(R.id.rotate_right);
         C1 = (ImageView) findViewById(R.id.circle1);
         C2 = (ImageView) findViewById(R.id.circle2);
 
@@ -155,6 +157,22 @@ public class BeforePictureActivity extends AppCompatActivity {
 
                 choosetoCrop.setClickable(true);
                 choosetoCrop.setImageResource(R.drawable.crop);
+                rotate_left.setClickable(true);
+                rotate_left.setImageResource(R.drawable.crop_image_menu_rotate_left);
+                rotate_left.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()+90);
+                    }
+                });
+                rotate_right.setClickable(true);
+                rotate_right.setImageResource(R.drawable.crop_image_menu_rotate_right);
+                rotate_right.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()-90);
+                    }
+                });
             }
         }
     }
@@ -211,6 +229,11 @@ public class BeforePictureActivity extends AppCompatActivity {
             savedPhoto = cropped;
             choosetoCrop.setClickable(false);
             choosetoCrop.setImageBitmap(null);
+            rotate_left.setClickable(false);
+            rotate_left.setImageBitmap(null);
+            rotate_right.setClickable(false);
+            rotate_right.setImageBitmap(null);
+
             chooseToSave.setClickable(true);
             chooseToFind.setClickable(true);
             chooseToSave.setImageResource(R.drawable.save);
@@ -374,7 +397,5 @@ public class BeforePictureActivity extends AppCompatActivity {
         }
         return false;
     }
-
-
 
 }
