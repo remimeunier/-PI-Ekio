@@ -23,6 +23,7 @@ public class GoodMatchActivity extends Activity {
 
     public final static String MESSAGE_RES = "com.example.remi.ekio.messageres";
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
+    public final static String MESSAGE_FROMBIG = "com.example.remi.ekio.messagefrombig";
     ImageView good, better,best, showing, searched;
     ImageButton collection, save, details;
     Bitmap goodImage, betterImage,bestImage,tempImage;
@@ -91,6 +92,7 @@ public class GoodMatchActivity extends Activity {
     public void goDetail(View view){
         Intent detail = new Intent(this,ChooseFromCollectionActivity.class);
         detail.putExtra(MESSAGE_KEY,detailId);
+        detail.putExtra(MESSAGE_FROMBIG, tempfile);
         startActivity(detail);
     }
     public void showGood(View view){
@@ -109,7 +111,8 @@ public class GoodMatchActivity extends Activity {
     }
 
     public void goCollectionShowcase(View view){
-
+        File del = new File(tempfile);
+        del.delete();
         Intent intent = new Intent(this, CollectionShowcaseActivity.class);
         startActivity(intent);
     }

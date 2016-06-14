@@ -17,6 +17,7 @@ import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
@@ -25,6 +26,8 @@ import java.io.FileNotFoundException;
 public class ChooseFromCollectionActivity extends Activity {
 
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
+    public final static String MESSAGE_DEL = "com.example.remi.ekio.messagedel";
+    public final static String MESSAGE_FROMBIG = "com.example.remi.ekio.messagefrombig";
     ImageView iv;
     ImageButton fav;
     TextView object_name, object_date, object_key_words, object_comment, object_location;
@@ -35,6 +38,7 @@ public class ChooseFromCollectionActivity extends Activity {
     private ListView mDrawerList;
     private LinearLayout point;
     private int id;
+    private String path, tempfile;
 
 
 
@@ -62,11 +66,12 @@ public class ChooseFromCollectionActivity extends Activity {
 
         //get the ID send throught intent
         id = intent.getIntExtra(MESSAGE_KEY,1);
-
+        tempfile = intent.getStringExtra(MESSAGE_FROMBIG);
         //get the object matching the id
         CollectionableDAO objectDao = new CollectionableDAO(this);
         objectDao.open();
         Collectionable object = objectDao.select(id);
+        path = object.getPhotoPath();
         objectDao.close();
 
         //show the image with size downgrading
@@ -126,19 +131,30 @@ public class ChooseFromCollectionActivity extends Activity {
 
 
     public void goCollectionShowcase(View view){
-
+        if (tempfile!=null) {
+            File del = new File(tempfile);
+            del.delete();
+        }
         Intent intent = new Intent(this, CollectionShowcaseActivity.class);
         startActivity(intent);
     }
 
     public void goEdit(View view){
-        Toast.makeText(getApplicationContext(),
-                "working process!!!", Toast.LENGTH_LONG).show();
+        if (tempfile!=null) {
+            File del = new File(tempfile);
+            del.delete();
+        }
+       // Toast.makeText(getApplicationContext(),
+         //       "working process!!!", Toast.LENGTH_LONG).show();
+        Intent goEdit = new Intent(this, SaveInfoActivity.class);
+        goEdit.putExtra(MESSAGE_KEY,path);
+        goEdit.putExtra(MESSAGE_DEL,true);
+        startActivity(goEdit);
     }
 
     public void goBig(View view){
         Intent goBig = new Intent(this, BigPhotoActivity.class);
-        goBig.putExtra(MESSAGE_KEY, id );
+        goBig.putExtra(MESSAGE_KEY, path);
         startActivity(goBig);
     }
 }

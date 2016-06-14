@@ -14,6 +14,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v4.widget.DrawerLayout;
@@ -27,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +49,6 @@ public class BeforePictureActivity extends AppCompatActivity {
     public final static String MESSAGE_RES = "com.example.remi.ekio.messageres";
     long time = System.currentTimeMillis();
     String name = String.valueOf(time)+".jpg";
-    private final Rect Square = new Rect(300,300,300,300);
     ArrayList<Integer> result;
 
     // gestion du menu (voir main activity for details)
@@ -114,7 +115,6 @@ public class BeforePictureActivity extends AppCompatActivity {
         choosetoCrop = (ImageButton) findViewById(R.id.chooseTocrop);
         C1 = (ImageView) findViewById(R.id.circle1);
         C2 = (ImageView) findViewById(R.id.circle2);
-
 
         result = new ArrayList();
     }
@@ -209,8 +209,6 @@ public class BeforePictureActivity extends AppCompatActivity {
             mCropImageView.setShowCropOverlay(false);
             mCropImageView.setCropRect(null);
             savedPhoto = cropped;
-            String temp = "sdcard/EkioPhotos/tmp/"+name;
-            saveFile(savedPhoto,temp );
             choosetoCrop.setClickable(false);
             choosetoCrop.setImageBitmap(null);
             chooseToSave.setClickable(true);
@@ -229,15 +227,13 @@ public class BeforePictureActivity extends AppCompatActivity {
 
             saveFile(savedPhoto, path);
             Intent save = new Intent(this, SaveInfoActivity.class);
-            save.putExtra(MESSAGE_KEY, name);
+            save.putExtra(MESSAGE_KEY, path);
             startActivity(save);
         }
         else if(button_id== (R.id.chooseToFind)){
             // TODO: 10/06/16
-
-             String path = "sdcard/EkioPhotos/tmp/"+name;
+            String path = "sdcard/EkioPhotos/tmp/"+name;
             saveFile(savedPhoto, path);
-//
             ObjectDetection test2 = new ObjectDetection(path, this);
             test2.match2(this);
             int good, better, best, goodId, betterId, bestId;
@@ -270,50 +266,10 @@ public class BeforePictureActivity extends AppCompatActivity {
             String res = String.valueOf(goodId) +"," + String.valueOf(betterId) +"," + String.valueOf(bestId);
 
             Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
-
             Intent showRes = new Intent(this, GoodMatchActivity.class);
             showRes.putExtra(MESSAGE_RES, res);
             showRes.putExtra(MESSAGE_KEY, name);
             startActivity(showRes);
-
-
-             // TODO: 10/06/16
-//            CollectionableDAO objectDao = new CollectionableDAO(this);
-//            objectDao.open();
-//            String temp = "sdcard/EkioPhotos/tmp/" + name;
-//            saveFile(savedPhoto, temp);
-//            ObjectDetection test = new ObjectDetection();
-//            int i = 1;
-//            int good, better, best;
-//            good = better = best = 1;
-//            while( i<4 ){
-//
-//                int x = test.match(temp, objectDao.select(i).getPhotoPath());
-//                //Bitmap myBitmap = BitmapFactory.decodeFile(objectDao.select(5).getPhotoPath());
-//                //mCropImageView.setImageBitmap(myBitmap);
-//
-//               if (x > best){
-//                    good = better;
-//                    better = best;
-//                    best = i;
-//               } else if (x >better){
-//                    good = better;
-//                    better = i;
-//               } else if (x> good) {
-//                   good = i;
-//               }
-//
-//                Toast.makeText(getApplicationContext(), String.valueOf(x) + " with " + String.valueOf(i), Toast.LENGTH_SHORT).show();
-//
-//                result.add(x);
-//                i++;
-//            }
-//            objectDao.close();
-//
-//
-//            //Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
-//
-
 
         }
     }
@@ -418,5 +374,7 @@ public class BeforePictureActivity extends AppCompatActivity {
         }
         return false;
     }
+
+
 
 }

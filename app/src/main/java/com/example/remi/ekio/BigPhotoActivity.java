@@ -1,10 +1,12 @@
 package com.example.remi.ekio;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,6 +19,7 @@ import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
@@ -28,6 +31,7 @@ public class BigPhotoActivity extends Activity {
     ImageView photo;
     ImageButton back;
     TextView title,date;
+    String path;
     int id;
 
     // gestion du menu (voir main activity for details)
@@ -64,10 +68,12 @@ public class BigPhotoActivity extends Activity {
         date = (TextView) findViewById(R.id.object_date);
 
         Intent intent = getIntent();
-        id = intent.getIntExtra(MESSAGE_KEY,1);
+        path = intent.getStringExtra(MESSAGE_KEY);
 
         CollectionableDAO objectDao = new CollectionableDAO(this);
         objectDao.open();
+
+        id = objectDao.getIdFromPath(path);
         Collectionable object = objectDao.select(id);
         objectDao.close();
 
@@ -86,15 +92,60 @@ public class BigPhotoActivity extends Activity {
     }
 
     public void photoDelete(View view){
-        CollectionableDAO objectDao2 = new CollectionableDAO(this);
-        objectDao2.open();
-        objectDao2.delete(id);
-        objectDao2.close();
 
-        Toast.makeText(getApplicationContext(), "Object deleted.", Toast.LENGTH_SHORT).show();
+        AlertDialog diaBox = AskOption();
+        diaBox.show();
 
-        Intent goBeforePicture = new Intent (this, BeforePictureActivity.class);
-        startActivity(goBeforePicture);
+    }
+
+
+
+    private AlertDialog AskOption()
+    {
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Do you want to Delete")
+                .setIcon(R.drawable.trash)
+
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //your deleting code
+                        CollectionableDAO objectDao2 = new CollectionableDAO(getApplicationContext());
+                        objectDao2.open();
+                        String path = objectDao2.select(id).getPhotoPath();
+                        objectDao2.delete(id);
+                        File del = new File(path);
+                        del.delete();
+                        objectDao2.close();
+
+                        Toast.makeText(getApplicationContext(), "Object deleted.", Toast.LENGTH_SHORT).show();
+
+                        Intent goBeforePicture = new Intent (getApplicationContext(), BeforePictureActivity.class);
+                        startActivity(goBeforePicture);
+
+                        dialog.dismiss();
+                    }
+
+                })
+
+
+
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+
+    }
+
+    public void favorise(){
+        Toast.makeText(getApplicationContext(), "Premium feature !", Toast.LENGTH_SHORT).show();
     }
 
 
