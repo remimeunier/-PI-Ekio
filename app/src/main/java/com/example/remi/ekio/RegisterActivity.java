@@ -47,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(cContext, BeforePictureActivity.class);
                         cContext.startActivity(intent);
+                        finish();
                     } else {
                         etEmail.getText().clear();
                         Toast.makeText(RegisterActivity.this, "Email must be valid, try again",

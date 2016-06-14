@@ -126,7 +126,7 @@ public class BigPhotoActivity extends Activity {
                             Toast.makeText(getApplicationContext(), "Object deleted.", Toast.LENGTH_SHORT).show();
                         }
 
-                        Intent goBeforePicture = new Intent (getApplicationContext(), BeforePictureActivity.class);
+                        Intent goBeforePicture = new Intent (getApplicationContext(), CollectionShowcaseActivity.class);
                         startActivity(goBeforePicture);
 
                         dialog.dismiss();

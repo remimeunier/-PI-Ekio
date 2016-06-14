@@ -137,6 +137,7 @@ public class ChooseFromCollectionActivity extends Activity {
         }
         Intent intent = new Intent(this, CollectionShowcaseActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void goEdit(View view){
@@ -156,5 +157,6 @@ public class ChooseFromCollectionActivity extends Activity {
         Intent goBig = new Intent(this, BigPhotoActivity.class);
         goBig.putExtra(MESSAGE_KEY, path);
         startActivity(goBig);
+
     }
 }

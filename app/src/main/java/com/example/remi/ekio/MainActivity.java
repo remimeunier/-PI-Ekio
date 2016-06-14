@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             if (user.getAuto() == true) {
                 Intent intent = new Intent(this, BeforePictureActivity.class);
                 startActivity(intent);
+                finish();
             } else {
                 final ImageView imRegister = (ImageView) findViewById(R.id.register);
                 imRegister.setVisibility(View.GONE);
@@ -81,10 +82,12 @@ public class MainActivity extends AppCompatActivity {
     public void goSignIn(View view) {
         Intent goSignIn = new Intent(this, SignInActivity.class);
         startActivity(goSignIn);
+        finish();
     }
     public void goRegister(View view) {
         Intent goToRegister = new Intent(this, RegisterActivity.class);
         startActivity(goToRegister);
+        finish();
     }
 
 }

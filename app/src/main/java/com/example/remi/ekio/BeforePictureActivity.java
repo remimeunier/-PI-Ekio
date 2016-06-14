@@ -191,7 +191,7 @@ public class BeforePictureActivity extends AppCompatActivity {
 
     private void saveFile(Bitmap bmp, String filename){
         FileOutputStream out = null;
-        bmp.createScaledBitmap(bmp,bmp.getWidth()/3,bmp.getHeight()/3,false);
+        //bmp.createScaledBitmap(bmp,bmp.getWidth()/3,bmp.getHeight()/3,false);
         try {
             out = new FileOutputStream(filename);
             bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
@@ -253,6 +253,7 @@ public class BeforePictureActivity extends AppCompatActivity {
             Intent save = new Intent(this, SaveInfoActivity.class);
             save.putExtra(MESSAGE_KEY, path);
             startActivity(save);
+            finish();
         }
         else if(button_id== (R.id.chooseToFind)){
             // TODO: 10/06/16
@@ -294,6 +295,7 @@ public class BeforePictureActivity extends AppCompatActivity {
             showRes.putExtra(MESSAGE_RES, res);
             showRes.putExtra(MESSAGE_KEY, name);
             startActivity(showRes);
+            finish();
 
         }
     }
