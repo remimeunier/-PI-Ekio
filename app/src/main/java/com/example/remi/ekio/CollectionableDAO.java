@@ -3,7 +3,11 @@ package com.example.remi.ekio;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+
+import org.opencv.core.Mat;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by remi on 01/06/16.
@@ -18,6 +22,7 @@ public class CollectionableDAO extends DAOBase {
     public static final String COMMENT = "comment";
     public static final String KEYWORDS = "key_words";
     public static final String PHOTO_PATH = "photo_path";
+    public static final String DESCRIPTOR = "descriptor";
 
     public static final String TABLE_NAME = "Collectionable";
 
@@ -43,6 +48,7 @@ public class CollectionableDAO extends DAOBase {
         value.put(CollectionableDAO.COMMENT, object.getcomment());
         value.put(CollectionableDAO.KEYWORDS, object.getKeyWords());
         value.put(CollectionableDAO.PHOTO_PATH, object.getPhotoPath());
+        value.put(CollectionableDAO.DESCRIPTOR, object.getDecriptor());
         long id = mDb.insert(CollectionableDAO.TABLE_NAME, null, value);
 
         return (int) (long)id;
@@ -68,6 +74,18 @@ public class CollectionableDAO extends DAOBase {
         }
         return null;
 
+    }
+    public HashMap<Integer, Mat> allMat(){
+        Cursor cursor = mDb.rawQuery("select " + KEY + ", " + DESCRIPTOR + " from " + TABLE_NAME, null);
+        //ArrayList<String> path = new ArrayList<String>();
+        HashMap<Integer, Mat> mat = new HashMap<Integer, Mat>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            mat.put((int)cursor.getLong(0), Collectionable.matFromJson(cursor.getString(1)));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return mat;
     }
 
     public ArrayList<String> allPath(){

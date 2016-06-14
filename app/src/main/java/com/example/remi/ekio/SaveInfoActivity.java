@@ -83,7 +83,7 @@ public class SaveInfoActivity extends Activity {
         final String date = etDate.getText().toString();
         final String location = etLocation.getText().toString();
 
-        Collectionable object = new Collectionable(title, date, location, comment, keyWords, path);
+        Collectionable object = new Collectionable(title, date, location, comment, keyWords, path, true);
         CollectionableDAO objectDao = new CollectionableDAO(this);
         objectDao.open();
         if(isDel == true){

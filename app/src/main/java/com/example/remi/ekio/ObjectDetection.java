@@ -27,7 +27,7 @@ public class ObjectDetection {
     Mat imgSearch;
     MatOfKeyPoint keyPointsSearch;
     Mat descriptorsSearch;
-    ArrayList<String> list;
+    HashMap<Integer, Mat> list;
     HashMap<Integer, Integer> resultat;
 
 
@@ -53,7 +53,7 @@ public class ObjectDetection {
 
         CollectionableDAO objectDao = new CollectionableDAO(context);
         objectDao.open();
-        list = objectDao.allPath();
+        list = objectDao.allMat();
         objectDao.close();
 
 
@@ -64,9 +64,9 @@ public class ObjectDetection {
         CollectionableDAO objectDao = new CollectionableDAO(context);
         objectDao.open();
 
-        for (String path : list) {
+        for (Integer mapKey : list.keySet()) {
             Toast.makeText(context, "Please wait ...", Toast.LENGTH_SHORT).show();
-            Mat img = Imgcodecs.imread(path, Imgcodecs.IMREAD_COLOR);
+/*            Mat img = Imgcodecs.imread(path, Imgcodecs.IMREAD_COLOR);
 
             FeatureDetector fast = FeatureDetector.create(FeatureDetector.AKAZE);
             MatOfKeyPoint keyPoints = new MatOfKeyPoint();
@@ -74,13 +74,13 @@ public class ObjectDetection {
 
             DescriptorExtractor descriptorExtractor = DescriptorExtractor.create(DescriptorExtractor.AKAZE); // conseillé par un mec sur yt
             Mat descriptors = new Mat();
-            descriptorExtractor.compute(img, keyPoints, descriptors);
+            descriptorExtractor.compute(img, keyPoints, descriptors);*/
 
             DescriptorMatcher descriptorMatcher = DescriptorMatcher.create(DescriptorMatcher.BRUTEFORCE);
             //MatOfDMatch matchs = new MatOfDMatch();
 
             ArrayList<MatOfDMatch> matchs = new ArrayList();
-            descriptorMatcher.knnMatch(descriptors, descriptorsSearch, matchs, 2);
+            descriptorMatcher.knnMatch(list.get(mapKey), descriptorsSearch, matchs, 2);
 
             float ratio = 0.8f; // As in Lowe's paper (can be tuned)
             MatOfKeyPoint goodMatches = new MatOfKeyPoint();
@@ -93,8 +93,8 @@ public class ObjectDetection {
             }
 
 
-            int id = objectDao.getIdFromPath(path);
-            resultat.put(id, (int)goodMatches.size().height);
+          //  int id = objectDao.getIdFromPath(path);
+            resultat.put(mapKey, (int)goodMatches.size().height);
 
 
         }
@@ -103,79 +103,7 @@ public class ObjectDetection {
         return 0;
     }
 
-    public int match(String img1_filename, String img2_filename) {
 
-        Mat img1 = Imgcodecs.imread(img1_filename, Imgcodecs.IMREAD_COLOR);
-        Mat img2 = Imgcodecs.imread(img2_filename, Imgcodecs.IMREAD_COLOR);
-
-
-        // potetentiellement modifier // que veut dire le 15 ?
-        FeatureDetector fast = FeatureDetector.create(FeatureDetector.AKAZE);
-
-        // keypoints of image 1
-        MatOfKeyPoint keyPoints1 = new MatOfKeyPoint();
-        fast.detect(img1, keyPoints1);
-
-        // pour image2
-        FeatureDetector fast2 = FeatureDetector.create(FeatureDetector.AKAZE);
-        MatOfKeyPoint keyPoints2 = new MatOfKeyPoint();
-        fast2.detect(img2, keyPoints2);
-
-        // potentielement à modifier
-        DescriptorExtractor descriptorExtractor = DescriptorExtractor.create(DescriptorExtractor.AKAZE); // conseillé par un mec sur yt
-        Mat descriptors1 = new Mat();
-        descriptorExtractor.compute(img1, keyPoints1, descriptors1);
-
-        Mat descriptors2 = new Mat();
-        DescriptorExtractor descriptorExtractor2 = DescriptorExtractor.create(DescriptorExtractor.AKAZE);
-        descriptorExtractor2.compute(img2, keyPoints2, descriptors2);
-
-        //matcher que veut dire brutforce
-        DescriptorMatcher descriptorMatcher = DescriptorMatcher.create(DescriptorMatcher.BRUTEFORCE); // regarder flann matcher
-        ArrayList<MatOfDMatch> matchs = new ArrayList();
-        descriptorMatcher.knnMatch(descriptors1, descriptors2, matchs, 2);
-
-        float ratio = 0.9f; // As in Lowe's paper (can be tuned)
-        MatOfKeyPoint goodMatches = new MatOfKeyPoint();
-        for (int matchIdx = 0; matchIdx < matchs.size(); ++matchIdx)
-        {
-            if (matchs.get(matchIdx).get(0,0)[3] < ratio * matchs.get(matchIdx).get(1,0)[3])
-            {
-                goodMatches.push_back(matchs.get(matchIdx).row(0));
-            }
-        }
-
-
-        /*MatOfKeyPoint matched1 = new MatOfKeyPoint();
-        MatOfKeyPoint matched2 = new MatOfKeyPoint();
-        MatOfKeyPoint inliers1 = new MatOfKeyPoint();
-        MatOfKeyPoint inliers2 = new MatOfKeyPoint();
-        MatOfDMatch goodMatchs = new MatOfDMatch();
-
-        DMatch first;
-        float dist1;
-        float dist2;
-        for(int i = 0; i < matchs.get(0).size().height; i++) {
-
-            first = new DMatch((int)matchs.get(0).get(i, 0)[0], (int)matchs.get(0).get(i, 0)[1], (int)matchs.get(0).get(i, 0)[2], (float)matchs.get(0).get(i, 0)[3]);
-            dist1 = (float)matchs.get(0).get(i, 0)[3];
-            dist2 = (float)matchs.get(1).get(i, 0)[3];
-
-            if(dist1 < 0.8*dist2) {
-                matched1.push_back((keyPoints1.row(first.queryIdx)));
-                matched2.push_back((keyPoints2.row(first.trainIdx)));
-            }
-        }
-
-        Mat col = Mat.ones(3,1,CvType.CV_64F);
-        for (int i = 0; i < matched1.size().height; i++) {
-            col.
-        }*/
-
-
-        matchs.toArray();
-        return (int)goodMatches.size().height;
-    }
 
 
 }
