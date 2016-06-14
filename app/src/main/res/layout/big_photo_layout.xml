@@ -58,7 +58,6 @@
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 android:padding="18dp"
-                android:onClick="favorise"
                 android:layout_gravity="right"
                 android:layout_marginRight="5dp"/>
 

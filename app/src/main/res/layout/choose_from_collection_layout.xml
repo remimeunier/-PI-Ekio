@@ -42,7 +42,7 @@
                         android:hint="@string/photo_title"
                         android:textColor="@android:color/white"
                         android:textSize="30dp"
-                        android:layout_margin="10dp"
+
                         android:textStyle="italic"
                         android:gravity="center_horizontal"/>
                 </FrameLayout>

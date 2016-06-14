@@ -251,7 +251,7 @@ public class BeforePictureActivity extends AppCompatActivity {
 
             saveFile(savedPhoto, path);
             Intent save = new Intent(this, SaveInfoActivity.class);
-            save.putExtra(MESSAGE_KEY, path);
+            save.putExtra(MESSAGE_KEY, name);
             startActivity(save);
             finish();
         }
