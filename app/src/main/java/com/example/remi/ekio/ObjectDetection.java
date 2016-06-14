@@ -35,6 +35,9 @@ public class ObjectDetection {
 
         resultat = new HashMap<Integer, Integer>();
 
+     //   imgSearch = new Mat();
+      //  Imgproc.resize(Imgcodecs.imread(imgpath, Imgcodecs.IMREAD_COLOR), imgSearch, new Size(), 0.5, 0.5, Imgproc.INTER_CUBIC);
+
         imgSearch = Imgcodecs.imread(imgpath, Imgcodecs.IMREAD_COLOR);
 
         // potetentiellement modifier // que veut dire le 15 ?
