@@ -1,6 +1,7 @@
 package com.example.remi.ekio;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
@@ -61,6 +62,7 @@ public class ObjectDetection {
         objectDao.open();
 
         for (String path : list) {
+            Toast.makeText(context, "Please wait ...", Toast.LENGTH_SHORT).show();
             Mat img = Imgcodecs.imread(path, Imgcodecs.IMREAD_COLOR);
 
             FeatureDetector fast = FeatureDetector.create(FeatureDetector.AKAZE);
@@ -91,8 +93,9 @@ public class ObjectDetection {
             int id = objectDao.getIdFromPath(path);
             resultat.put(id, (int)goodMatches.size().height);
 
+
         }
-        objectDao.open();
+        objectDao.close();
 
         return 0;
     }

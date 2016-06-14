@@ -81,6 +81,7 @@ public class CollectionShowcaseActivity extends Activity {
                 Intent intent = new Intent(context, ChooseFromCollectionActivity.class);
                 intent.putExtra(MESSAGE_KEY, idObject);
                 startActivity(intent);
+                overridePendingTransition(R.animator.fade_in, R.animator.fade_out);
             }
         });
 

@@ -19,10 +19,12 @@ import java.util.Calendar;
 public class SaveInfoActivity extends Activity {
 
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
+    public final static String MESSAGE_DEL = "com.example.remi.ekio.messagedel";
     ImageView preview;
     EditText etDate, etTitle, etComment, etKeyWord, etLocation;
     ImageButton geo;
     String path;
+    boolean isDel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +33,17 @@ public class SaveInfoActivity extends Activity {
 
         // get intent fot photo path
         Intent intent = getIntent();
-        String name = intent.getStringExtra(MESSAGE_KEY);
-        path = "sdcard/EkioPhotos/"+name;
+        path = intent.getStringExtra(MESSAGE_KEY);
+        isDel = intent.getBooleanExtra(MESSAGE_DEL,false);
+        //path = "sdcard/EkioPhotos/"+name;
 
         //get edit Text
         etTitle = (EditText) findViewById(R.id.photo_title);
         etComment = (EditText) findViewById(R.id.photo_comment);
         etKeyWord = (EditText) findViewById(R.id.keyword);
         etLocation = (EditText) findViewById(R.id.photo_location);
+
+
 
         // get other component
         geo = (ImageButton) findViewById(R.id.geolocalisation);
@@ -57,6 +62,17 @@ public class SaveInfoActivity extends Activity {
                 .append(dd).append("/").append(mm + 1).append("/")
                 .append(yy));
 
+        if (isDel==true){
+            CollectionableDAO objectDao = new CollectionableDAO(this);
+            objectDao.open();
+            int x = objectDao.getIdFromPath(path);
+            etTitle.setText(objectDao.select(x).getTitle());
+            etDate.setText(objectDao.select(x).getDate());
+            etKeyWord.setText(objectDao.select(x).getKeyWords());
+            etLocation.setText(objectDao.select(x).getLocation());
+            etComment.setText(objectDao.select(x).getcomment());
+            objectDao.close();
+        }
     }
 
     public void goResult(View view){
@@ -70,6 +86,9 @@ public class SaveInfoActivity extends Activity {
         Collectionable object = new Collectionable(title, date, location, comment, keyWords, path);
         CollectionableDAO objectDao = new CollectionableDAO(this);
         objectDao.open();
+        if(isDel == true){
+            objectDao.delete(objectDao.getIdFromPath(path));
+        }
         int id = objectDao.ajouter(object);
         objectDao.close();
 
@@ -85,5 +104,9 @@ public class SaveInfoActivity extends Activity {
                 "This is a premium feature !!", Toast.LENGTH_LONG).show();
     }
 
+    public void goHome(View view){
+        Intent goHome = new Intent(this, CollectionShowcaseActivity.class);
+        startActivity(goHome);
+    }
 
 }
