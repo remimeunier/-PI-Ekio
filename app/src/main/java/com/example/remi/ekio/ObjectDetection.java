@@ -65,7 +65,7 @@ public class ObjectDetection {
         objectDao.open();
 
         for (Integer mapKey : list.keySet()) {
-            Toast.makeText(context, "Please wait ...", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context, "Please wait ...", Toast.LENGTH_SHORT).show();
 /*            Mat img = Imgcodecs.imread(path, Imgcodecs.IMREAD_COLOR);
 
             FeatureDetector fast = FeatureDetector.create(FeatureDetector.AKAZE);
