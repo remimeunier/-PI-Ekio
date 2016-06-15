@@ -180,10 +180,10 @@ public class BeforePictureActivity extends AppCompatActivity {
 
     private void saveFile(Bitmap bmp, String filename){
         FileOutputStream out = null;
-        //bmp.createScaledBitmap(bmp,bmp.getWidth()/3,bmp.getHeight()/3,false);
+        bmp = bmp.createScaledBitmap(bmp,bmp.getWidth()/4,bmp.getHeight()/4,false);
         try {
             out = new FileOutputStream(filename);
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, out); // bmp is your Bitmap instance
             // PNG is a lossless format, the compression factor (100) is ignored
         } catch (Exception e) {
             e.printStackTrace();
@@ -211,7 +211,7 @@ public class BeforePictureActivity extends AppCompatActivity {
      * Crop the image and set it back to the cropping view.
      */
     public void onCropImageClick(View view) {
-        Bitmap cropped = mCropImageView.getCroppedImage(500, 500);
+        Bitmap cropped = mCropImageView.getCroppedImage(400,400);
         if (cropped != null)
             mCropImageView.setImageBitmap(cropped);
             mCropImageView.setShowCropOverlay(false);
