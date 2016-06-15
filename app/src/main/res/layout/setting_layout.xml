@@ -35,7 +35,7 @@
         android:paddingLeft="20dp"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/rate_icon"
-        android:onClick="popUpRate"/>
+        android:onClick="popUpRateUs"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

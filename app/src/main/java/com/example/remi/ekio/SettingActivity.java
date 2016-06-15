@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Created by Hoang Nam on 15/06/2016.
@@ -24,6 +25,14 @@ public class SettingActivity extends Activity {
     public void popUpLogOut(View view){
         AlertDialog logout = logOutPopUp();
         logout.show();
+    }
+    public void popUpInfo(View view){
+        AlertDialog info = appInfoPopUp();
+        info.show();
+    }
+    public void popUpRateUs(View view){
+        AlertDialog rate = rateUsPopUp();
+        rate.show();
     }
 
     private AlertDialog changePassPopUp(){
@@ -53,16 +62,17 @@ public class SettingActivity extends Activity {
         LayoutInflater inflater = this.getLayoutInflater();
 
         AlertDialog temp =  new AlertDialog.Builder(this)
-                .setTitle("Log Out")
+                .setTitle("Log out ?")
                 .setIcon(R.drawable.info_icon)
                 .setMessage("Do you really want to log out ?")
-                .setPositiveButton("Log the F*** out, please", new DialogInterface.OnClickListener(){
+                .setPositiveButton("Get me the F*** out, please ?", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        //Log the fuck out
+                        //log out
+                        dialog.dismiss();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener(){
+                .setNegativeButton("Later", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
@@ -72,5 +82,51 @@ public class SettingActivity extends Activity {
         return temp;
     }
 
+    private AlertDialog rateUsPopUp(){
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        AlertDialog temp =  new AlertDialog.Builder(this)
+                .setTitle("Rate us!")
+                .setIcon(R.drawable.rate_icon)
+                .setMessage("If you enjoy our application, please give us 5 stars.")
+                .setPositiveButton("Rate now !", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(getApplicationContext(), "Please find us on Google Play, thank you.", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton("No, thanks", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Later", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        return temp;
+    }
+
+    private AlertDialog appInfoPopUp(){
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        AlertDialog temp =  new AlertDialog.Builder(this)
+                .setTitle("Application Information")
+                .setIcon(R.drawable.info_icon)
+                .setView(inflater.inflate(R.layout.app_info, null))
+                .setNegativeButton("Close", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        return temp;
+    }
 
 }
