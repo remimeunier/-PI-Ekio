@@ -28,7 +28,7 @@ public class GoodMatchActivity extends Activity {
     ImageView good, better,best, showing, searched;
     ImageButton collection, save, details;
     Uri goodImage, betterImage,bestImage;
-    Bitmap tempImage;
+    Uri tempImage;
     int detailId;
     String[]idList;
     String file, tempfile, name;
@@ -95,8 +95,14 @@ public class GoodMatchActivity extends Activity {
 
         file = "sdcard/EkioPhotos/" + name;
         tempfile = "sdcard/EkioPhotos/tmp/" + name;
-        tempImage = BitmapFactory.decodeFile(tempfile);
-        searched.setImageBitmap(tempImage);
+        //tempImage = BitmapFactory.decodeFile(tempfile);
+        tempImage = Uri.parse("file:///"+tempfile);
+        try {
+            searched.setImageBitmap(decodeUri(tempImage));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+       // searched.setImageBitmap(tempImage);
 
         objectDao.close();
 
@@ -104,12 +110,11 @@ public class GoodMatchActivity extends Activity {
     }
 
     public void goSave(View view){
-        saveFile(tempImage, file );
-        File del = new File(tempfile);
-        del.delete();
         Intent save = new Intent(this,SaveInfoActivity.class);
+        save.putExtra(MESSAGE_FROMBIG, true);
         save.putExtra(MESSAGE_KEY,name);
         startActivity(save);
+
     }
 
     public void goDetail(View view){
@@ -150,6 +155,7 @@ public class GoodMatchActivity extends Activity {
         del.delete();
         Intent intent = new Intent(this, CollectionShowcaseActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void saveFile(Bitmap bmp, String filename){

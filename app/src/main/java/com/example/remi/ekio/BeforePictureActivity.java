@@ -51,6 +51,7 @@ public class BeforePictureActivity extends AppCompatActivity {
     String name = String.valueOf(time)+".jpg";
     ArrayList<Integer> result;
 
+
     // gestion du menu (voir main activity for details)
     private String[] mMenuItem;
     private DrawerLayout mDrawerLayout;
@@ -68,7 +69,6 @@ public class BeforePictureActivity extends AppCompatActivity {
     CropImageView mCropImageView;
     ImageButton chooseToFind, chooseToSave, choosetoCrop, rotate_right, rotate_left;
     Uri mCropImageUri;
-    ImageView C1, C2;
     static final int CAM_REQUEST =1;
     Bitmap savedPhoto;
 
@@ -115,9 +115,6 @@ public class BeforePictureActivity extends AppCompatActivity {
         choosetoCrop = (ImageButton) findViewById(R.id.chooseTocrop);
         rotate_left = (ImageButton) findViewById(R.id.rotate_left);
         rotate_right = (ImageButton) findViewById(R.id.rotate_right);
-        C1 = (ImageView) findViewById(R.id.circle1);
-        C2 = (ImageView) findViewById(R.id.circle2);
-
         result = new ArrayList();
     }
 
@@ -152,8 +149,7 @@ public class BeforePictureActivity extends AppCompatActivity {
                 findingLoupe.setImageBitmap(null);
 
                 mCropImageView.setImageUriAsync(imageUri);
-                C1.setImageBitmap(null);
-                C2.setImageBitmap(null);
+                findViewById(R.id.avloadingIndicatorView).setVisibility(View.GONE);
 
                 choosetoCrop.setClickable(true);
                 choosetoCrop.setImageResource(R.drawable.crop);
@@ -191,7 +187,7 @@ public class BeforePictureActivity extends AppCompatActivity {
 
     private void saveFile(Bitmap bmp, String filename){
         FileOutputStream out = null;
-        bmp.createScaledBitmap(bmp,bmp.getWidth()/3,bmp.getHeight()/3,false);
+        //bmp.createScaledBitmap(bmp,bmp.getWidth()/3,bmp.getHeight()/3,false);
         try {
             out = new FileOutputStream(filename);
             bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
@@ -251,50 +247,65 @@ public class BeforePictureActivity extends AppCompatActivity {
 
             saveFile(savedPhoto, path);
             Intent save = new Intent(this, SaveInfoActivity.class);
-            save.putExtra(MESSAGE_KEY, path);
+            save.putExtra(MESSAGE_KEY, name);
             startActivity(save);
         }
         else if(button_id== (R.id.chooseToFind)){
             // TODO: 10/06/16
+            mCropImageView.setImageBitmap(null);
+            mCropImageView.setBackgroundColor(Color.TRANSPARENT);
+            startAnim();
             String path = "sdcard/EkioPhotos/tmp/"+name;
             saveFile(savedPhoto, path);
-            ObjectDetection test2 = new ObjectDetection(path, this);
-            test2.match2(this);
             int good, better, best, goodId, betterId, bestId;
             good = better = best = goodId = betterId = bestId = 1;
+            //ObjectDetection test2 = new ObjectDetection(path, this);
+            //test2.match2(this);
+            FindingThreat tool = new FindingThreat(this, path);
+            tool.start();
+            synchronized (tool){
+                try{
+                    tool.wait();
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
 
-            for (Map.Entry<Integer, Integer> entry : test2.resultat.entrySet()) {  // Itrate through hashmap
+                for (Map.Entry<Integer, Integer> entry : tool.getObjectDetection().resultat.entrySet()) {  // Itrate through hashmap
 
-                if (entry.getValue() > best){
-                    good = better;
-                    better = best;
-                    best = entry.getValue();
+                    if (entry.getValue() > best){
+                        good = better;
+                        better = best;
+                        best = entry.getValue();
 
-                    goodId = betterId;
-                    betterId = bestId;
-                    bestId = entry.getKey();
-               } else if (entry.getValue() >better){
-                    goodId = betterId;
-                    betterId = entry.getKey();
+                        goodId = betterId;
+                        betterId = bestId;
+                        bestId = entry.getKey();
+                    } else if (entry.getValue() >better){
+                        goodId = betterId;
+                        betterId = entry.getKey();
 
-                    good = better;
-                    better = entry.getValue();
-               } else if (entry.getValue()> good) {
-                     good = entry.getValue();
+                        good = better;
+                        better = entry.getValue();
+                    } else if (entry.getValue()> good) {
+                        good = entry.getValue();
 
-                    goodId = entry.getKey();
-               }
+                        goodId = entry.getKey();
+                    }
+
+                }
+
+                String res = String.valueOf(goodId) +"," + String.valueOf(betterId) +"," + String.valueOf(bestId);
+
+                Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+                Intent showRes = new Intent(this, GoodMatchActivity.class);
+                showRes.putExtra(MESSAGE_RES, res);
+                showRes.putExtra(MESSAGE_KEY, name);
+                startActivity(showRes);
+                mCropImageView.setImageBitmap(savedPhoto);
+                mCropImageView.setBackgroundColor(Color.WHITE);
+                stopAnim();
 
             }
-
-            String res = String.valueOf(goodId) +"," + String.valueOf(betterId) +"," + String.valueOf(bestId);
-
-            Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
-            Intent showRes = new Intent(this, GoodMatchActivity.class);
-            showRes.putExtra(MESSAGE_RES, res);
-            showRes.putExtra(MESSAGE_KEY, name);
-            startActivity(showRes);
-
         }
     }
 
@@ -399,4 +410,11 @@ public class BeforePictureActivity extends AppCompatActivity {
         return false;
     }
 
+    void startAnim(){
+        findViewById(R.id.avloadingIndicatorView).setVisibility(View.VISIBLE);
+    }
+
+    void stopAnim(){
+        findViewById(R.id.avloadingIndicatorView).setVisibility(View.GONE);
+    }
 }

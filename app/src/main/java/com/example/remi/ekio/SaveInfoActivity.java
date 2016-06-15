@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import java.io.File;
 import java.util.Calendar;
 
 /**
@@ -20,11 +21,12 @@ public class SaveInfoActivity extends Activity {
 
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
     public final static String MESSAGE_DEL = "com.example.remi.ekio.messagedel";
+    public final static String MESSAGE_FROMBIG = "com.example.remi.ekio.messagefrombig";
     ImageView preview;
     EditText etDate, etTitle, etComment, etKeyWord, etLocation;
     ImageButton geo;
-    String path;
-    boolean isDel;
+    String name,path, pathtemp;
+    boolean isEdit, isFromBig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,11 @@ public class SaveInfoActivity extends Activity {
 
         // get intent fot photo path
         Intent intent = getIntent();
-        path = intent.getStringExtra(MESSAGE_KEY);
-        isDel = intent.getBooleanExtra(MESSAGE_DEL,false);
+        name = intent.getStringExtra(MESSAGE_KEY);
+        path = "sdcard/EkioPhotos/"+name;
+        pathtemp = "sdcard/EkioPhotos/tmp/" + name;
+        isFromBig = intent.getBooleanExtra(MESSAGE_FROMBIG,false);
+        isEdit = intent.getBooleanExtra(MESSAGE_DEL,false);
         //path = "sdcard/EkioPhotos/"+name;
 
         //get edit Text
@@ -48,7 +53,10 @@ public class SaveInfoActivity extends Activity {
         // get other component
         geo = (ImageButton) findViewById(R.id.geolocalisation);
         preview = (ImageView) findViewById(R.id.photo);
-        preview.setImageDrawable(Drawable.createFromPath(path));
+        if (isFromBig!=true){
+            preview.setImageDrawable(Drawable.createFromPath(path));
+        }else preview.setImageDrawable(Drawable.createFromPath(pathtemp));
+
 
         // set date
         etDate = (EditText) findViewById(R.id.photo_date);
@@ -62,7 +70,7 @@ public class SaveInfoActivity extends Activity {
                 .append(dd).append("/").append(mm + 1).append("/")
                 .append(yy));
 
-        if (isDel==true){
+        if (isEdit == true){
             CollectionableDAO objectDao = new CollectionableDAO(this);
             objectDao.open();
             int x = objectDao.getIdFromPath(path);
@@ -86,8 +94,16 @@ public class SaveInfoActivity extends Activity {
         Collectionable object = new Collectionable(title, date, location, comment, keyWords, path, true);
         CollectionableDAO objectDao = new CollectionableDAO(this);
         objectDao.open();
-        if(isDel == true){
+        if(isEdit == true){
             objectDao.delete(objectDao.getIdFromPath(path));
+        }
+        if (isFromBig==true){
+            File x = new File(pathtemp);
+            if (x.exists()){
+                //Toast.makeText(getApplicationContext(), " file existe", Toast.LENGTH_SHORT).show();
+                x.renameTo(new File(path));
+            }
+
         }
         int id = objectDao.ajouter(object);
         objectDao.close();
@@ -97,6 +113,7 @@ public class SaveInfoActivity extends Activity {
         Intent intent = new Intent(this, ChooseFromCollectionActivity.class);
         intent.putExtra(MESSAGE_KEY, id);
         startActivity(intent);
+        finish();
     }
 
     public void premiumFeature(){
@@ -105,8 +122,13 @@ public class SaveInfoActivity extends Activity {
     }
 
     public void goHome(View view){
+        if (isFromBig==true){
+            File x = new File(pathtemp);
+            x.delete();
+        }
         Intent goHome = new Intent(this, CollectionShowcaseActivity.class);
         startActivity(goHome);
+        finish();
     }
 
 }

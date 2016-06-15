@@ -41,6 +41,7 @@ public class SignInActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(cContext, BeforePictureActivity.class);
                     cContext.startActivity(intent);
+                    finish();
                 } else {
                     etPassword.getText().clear();
                     Toast.makeText(SignInActivity.this, "Email or Password not valid, please try again.",

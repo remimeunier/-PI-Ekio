@@ -27,7 +27,7 @@ import java.io.FileNotFoundException;
  */
 public class BigPhotoActivity extends Activity {
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
-    ImageButton delete;
+    ImageButton delete, fav;
     ImageView photo;
     ImageButton back;
     TextView title,date;
@@ -62,6 +62,13 @@ public class BigPhotoActivity extends Activity {
 
 
         delete = (ImageButton) findViewById(R.id.delete);
+        fav = (ImageButton) findViewById(R.id.fav);
+        fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Premium feature !", Toast.LENGTH_SHORT).show();
+            }
+        });
         photo = (ImageView) findViewById(R.id.photo_view);
         back = (ImageButton) findViewById(R.id.back);
         title = (TextView) findViewById(R.id.object_title);
@@ -126,7 +133,7 @@ public class BigPhotoActivity extends Activity {
                             Toast.makeText(getApplicationContext(), "Object deleted.", Toast.LENGTH_SHORT).show();
                         }
 
-                        Intent goBeforePicture = new Intent (getApplicationContext(), BeforePictureActivity.class);
+                        Intent goBeforePicture = new Intent (getApplicationContext(), CollectionShowcaseActivity.class);
                         startActivity(goBeforePicture);
 
                         dialog.dismiss();
@@ -148,9 +155,6 @@ public class BigPhotoActivity extends Activity {
 
     }
 
-    public void favorise(){
-        Toast.makeText(getApplicationContext(), "Premium feature !", Toast.LENGTH_SHORT).show();
-    }
 
 
 }

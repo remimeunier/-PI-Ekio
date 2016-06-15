@@ -4,46 +4,53 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     android:background="@drawable/background">
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:weightSum="1"
+        android:orientation="vertical">
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="360dp"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
             android:scaleType="fitCenter"
             android:padding="5dp"
-            android:background="@android:color/white"
+            android:background="@drawable/text_background"
             android:src="@drawable/place_holder"
             android:id="@+id/photo_view"
-            android:layout_centerVertical="false"
-            android:layout_centerHorizontal="true" />
+            android:layout_weight="0.7"
+            android:layout_marginBottom="15dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="horizontal"
             android:layout_below="@id/photo_view"
+            android:layout_weight="0.17"
             android:weightSum="1"
             android:id="@+id/blah">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_weight="0.7"
-                android:paddingLeft="15dp">
+                android:paddingLeft="15dp"
+                android:weightSum="1">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="0dp"
                     android:id="@+id/object_title"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_weight="0.5"
+                    android:gravity="center_vertical"/>
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
                     android:id="@+id/object_date"
+                    android:gravity="center_vertical"
                     android:layout_below="@id/object_title"/>
 
             </LinearLayout>
@@ -52,28 +59,26 @@
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
+                android:layout_weight="0.3"
                 android:id="@+id/fav"
-                android:src="@drawable/fav_off"
                 android:background="@android:color/transparent"
+                android:src="@drawable/fav_off"
                 android:scaleType="fitCenter"
-                android:padding="18dp"
-                android:onClick="favorise"
-                android:layout_gravity="right"
-                android:layout_marginRight="5dp"/>
+                android:padding="10dp"/>
 
 
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_below="@id/blah"
             android:orientation="horizontal"
+            android:layout_weight="0.11"
             android:weightSum="1">
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="55dp"
+                android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:src="@drawable/back"
                 android:scaleType="fitCenter"
@@ -81,13 +86,12 @@
                 android:id="@+id/back"
                 android:onClick="goBack"
                 android:gravity="left|center"
-                android:paddingLeft="15dp"
-                android:layout_marginRight="10dp"/>
+                android:paddingLeft="15dp" />
 
 
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="55dp"
+                android:layout_height="match_parent"
                 android:id="@+id/delete"
                 android:onClick="photoDelete"
                 android:src="@drawable/delete"
@@ -96,15 +100,14 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="0.5"
                 android:gravity="right|center"
-                android:paddingRight="15dp"
-                android:layout_marginRight="10dp"/>
+                android:paddingRight="15dp" />
 
 
         </LinearLayout>
 
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

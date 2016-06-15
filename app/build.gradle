@@ -28,4 +28,6 @@ dependencies {
     compile project(':openCVLibrary310')
     compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
     compile files('libs/gson-2.2.2.jar')
+    compile 'com.wang.avi:library:1.0.5'
+    compile 'com.nineoldandroids:library:2.4.0'
 }
