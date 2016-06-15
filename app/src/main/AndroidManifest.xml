@@ -13,21 +13,39 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BeforePictureActivity" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".GoodMatchActivity"></activity>
-        <activity android:name=".BigPhotoActivity"></activity>
-        <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".SaveInfoActivity"></activity>
-        <activity android:name=".ChooseFromCollectionActivity"></activity>
-        <activity android:name=".CollectionShowcaseActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+        <activity
+            android:name=".BeforePictureActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SignInActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GoodMatchActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".BigPhotoActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".SaveInfoActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ChooseFromCollectionActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".CollectionShowcaseActivity"
+            android:screenOrientation="portrait"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"
