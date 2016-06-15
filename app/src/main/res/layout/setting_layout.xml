@@ -3,15 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/setting_background"
-    android:weightSum="1"
-    >
+    android:background="@drawable/background"
+    android:weightSum="1">
 
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.15"
+        android:layout_weight="0.2"
         android:id="@+id/change_pass"
         android:text="   Change your password"
         android:textStyle="bold"
@@ -23,12 +22,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/white"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.15"
+        android:layout_weight="0.2"
         android:id="@+id/rate"
         android:text="   Rate Us"
         android:textStyle="bold"
@@ -40,12 +39,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/white"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.15"
+        android:layout_weight="0.2"
         android:id="@+id/app_info"
         android:text="   Application Information"
         android:textStyle="bold"
@@ -57,7 +56,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/white"/>
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:background="@android:color/transparent"
+        android:src="@drawable/logout"
+        android:scaleType="fitCenter"
+        android:paddingBottom="20dp"
+        android:onClick="popUpLogOut"/>
 
 
 </LinearLayout>

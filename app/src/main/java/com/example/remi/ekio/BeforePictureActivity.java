@@ -50,6 +50,7 @@ public class BeforePictureActivity extends AppCompatActivity {
     long time = System.currentTimeMillis();
     String name = String.valueOf(time)+".jpg";
     ArrayList<Integer> result;
+    Rect Square = new Rect(200,200,200,200);
 
 
     // gestion du menu (voir main activity for details)
@@ -106,7 +107,7 @@ public class BeforePictureActivity extends AppCompatActivity {
         //taking the picture
         findingLoupe = (ImageView) findViewById(R.id.findingLoupe);
         mCropImageView = (CropImageView) findViewById(R.id.CropImageView);
-        //mCropImageView.setCropRect(Square);
+        mCropImageView.setCropRect(Square);
        // mCropImageView.setAspectRatio(1,1);
        // mCropImageView.setFixedAspectRatio(true);
         mCropImageView.setScaleType(CropImageView.ScaleType.FIT_CENTER);
