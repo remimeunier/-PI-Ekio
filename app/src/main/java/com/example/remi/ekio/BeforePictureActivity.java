@@ -296,7 +296,7 @@ public class BeforePictureActivity extends AppCompatActivity {
 
                 String res = String.valueOf(goodId) +"," + String.valueOf(betterId) +"," + String.valueOf(bestId);
 
-                Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
                 Intent showRes = new Intent(this, GoodMatchActivity.class);
                 showRes.putExtra(MESSAGE_RES, res);
                 showRes.putExtra(MESSAGE_KEY, name);
