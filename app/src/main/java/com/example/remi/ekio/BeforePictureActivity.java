@@ -162,7 +162,7 @@ public class BeforePictureActivity extends AppCompatActivity {
                 rotate_left.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()+90);
+                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()-90);
                     }
                 });
                 rotate_right.setClickable(true);
@@ -170,7 +170,7 @@ public class BeforePictureActivity extends AppCompatActivity {
                 rotate_right.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()-90);
+                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()+90);
                     }
                 });
             }
