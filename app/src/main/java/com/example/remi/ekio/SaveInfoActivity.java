@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import org.apache.commons.io.output.TaggedOutputStream;
-
 import java.io.File;
 import java.util.Calendar;
 
@@ -28,7 +26,7 @@ public class SaveInfoActivity extends Activity {
     EditText etDate, etTitle, etComment, etKeyWord, etLocation;
     ImageButton geo;
     String name,path, pathtemp;
-    boolean isDel, isFromBig;
+    boolean isEdit, isFromBig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +39,7 @@ public class SaveInfoActivity extends Activity {
         path = "sdcard/EkioPhotos/"+name;
         pathtemp = "sdcard/EkioPhotos/tmp/" + name;
         isFromBig = intent.getBooleanExtra(MESSAGE_FROMBIG,false);
-        isDel = intent.getBooleanExtra(MESSAGE_DEL,false);
+        isEdit = intent.getBooleanExtra(MESSAGE_DEL,false);
         //path = "sdcard/EkioPhotos/"+name;
 
         //get edit Text
@@ -72,7 +70,7 @@ public class SaveInfoActivity extends Activity {
                 .append(dd).append("/").append(mm + 1).append("/")
                 .append(yy));
 
-        if (isDel==true){
+        if (isEdit == true){
             CollectionableDAO objectDao = new CollectionableDAO(this);
             objectDao.open();
             int x = objectDao.getIdFromPath(path);
@@ -96,7 +94,7 @@ public class SaveInfoActivity extends Activity {
         Collectionable object = new Collectionable(title, date, location, comment, keyWords, path, true);
         CollectionableDAO objectDao = new CollectionableDAO(this);
         objectDao.open();
-        if(isDel == true){
+        if(isEdit == true){
             objectDao.delete(objectDao.getIdFromPath(path));
         }
         if (isFromBig==true){

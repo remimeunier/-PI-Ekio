@@ -10,11 +10,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center|left"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="horizontal"
+            android:layout_weight="0.29"
             android:weightSum="1">
             <LinearLayout
                 android:layout_width="0dp"
@@ -22,17 +24,20 @@
                 android:orientation="vertical"
                 android:layout_weight="0.6"
                 android:paddingRight="20dp"
-                android:layout_gravity="bottom">
+                android:layout_gravity="bottom"
+                android:weightSum="1">
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
                     android:id="@+id/photo_title"
                     android:hint="@string/photo_title"
                     android:inputType="text"
                     android:maxLines="1"/>
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
                     android:id="@+id/photo_date"
                     android:hint="@string/photo_date"
                     android:inputType="text"
@@ -41,32 +46,35 @@
             </LinearLayout>
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="140dp"
+                android:layout_height="match_parent"
                 android:layout_weight="0.4"
                 android:id="@+id/photo"
-                android:src="@drawable/place_holder"/>
+                android:src="@drawable/place_holder" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.13"
             android:orientation="horizontal"
             android:weightSum="1"
             android:layout_marginTop="20dp">
 
             <EditText
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:id="@+id/photo_location"
+                android:gravity="bottom"
                 android:hint="@string/photo_location"
                 android:layout_weight="0.8"
                 android:inputType="text"
                 android:maxLines="1"/>
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:scaleType="fitCenter"
+                android:padding="3dp"
                 android:src="@drawable/geo"
                 android:id="@+id/geolocalisation"
                 android:background="@android:color/transparent"
@@ -76,30 +84,34 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
             android:id="@+id/keyword"
             android:hint="@string/keyword"
             android:inputType="text"
             android:maxLines="1"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:id="@+id/photo_comment"
-                android:hint="@string/photo_comment"
-                android:layout_marginTop="20dp"
-                android:gravity="top"
-                android:inputType="text"
-                android:maxLines="1"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.37"
+            android:id="@+id/photo_comment"
+            android:hint="@string/photo_comment"
+            android:layout_marginTop="10dp"
+            android:gravity="top"
+            android:inputType="text"
+            android:maxLines="1"
+            android:background="@drawable/text_background"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.12"
             android:orientation="horizontal"
             android:weightSum="1">
             <ImageButton
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="match_parent"
                 android:id="@+id/cancel"
                 android:src="@drawable/cancel"
                 android:scaleType="fitCenter"
@@ -108,7 +120,7 @@
                 android:layout_weight="0.5"/>
             <ImageButton
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="match_parent"
                 android:id="@+id/saveconfirm"
                 android:src="@drawable/save"
                 android:scaleType="fitCenter"

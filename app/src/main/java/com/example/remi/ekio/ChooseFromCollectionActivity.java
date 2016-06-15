@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.widget.Toast;
 
 
 import java.io.File;
@@ -26,7 +25,7 @@ import java.io.FileNotFoundException;
 public class ChooseFromCollectionActivity extends Activity {
 
     public final static String MESSAGE_KEY = "com.example.remi.ekio.messagekey";
-    public final static String MESSAGE_DEL = "com.example.remi.ekio.messagedel";
+    public final static String MESSAGE_EDIT = "com.example.remi.ekio.messagedel";
     public final static String MESSAGE_FROMBIG = "com.example.remi.ekio.messagefrombig";
     ImageView iv;
     ImageButton fav;
@@ -148,8 +147,8 @@ public class ChooseFromCollectionActivity extends Activity {
        // Toast.makeText(getApplicationContext(),
          //       "working process!!!", Toast.LENGTH_LONG).show();
         Intent goEdit = new Intent(this, SaveInfoActivity.class);
-        goEdit.putExtra(MESSAGE_KEY,path);
-        goEdit.putExtra(MESSAGE_DEL,true);
+        goEdit.putExtra(MESSAGE_KEY,new File(path).getName());
+        goEdit.putExtra(MESSAGE_EDIT,true);
         startActivity(goEdit);
     }
 

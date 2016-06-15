@@ -6,127 +6,123 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:gravity="center">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="450dp">
-
-
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/avloadingIndicatorView"
-            android:layout_width="390dp"
-            android:layout_height="390dp"
-            android:visibility="visible"
-            app:indicator="BallScaleMultiple"
-            app:indicator_color="@android:color/white"
-            android:layout_gravity="center_horizontal|center" />
-
-        <ImageButton
-            android:layout_width="325dp"
-            android:layout_height="325dp"
-            android:src="@drawable/finding"
-            android:scaleType="fitXY"
-            android:background="@android:color/transparent"
-            android:id="@+id/findingLoupe"
-            android:layout_marginTop="100dp"
-            android:layout_gravity="center_horizontal"
-            android:onClick="onLoadImageClick"
-            android:layout_marginRight="12dp"/>
-
-    </FrameLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/preview">
-
-        <com.theartofdev.edmodo.cropper.CropImageView
-            android:layout_width="380dp"
-            android:layout_height="380dp"
-            android:id="@+id/CropImageView"
-            android:padding="7dp"
-            android:background="@android:color/transparent"
-            android:layout_gravity="center" />
-
-        <ImageButton
-            android:layout_width="68dp"
-            android:layout_height="68dp"
-            android:id="@+id/rotate_right"
-            android:clickable="false"
-            android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
-            android:padding="2.5dp"
-            android:layout_gravity="right|center_vertical" />
-
-        <ImageButton
-            android:layout_width="68dp"
-            android:layout_height="68dp"
-            android:id="@+id/rotate_left"
-            android:clickable="false"
-            android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
-            android:padding="2.5dp"
-            android:layout_gravity="left|center_vertical" />
-
-
-    </FrameLayout>
-
-
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/preview"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:layout_marginTop="50dp">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:id="@+id/chooseToFind"
-            android:clickable="false"
-            android:scaleType="fitCenter"
-            android:layout_marginRight="5dp"
-            android:background="@android:color/transparent"
-            android:onClick="userChoice"
-            android:tag="@string/find"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8">
 
 
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avloadingIndicatorView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:indicator="BallScaleMultiple"
+                app:indicator_color="@android:color/white"
+                android:layout_gravity="center_horizontal|center_vertical" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/chooseTocrop"
-            android:clickable="false"
-            android:scaleType="fitCenter"
-            android:layout_below="@id/CropImageView"
-            android:background="@android:color/transparent"
-            android:onClick="onCropImageClick"
-            android:padding="2.5dp"/>
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/loupe"
+                android:background="@android:color/transparent"
+                android:id="@+id/findingLoupe"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:onClick="onLoadImageClick" />
+
+            <com.theartofdev.edmodo.cropper.CropImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/CropImageView"
+                android:padding="10dp"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center" />
+
+            <ImageButton
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:id="@+id/rotate_right"
+                android:clickable="false"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:padding="2.5dp"
+                android:layout_gravity="right|center_vertical" />
+
+            <ImageButton
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:id="@+id/rotate_left"
+                android:clickable="false"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:padding="2.5dp"
+                android:layout_gravity="left|center_vertical" />
+
+        </FrameLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:padding="20dp">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:id="@+id/chooseToFind"
+                android:clickable="false"
+                android:scaleType="fitCenter"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/transparent"
+                android:onClick="userChoice"
+                android:tag="@string/find"
+                android:padding="10dp"/>
+
+
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/chooseTocrop"
+                android:clickable="false"
+                android:scaleType="fitCenter"
+                android:layout_below="@id/CropImageView"
+                android:background="@android:color/transparent"
+                android:onClick="onCropImageClick"
+                android:padding="10dp"/>
 
 
 
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:id="@+id/choosToSave"
-            android:clickable="false"
-            android:scaleType="fitCenter"
-            android:layout_alignLeft="@id/chooseToFind"
-            android:background="@android:color/transparent"
-            android:onClick="userChoice"
-            android:tag="@string/save"
-            android:layout_marginRight="5dp"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:id="@+id/choosToSave"
+                android:clickable="false"
+                android:scaleType="fitCenter"
+                android:layout_alignLeft="@id/chooseToFind"
+                android:background="@android:color/transparent"
+                android:onClick="userChoice"
+                android:tag="@string/save"
+                android:layout_marginRight="5dp"
+                android:padding="10dp"/>
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
-
-
 
 </RelativeLayout>
