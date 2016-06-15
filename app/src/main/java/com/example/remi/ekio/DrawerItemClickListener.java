@@ -23,8 +23,7 @@ class DrawerItemClickListener implements ListView.OnItemClickListener {
                 context.startActivity(newActivity2);
                 break;
             case 2:
-                Intent intent = new Intent(context, ChooseFromCollectionActivity.class);
-                intent.putExtra("com.example.remi.ekio.messagekey", 1);
+                Intent intent = new Intent(context, SettingActivity.class);
                 context.startActivity(intent);
                 break;
         }
