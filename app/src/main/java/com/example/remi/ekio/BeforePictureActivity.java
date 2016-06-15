@@ -158,7 +158,7 @@ public class BeforePictureActivity extends AppCompatActivity {
                 rotate_left.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()+90);
+                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()-90);
                     }
                 });
                 rotate_right.setClickable(true);
@@ -166,7 +166,7 @@ public class BeforePictureActivity extends AppCompatActivity {
                 rotate_right.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()-90);
+                        mCropImageView.setRotatedDegrees(mCropImageView.getRotatedDegrees()+90);
                     }
                 });
             }
@@ -296,7 +296,7 @@ public class BeforePictureActivity extends AppCompatActivity {
 
                 String res = String.valueOf(goodId) +"," + String.valueOf(betterId) +"," + String.valueOf(bestId);
 
-                Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
                 Intent showRes = new Intent(this, GoodMatchActivity.class);
                 showRes.putExtra(MESSAGE_RES, res);
                 showRes.putExtra(MESSAGE_KEY, name);
