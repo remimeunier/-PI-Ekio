@@ -10,24 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="450dp">
 
-        <ImageView
-            android:layout_width="325dp"
-            android:layout_height="325dp"
-            android:id="@+id/circle1"
-            android:scaleType="fitXY"
-            android:src="@drawable/circle1"
-            android:layout_marginTop="56dp"
-            android:layout_gravity="center_horizontal"/>
 
-        <ImageView
-            android:layout_width="325dp"
-            android:layout_height="325dp"
-            android:id="@+id/circle2"
-            android:scaleType="fitXY"
-            android:src="@drawable/circle2"
-            android:layout_marginTop="56dp"
-            android:layout_gravity="center_horizontal"/>
-
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avloadingIndicatorView"
+            android:layout_width="390dp"
+            android:layout_height="390dp"
+            android:visibility="visible"
+            app:indicator="BallScaleMultiple"
+            app:indicator_color="@android:color/white"
+            android:layout_gravity="center_horizontal|center" />
 
         <ImageButton
             android:layout_width="325dp"
@@ -40,9 +31,10 @@
             android:layout_gravity="center_horizontal"
             android:onClick="onLoadImageClick"
             android:layout_marginRight="12dp"/>
+
     </FrameLayout>
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/preview">
 
