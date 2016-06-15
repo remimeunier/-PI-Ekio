@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/setting_background"
+    android:weightSum="1"
+    >
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:id="@+id/change_pass"
+        android:text="   Change your password"
+        android:textStyle="bold"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="20dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/edit_icon"
+        android:onClick="popUpChangePass"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:id="@+id/rate"
+        android:text="   Rate Us"
+        android:textStyle="bold"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="20dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/rate_icon"
+        android:onClick="popUpRate"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:id="@+id/app_info"
+        android:text="   Application Information"
+        android:textStyle="bold"
+        android:gravity="left|center_vertical"
+        android:drawableLeft="@drawable/info_icon"
+        android:paddingLeft="20dp"
+        android:background="@android:color/transparent"
+        android:onClick="popUpInfo"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+
+</LinearLayout>
