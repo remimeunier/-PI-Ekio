@@ -91,7 +91,7 @@ public class SaveInfoActivity extends Activity {
         final String date = etDate.getText().toString();
         final String location = etLocation.getText().toString();
 
-        Collectionable object = new Collectionable(title, date, location, comment, keyWords, path, true);
+
         CollectionableDAO objectDao = new CollectionableDAO(this);
         objectDao.open();
         if(isEdit == true){
@@ -105,6 +105,7 @@ public class SaveInfoActivity extends Activity {
             }
 
         }
+        Collectionable object = new Collectionable(title, date, location, comment, keyWords, path, true);
         int id = objectDao.ajouter(object);
         objectDao.close();
 
