@@ -47,10 +47,13 @@ public class UserDAO extends DAOBase {
     }
 
     /**
-     * @param user le métier modifié
+     * @param newPassword le nouveau password
      */
-    public void modifier(User user) {
-        // CODE
+    public void modifierPassword(String newPassword) {
+        ContentValues value = new ContentValues();
+        value.put(UserDAO.EMAIL, newPassword);
+        mDb.update(UserDAO.TABLE_NAME, value, KEY  + " = ?", new String[] {String.valueOf(1)});
+
     }
 
     public void setAutoConnect(int id, boolean val) {

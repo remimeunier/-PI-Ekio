@@ -116,7 +116,7 @@ public class SaveInfoActivity extends Activity {
         finish();
     }
 
-    public void premiumFeature(){
+    public void premiumFeature(View view){
         Toast.makeText(getApplicationContext(),
                 "This is a premium feature !!", Toast.LENGTH_LONG).show();
     }
