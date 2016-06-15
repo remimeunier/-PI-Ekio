@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,7 +37,6 @@ public class GoodMatchActivity extends Activity {
 
     // gestion du menu (voir main activity for details)
     private String[] mMenuItem;
-    private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private LinearLayout point;
 
@@ -53,7 +50,6 @@ public class GoodMatchActivity extends Activity {
 
         // gestion du menu (voir main activity for details)
         mMenuItem = getResources().getStringArray(R.array.menu_item);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem);
         mDrawerList.setAdapter(adapter);

@@ -3,7 +3,6 @@ package com.example.remi.ekio;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * Created by Hoang Nam on 02/06/2016.
@@ -36,7 +34,6 @@ public class BigPhotoActivity extends Activity {
 
     // gestion du menu (voir main activity for details)
     private String[] mMenuItem;
-    private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private LinearLayout point;
 
@@ -48,7 +45,6 @@ public class BigPhotoActivity extends Activity {
 
         // gestion du menu (voir main activity for details)
         mMenuItem = getResources().getStringArray(R.array.menu_item);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem);
         mDrawerList.setAdapter(adapter);

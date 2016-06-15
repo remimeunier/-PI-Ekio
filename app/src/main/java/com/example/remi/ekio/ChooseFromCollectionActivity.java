@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -28,12 +27,10 @@ public class ChooseFromCollectionActivity extends Activity {
     public final static String MESSAGE_EDIT = "com.example.remi.ekio.messagedel";
     public final static String MESSAGE_FROMBIG = "com.example.remi.ekio.messagefrombig";
     ImageView iv;
-    ImageButton fav;
     TextView object_name, object_date, object_key_words, object_comment, object_location;
 
     // gestion du menu (voir main activity for details)
     private String[] mMenuItem;
-    private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private LinearLayout point;
     private int id;
@@ -48,7 +45,6 @@ public class ChooseFromCollectionActivity extends Activity {
 
         // gestion du menu (voir main activity for details)
         mMenuItem = getResources().getStringArray(R.array.menu_item);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem);
         mDrawerList.setAdapter(adapter);

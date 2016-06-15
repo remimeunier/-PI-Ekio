@@ -1,20 +1,15 @@
 package com.example.remi.ekio;
 
 import android.content.Context;
-import android.widget.Toast;
-
-import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
 import org.opencv.features2d.FeatureDetector;
 import org.opencv.features2d.DescriptorExtractor;
 import org.opencv.features2d.DescriptorMatcher;
 import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-//import org.opencv.;
+
 
 /**
  * Created by remi on 09/06/16.

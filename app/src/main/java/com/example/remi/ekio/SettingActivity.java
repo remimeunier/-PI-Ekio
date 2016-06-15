@@ -2,32 +2,51 @@ package com.example.remi.ekio;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.EditText;
 
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 /**
  * Created by Hoang Nam on 15/06/2016.
  */
 public class SettingActivity extends Activity {
+    // gestion du menu (voir main activity for details)
+    private String[] mMenuItem;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private LinearLayout point;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.setting_layout);
+        setContentView(R.layout.activity_main);
+
+        // gestion du menu (voir main activity for details)
+        mMenuItem = getResources().getStringArray(R.array.menu_item);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        CustomListAdapter adapter=new CustomListAdapter(this, mMenuItem);
+        mDrawerList.setAdapter(adapter);
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        // gestion du main content
+        LayoutInflater factory = LayoutInflater.from(this);
+        View myView = factory.inflate(R.layout.setting_layout, null);
+        point = (LinearLayout) findViewById(R.id.point);
+        point.addView(myView);
 
     }
-    public void popUpChangePass(View view){
-        AlertDialog pass = changePassPopUp();
-        pass.show();
-    }
+//    public void popUpChangePass(View view){
+//        AlertDialog pass = changePassPopUp();
+//        pass.show();
+//    }
     public void popUpLogOut(View view){
         AlertDialog logout = logOutPopUp();
         logout.show();
@@ -41,56 +60,56 @@ public class SettingActivity extends Activity {
         rate.show();
     }
 
-    private AlertDialog changePassPopUp(){
-        LayoutInflater inflater = this.getLayoutInflater();
-        final Context context = this;
-
-        AlertDialog temp =  new AlertDialog.Builder(this)
-                        .setTitle("Change your password")
-                        .setIcon(R.drawable.edit_icon)
-                        .setView(inflater.inflate(R.layout.change_pass, null))
-                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
-                            final EditText etOld = (EditText) findViewById(R.id.oldPassword);
-                            final EditText etNew1 = (EditText) findViewById(R.id.newPassword);
-                            final EditText etNew2 = (EditText) findViewById(R.id.confirmNewPassword);
-
-                            final String old = etOld.getText().toString();
-                            final String newP = etNew1.getText().toString();
-                            final String newP2 = etNew2.getText().toString();
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-
-                                UserDAO userDao = new UserDAO(context);
-                                userDao.open();
-                                Boolean valid = userDao.authentificate(old);
-                                userDao.close();
-
-                                if (valid) {
-                                    if (!newP.isEmpty() && newP.equals(newP2)) {
-                                        UserDAO userDao2 = new UserDAO(context);
-                                        userDao2.open();
-                                        userDao.modifierPassword(newP);
-                                        userDao2.close();
-                                    }
-
-                                } else {
-                                    etOld.getText().clear();
-                                    Toast.makeText(SettingActivity.this, "Password not valid, please try again.",
-                                            Toast.LENGTH_LONG).show();
-                                }
-
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-                           @Override
-                                public void onClick(DialogInterface dialog, int id) {
-                               dialog.dismiss();
-                           }
-                        })
-                        .create();
-        return temp;
-    }
+//    private AlertDialog changePassPopUp(){
+//        LayoutInflater inflater = this.getLayoutInflater();
+//        final Context context = this;
+//
+//        AlertDialog temp =  new AlertDialog.Builder(this)
+//                        .setTitle("Change your password")
+//                        .setIcon(R.drawable.edit_icon)
+//                        .setView(inflater.inflate(R.layout.change_pass, null))
+//                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener(){
+//                            final EditText etOld = (EditText) findViewById(R.id.oldPassword);
+//                            final EditText etNew1 = (EditText) findViewById(R.id.newPassword);
+//                            final EditText etNew2 = (EditText) findViewById(R.id.confirmNewPassword);
+//
+//                            final String old = etOld.getText().toString();
+//                            final String newP = etNew1.getText().toString();
+//                            final String newP2 = etNew2.getText().toString();
+//
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int id) {
+//
+//                                UserDAO userDao = new UserDAO(context);
+//                                userDao.open();
+//                                Boolean valid = userDao.authentificate(old);
+//                                userDao.close();
+//
+//                                if (valid) {
+//                                    if (!newP.isEmpty() && newP.equals(newP2)) {
+//                                        UserDAO userDao2 = new UserDAO(context);
+//                                        userDao2.open();
+//                                        userDao.modifierPassword(newP);
+//                                        userDao2.close();
+//                                    }
+//
+//                                } else {
+//                                    etOld.getText().clear();
+//                                    Toast.makeText(SettingActivity.this, "Password not valid, please try again.",
+//                                            Toast.LENGTH_LONG).show();
+//                                }
+//
+//                            }
+//                        })
+//                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+//                           @Override
+//                                public void onClick(DialogInterface dialog, int id) {
+//                               dialog.dismiss();
+//                           }
+//                        })
+//                        .create();
+//        return temp;
+//    }
 
     private AlertDialog logOutPopUp(){
         LayoutInflater inflater = this.getLayoutInflater();

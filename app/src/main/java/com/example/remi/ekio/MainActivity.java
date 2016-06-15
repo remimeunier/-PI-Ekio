@@ -1,28 +1,15 @@
 package com.example.remi.ekio;
 
-import android.app.AlertDialog;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.view.View;
-import android.view.ViewGroup;
-import android.util.Log;
 
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
-import org.opencv.core.CvType;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
-import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
